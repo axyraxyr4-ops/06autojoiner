@@ -4,9 +4,9 @@ const axios   = require('axios')
 const path    = require('path')
 const app     = express()
 
-const CLIENT_ID     = process.env.CLIENT_ID     || 'TON_CLIENT_ID'
-const CLIENT_SECRET = process.env.CLIENT_SECRET || 'TON_CLIENT_SECRET'
-const REDIRECT_URI  = process.env.REDIRECT_URI  || 'http://localhost:3000/auth/callback'
+const CLIENT_ID     = process.env.CLIENT_ID     || '1497998748251586742'
+const CLIENT_SECRET = process.env.CLIENT_SECRET || '1nVfAf3w9ue5AXfW79VXx5bHkbddZ8Et'
+const REDIRECT_URI  = process.env.REDIRECT_URI  || 'https://06autojoiner-production.up.railway.app/auth/callback'
 const PORT          = process.env.PORT          || 3000
 
 app.use(express.json())
