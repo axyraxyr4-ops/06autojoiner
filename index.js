@@ -6,7 +6,7 @@ const app     = express()
 
 const CLIENT_ID     = process.env.CLIENT_ID     || '1497998748251586742'
 const CLIENT_SECRET = process.env.CLIENT_SECRET || '1nVfAf3w9ue5AXfW79VXx5bHkbddZ8Et'
-const REDIRECT_URI  = process.env.REDIRECT_URI  || 'https://06autojoiner-production.up.railway.app/auth/callback'
+const REDIRECT_URI = 'https://06autojoiner-production.up.railway.app/auth/callback'
 const PORT          = process.env.PORT          || 3000
 
 app.use(express.json())
