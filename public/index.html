@@ -1,8 +1,11 @@
+bash
+
+cat > /home/claude/06joiner/public/index.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>06Joiner</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -11,16 +14,18 @@ nav{background:rgba(13,10,20,0.97);border-bottom:1px solid #2D1A4B;padding:0 40p
 .nav-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;color:#F5F0FF;cursor:pointer}
 .logo-icon{width:32px;height:32px;background:#3C196E;border:1px solid #7832D2;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#C878FF}
 .nav-links{display:flex;gap:8px;align-items:center}
-.nav-link{color:#8A6AAA;text-decoration:none;font-size:14px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all .15s;background:none;border:none;font-family:inherit}
+.nav-link{color:#8A6AAA;font-size:14px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all .15s;background:none;border:none;font-family:inherit}
 .nav-link:hover{color:#F5F0FF;background:#1A0F28}
 .nav-link.active{color:#C878FF;background:#2A1145;border:1px solid #7832D2}
-.btn-discord-nav{background:#5865F2;color:white;border-radius:8px;font-weight:700;padding:8px 18px;border:none;cursor:pointer;font-size:14px;font-family:inherit;transition:all .15s}
-.btn-discord-nav:hover{background:#4752C4}
+.btn-discord-nav{background:#5865F2;color:white;border-radius:8px;font-weight:700;padding:8px 18px;border:none;cursor:pointer;font-size:14px;font-family:inherit}
+.user-area{display:flex;align-items:center;gap:8px}
 .user-pill{display:flex;align-items:center;gap:8px;background:#1A0F28;border:1px solid #3D2065;border-radius:20px;padding:5px 12px 5px 5px}
 .user-pill img{width:26px;height:26px;border-radius:50%;border:1px solid #7832D2}
 .user-pill span{font-size:13px;font-weight:600;color:#D0B0F0}
-.logout-btn{background:none;border:none;color:#6A4A8A;font-size:12px;cursor:pointer;padding:6px 10px;border-radius:6px;transition:all .15s}
-.logout-btn:hover{color:#E85078;background:#1A0F18}
+.balance-pill{background:#0A1A0A;border:1px solid #2A5A2A;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;color:#40C878;cursor:pointer}
+.balance-pill:hover{background:#1A2A1A}
+.logout-btn{background:none;border:none;color:#6A4A8A;font-size:12px;cursor:pointer;padding:6px 10px;border-radius:6px}
+.logout-btn:hover{color:#E85078}
 .page{display:none}
 .page.active{display:block;animation:fadeIn .2s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -41,20 +46,19 @@ nav{background:rgba(13,10,20,0.97);border-bottom:1px solid #2D1A4B;padding:0 40p
 .slots-label{font-size:9px;color:#6A4A8A;font-weight:700;letter-spacing:1px}
 .slots-val{font-size:13px;font-weight:800;color:#C878FF}
 .avail-row{display:flex;justify-content:space-between;font-size:12px;color:#6A4A8A;margin-bottom:6px}
-.avail-row span:last-child{color:#E84A5A}
+.avail-row span:last-child{color:#40C878}
 .progress-bar{height:4px;background:#1A0F28;border-radius:2px;margin-bottom:16px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#7832D2,#C878FF);border-radius:2px}
 .stat-box{background:#14102A;border:1px solid #2D1A4B;border-radius:10px;padding:14px;margin-bottom:12px}
 .stat-label{font-size:9px;color:#6A4A8A;font-weight:700;letter-spacing:1px;margin-bottom:6px}
 .stat-value{font-size:26px;font-weight:900;color:#F5F0FF}
 .stat-desc{font-size:11px;color:#6A4A8A;margin-top:3px}
-.notice-box{background:#14102A;border:1px solid #2D1A4B;border-radius:10px;padding:12px 14px;font-size:12px;color:#8A6AAA;margin-bottom:16px}
 .brainrot-section{background:#14102A;border:1px solid #2D1A4B;border-radius:10px;padding:14px;margin-bottom:12px}
-.brainrot-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.brainrot-header{display:flex;justify-content:space-between;margin-bottom:4px}
 .brainrot-title{font-size:9px;color:#6A4A8A;font-weight:700;letter-spacing:1px}
 .brainrot-count{font-size:11px;color:#C878FF;font-weight:700}
 .brainrot-sub{font-size:10px;color:#4A3A6A;margin-bottom:10px}
-.brainrot-list{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto}
+.brainrot-list{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto}
 .brainrot-list::-webkit-scrollbar{width:2px}
 .brainrot-list::-webkit-scrollbar-thumb{background:#7832D2;border-radius:2px}
 .brainrot-item{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:#0D0A14;border-radius:8px;border:1px solid #2D1A4B}
@@ -66,13 +70,16 @@ nav{background:rgba(13,10,20,0.97);border-bottom:1px solid #2D1A4B;padding:0 40p
 .price-row{margin:16px 0}
 .price-label{font-size:11px;color:#6A4A8A;font-weight:700;letter-spacing:1px;margin-bottom:4px}
 .price-val{font-size:30px;font-weight:900;color:#F5F0FF}
-.btn-main{width:100%;padding:13px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;transition:all .15s;letter-spacing:.3px;font-family:inherit}
+.btn-main{width:100%;padding:13px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;transition:all .15s;font-family:inherit}
 .btn-primary{background:#5865F2;color:white}
 .btn-primary:hover{background:#4752C4;transform:translateY(-1px)}
-.watching-row{display:flex;align-items:center;gap:5px;font-size:11px;color:#6A4A8A;margin-bottom:12px}
+.btn-green{background:#1A3A1A;color:#40C878;border:1px solid #2A6A2A}
+.btn-green:hover{background:#2A5A2A;transform:translateY(-1px)}
+.section-label{font-size:9px;color:#6A4A8A;font-weight:700;letter-spacing:1px}
+.watching-row{display:flex;align-items:center;gap:5px;font-size:11px;color:#6A4A8A}
 .dot-live{width:6px;height:6px;background:#40C878;border-radius:50%}
 .bid-info-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.bid-timer{display:flex;flex-direction:column;align-items:center;gap:2px;background:#1A0F28;border:2px solid #7832D2;border-radius:50%;width:64px;height:64px;justify-content:center}
+.bid-timer{display:flex;flex-direction:column;align-items:center;background:#1A0F28;border:2px solid #7832D2;border-radius:50%;width:64px;height:64px;justify-content:center}
 .bid-time{font-size:14px;font-weight:900;color:#C878FF}
 .bid-time-label{font-size:8px;color:#6A4A8A;letter-spacing:1px}
 .filled-box{background:#1A0F28;border:1px solid #3D2065;border-radius:8px;padding:4px 10px;text-align:center}
@@ -86,7 +93,6 @@ nav{background:rgba(13,10,20,0.97);border-bottom:1px solid #2D1A4B;padding:0 40p
 .min-bid-label{font-size:11px;color:#6A4A8A;font-weight:700;letter-spacing:1px}
 .win-label{font-size:11px;color:#7832D2}
 .min-bid-val{font-size:26px;font-weight:900;color:#F5F0FF;margin-bottom:8px}
-.full-notice{background:#1A0F18;border:1px solid #4A1A2A;border-radius:8px;padding:10px 12px;font-size:11px;color:#E85078;margin-bottom:16px}
 .lb-section{padding:40px}
 .lb-header{text-align:center;margin-bottom:40px}
 .lb-header h2{font-size:32px;font-weight:900;margin-bottom:8px}
@@ -99,43 +105,82 @@ nav{background:rgba(13,10,20,0.97);border-bottom:1px solid #2D1A4B;padding:0 40p
 .lb-row.silver{border-color:#A0A0B0;background:#0E0E12}
 .lb-row.bronze{border-color:#C87832;background:#110800}
 .lb-rank{font-size:22px;font-weight:900;width:36px;text-align:center}
-.lb-rank.r1{color:#E8C878}
-.lb-rank.r2{color:#A0A0B0}
-.lb-rank.r3{color:#C87832}
-.lb-rank.other{color:#4A3A6A;font-size:16px}
+.lb-rank.r1{color:#E8C878}.lb-rank.r2{color:#A0A0B0}.lb-rank.r3{color:#C87832}.lb-rank.other{color:#4A3A6A;font-size:16px}
 .lb-avatar{width:44px;height:44px;border-radius:50%;border:2px solid #2D1A4B;background:#1A0F28;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#C878FF;overflow:hidden;flex-shrink:0}
 .lb-avatar img{width:100%;height:100%;object-fit:cover}
 .lb-info{flex:1}
 .lb-username{font-size:15px;font-weight:700;color:#F5F0FF}
 .lb-sub{font-size:12px;color:#6A4A8A;margin-top:2px}
-.lb-score{text-align:right}
-.lb-score-val{font-size:18px;font-weight:900;color:#C878FF}
-.lb-score-label{font-size:11px;color:#6A4A8A}
 .lb-joins{background:#1A0F28;border:1px solid #3D2065;border-radius:8px;padding:6px 14px;text-align:center;margin-right:8px}
 .lb-joins-val{font-size:16px;font-weight:800;color:#F5F0FF}
 .lb-joins-label{font-size:10px;color:#6A4A8A}
+.lb-score{text-align:right}
+.lb-score-val{font-size:18px;font-weight:900;color:#C878FF}
+.lb-score-label{font-size:11px;color:#6A4A8A}
 .home-section{padding:60px 40px}
 .home-hero{text-align:center;margin-bottom:60px}
 .home-hero h1{font-size:52px;font-weight:900;line-height:1.1;margin-bottom:16px}
 .home-hero h1 span{color:#9832F0}
 .home-hero p{color:#8A6AAA;font-size:16px;max-width:500px;margin:0 auto 30px;line-height:1.7}
 .home-btns{display:flex;gap:12px;justify-content:center}
-.btn-hero-main{background:#7832D2;color:white;border:none;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-hero-main{background:#7832D2;color:white;border:none;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
 .btn-hero-main:hover{background:#9832F0;transform:translateY(-2px)}
-.btn-hero-sec{background:transparent;color:#C878FF;border:1px solid #7832D2;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-hero-sec{background:transparent;color:#C878FF;border:1px solid #7832D2;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
 .btn-hero-sec:hover{background:#1A0F28}
 .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
 .feature-card{background:#0D0A14;border:1px solid #2D1A4B;border-radius:14px;padding:24px}
 .feature-icon{font-size:28px;margin-bottom:12px}
 .feature-title{font-size:16px;font-weight:800;color:#F5F0FF;margin-bottom:8px}
 .feature-desc{font-size:13px;color:#8A6AAA;line-height:1.6}
+.depot-section{padding:40px;max-width:860px;margin:0 auto}
+.depot-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+.depot-card{background:#0D0A14;border:1px solid #2D1A4B;border-radius:16px;padding:28px}
+.depot-card-title{font-size:18px;font-weight:900;color:#F5F0FF;margin-bottom:6px}
+.depot-card-sub{font-size:13px;color:#8A6AAA;margin-bottom:20px;line-height:1.5}
+.ltc-box{background:#14102A;border:1px solid #7832D2;border-radius:10px;padding:14px 16px;font-family:monospace;font-size:12px;color:#C878FF;word-break:break-all;margin-bottom:10px;line-height:1.6}
+.rate-info{background:#14102A;border:1px solid #2D1A4B;border-radius:8px;padding:10px 14px;font-size:13px;color:#8A6AAA;margin-bottom:16px}
+.rate-info strong{color:#E8C878}
+.min-info{font-size:12px;color:#E85078;margin-bottom:16px;text-align:center;font-weight:700}
+.btn-copy{width:100%;padding:11px;background:#1A0F28;color:#C878FF;border:1px solid #7832D2;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:700;margin-bottom:10px;transition:all .15s}
+.btn-copy:hover{background:#2A1A40}
+.btn-check{width:100%;padding:13px;background:#1A3A1A;color:#40C878;border:1px solid #2A6A2A;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:800;font-size:14px;transition:all .15s}
+.btn-check:hover{background:#2A5A2A}
+.status-msg{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;text-align:center}
+.status-ok{background:#0A1A0A;color:#40C878;border:1px solid #1A5A1A}
+.status-err{background:#1A0A0A;color:#E85078;border:1px solid #5A1A1A}
+.balance-display{background:#0A1A0A;border:1px solid #2A5A2A;border-radius:12px;padding:20px;text-align:center;margin-bottom:20px}
+.balance-lbl{font-size:11px;color:#4A8A4A;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.balance-num{font-size:40px;font-weight:900;color:#40C878}
+.balance-currency{font-size:18px;color:#4A8A4A}
+.slots-header{font-size:11px;color:#6A4A8A;font-weight:700;letter-spacing:1px;margin-bottom:10px}
+.slot-item{background:#14102A;border:1px solid #2D1A4B;border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.slot-name{font-size:13px;font-weight:700;color:#D0B0F0}
+.slot-exp{font-size:11px;color:#6A4A8A}
+.slot-badge{font-size:11px;font-weight:700;color:#40C878;background:#0A1A0A;padding:3px 8px;border-radius:5px}
+.no-slots{font-size:13px;color:#4A3A6A;text-align:center;padding:16px}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:1000;display:flex;align-items:center;justify-content:center}
+.modal-box{background:#0D0A14;border:1px solid #7832D2;border-radius:16px;padding:28px;width:380px;max-width:90vw}
+.modal-title{font-size:20px;font-weight:900;color:#F5F0FF;margin-bottom:6px}
+.modal-sub{font-size:13px;color:#8A6AAA;margin-bottom:20px}
+.modal-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.modal-lbl{font-size:13px;color:#8A6AAA}
+.modal-val{font-size:13px;font-weight:700;color:#F5F0FF}
+.hours-inp{background:#14102A;border:1px solid #3D2065;border-radius:8px;padding:8px 12px;color:#F5F0FF;font-size:14px;font-weight:700;width:80px;text-align:center;font-family:inherit}
+.total-box{background:#14102A;border:1px solid #2D1A4B;border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;margin:16px 0}
+.total-lbl{font-size:13px;color:#8A6AAA}
+.total-num{font-size:18px;font-weight:900;color:#C878FF}
+.modal-btns{display:flex;gap:10px;margin-top:4px}
+.btn-cancel{flex:1;padding:12px;background:#14102A;color:#8A6AAA;border:1px solid #2D1A4B;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:700}
+.btn-confirm{flex:2;padding:12px;background:#7832D2;color:white;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:800}
+.btn-confirm:hover{background:#9832F0}
+.modal-err{color:#E85078;font-size:12px;text-align:center;margin-top:8px}
 footer{background:#0D0A14;border-top:1px solid #2D1A4B;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#6A4A8A}
-footer a{color:#8A6AAA;text-decoration:none;cursor:pointer}
+footer a{color:#8A6AAA;cursor:pointer}
 footer a:hover{color:#C878FF}
-.section-label{font-size:9px;color:#6A4A8A;font-weight:700;letter-spacing:1px}
 </style>
 </head>
 <body>
+
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
     <div class="logo-icon">06</div>06Joiner
@@ -144,16 +189,18 @@ footer a:hover{color:#C878FF}
     <button class="nav-link" id="nav-home" onclick="showPage('home')">Home</button>
     <button class="nav-link" id="nav-plans" onclick="showPage('plans')">Plans</button>
     <button class="nav-link" id="nav-leaderboard" onclick="showPage('leaderboard')">Leaderboard</button>
+    <button class="nav-link" id="nav-depot" onclick="requireLogin('depot')">💰 Dépôt LTC</button>
     <div id="auth-area"></div>
   </div>
 </nav>
 
+<!-- HOME -->
 <div id="page-home" class="page active">
   <div class="home-section">
     <div class="home-hero">
       <div class="hero-badge">⚡ LIVE NOTIFICATIONS</div>
       <h1>Le meilleur<br><span>Brainrot Notifier</span></h1>
-      <p>Reçois des notifications en temps réel dès qu'un serveur rare spawn. Rejoins automatiquement avant tout le monde.</p>
+      <p>Dépose du LTC, achète un slot et reçois des notifications en temps réel dès qu'un serveur rare spawn.</p>
       <div class="home-btns">
         <button class="btn-hero-main" onclick="showPage('plans')">Voir les plans</button>
         <button class="btn-hero-sec" onclick="showPage('leaderboard')">Leaderboard</button>
@@ -161,26 +208,28 @@ footer a:hover{color:#C878FF}
     </div>
     <div class="features-grid">
       <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title">Temps réel</div><div class="feature-desc">Notifications instantanées dès qu'un serveur rare est détecté. Zéro délai.</div></div>
-      <div class="feature-card"><div class="feature-icon">🎯</div><div class="feature-title">Auto-Join</div><div class="feature-desc">Rejoint automatiquement le meilleur serveur disponible sans action manuelle.</div></div>
+      <div class="feature-card"><div class="feature-icon">🪙</div><div class="feature-title">Paiement LTC</div><div class="feature-desc">Envoie du Litecoin depuis n'importe quel wallet, ton solde est crédité auto.</div></div>
       <div class="feature-card"><div class="feature-icon">🏆</div><div class="feature-title">Leaderboard</div><div class="feature-desc">Classement des meilleurs farmers. Montre qui domine la scène brainrot.</div></div>
       <div class="feature-card"><div class="feature-icon">🔥</div><div class="feature-title">30+ Brainrots</div><div class="feature-desc">Support de tous les brainrots OG avec des caps personnalisés par catégorie.</div></div>
-      <div class="feature-card"><div class="feature-icon">💎</div><div class="feature-title">Plans flexibles</div><div class="feature-desc">Du plan Farmer basique au Premium, trouve le plan qui correspond à ton budget.</div></div>
-      <div class="feature-card"><div class="feature-icon">🛡️</div><div class="feature-title">Sécurisé</div><div class="feature-desc">Connexion via Discord OAuth2. Aucun mot de passe stocké.</div></div>
+      <div class="feature-card"><div class="feature-icon">💎</div><div class="feature-title">Plans flexibles</div><div class="feature-desc">Premium 6€/h ou Farmer 3€/h. Minimum 1€ de dépôt.</div></div>
+      <div class="feature-card"><div class="feature-icon">🛡️</div><div class="feature-title">Sécurisé</div><div class="feature-desc">Login Discord OAuth2. Transactions vérifiées sur la blockchain LTC.</div></div>
     </div>
   </div>
   <footer><span>© 2026 06Joiner. All rights reserved.</span><div style="display:flex;gap:20px"><a onclick="showPage('plans')">Plans</a><a onclick="showPage('leaderboard')">Leaderboard</a></div></footer>
 </div>
 
+<!-- PLANS -->
 <div id="page-plans" class="page">
   <div class="hero">
     <div class="hero-badge">PRICING</div>
     <h1>Choose your <span>plan</span></h1>
-    <p>Real-time notifications with the tier that fits you. Instant delivery and no delay on every tier.</p>
+    <p>Dépose du LTC → crédite ton solde → achète le nombre d'heures que tu veux.</p>
   </div>
   <div class="plans-section"><div class="plans-grid" id="plans-grid"></div></div>
-  <footer><span>© 2026 06Joiner. All rights reserved.</span><div style="display:flex;gap:20px"><a onclick="showPage('home')">Home</a><a onclick="showPage('leaderboard')">Leaderboard</a></div></footer>
+  <footer><span>© 2026 06Joiner.</span><div style="display:flex;gap:20px"><a onclick="showPage('home')">Home</a><a onclick="showPage('leaderboard')">Leaderboard</a></div></footer>
 </div>
 
+<!-- LEADERBOARD -->
 <div id="page-leaderboard" class="page">
   <div class="lb-section">
     <div class="lb-header">
@@ -190,118 +239,238 @@ footer a:hover{color:#C878FF}
     </div>
     <div class="lb-table" id="lb-table"></div>
   </div>
-  <footer><span>© 2026 06Joiner. All rights reserved.</span><div style="display:flex;gap:20px"><a onclick="showPage('home')">Home</a><a onclick="showPage('plans')">Plans</a></div></footer>
+  <footer><span>© 2026 06Joiner.</span><div style="display:flex;gap:20px"><a onclick="showPage('home')">Home</a><a onclick="showPage('plans')">Plans</a></div></footer>
+</div>
+
+<!-- DEPOT -->
+<div id="page-depot" class="page">
+  <div class="depot-section">
+    <div style="text-align:center">
+      <div class="hero-badge">🪙 DÉPÔT LTC</div>
+      <h2 style="font-size:28px;font-weight:900;margin-top:12px;color:#F5F0FF">Recharge ton <span style="color:#9832F0">solde</span></h2>
+      <p style="color:#8A6AAA;margin-top:8px;font-size:14px">Envoie du LTC à l'adresse ci-dessous — minimum <strong style="color:#E85078">1€</strong> — ton solde est crédité automatiquement</p>
+    </div>
+    <div class="depot-grid">
+      <div class="depot-card">
+        <div class="depot-card-title">📤 Envoyer du LTC</div>
+        <div class="depot-card-sub">Envoie du Litecoin depuis Exodus, Binance ou n'importe quel wallet à cette adresse.</div>
+        <div class="ltc-box">LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9</div>
+        <button class="btn-copy" onclick="copyLTC()">📋 Copier l'adresse</button>
+        <div class="rate-info">Taux LTC/EUR : <strong id="ltc-rate">chargement...</strong><br><span style="font-size:11px">Mis à jour automatiquement</span></div>
+        <div class="min-info">⚠️ Minimum 1€ — les dépôts inférieurs ne sont pas crédités</div>
+        <button class="btn-check" onclick="checkDeposit()">🔍 Vérifier mon dépôt</button>
+        <div id="check-status"></div>
+      </div>
+      <div class="depot-card">
+        <div class="depot-card-title">💰 Mon portefeuille</div>
+        <div class="depot-card-sub">Utilise ton solde pour acheter des slots dans l'onglet Plans.</div>
+        <div class="balance-display">
+          <div class="balance-lbl">SOLDE DISPONIBLE</div>
+          <div><span class="balance-num" id="depot-balance">0.00</span><span class="balance-currency"> €</span></div>
+        </div>
+        <div class="slots-header">MES SLOTS ACTIFS</div>
+        <div id="my-slots"><div class="no-slots">Aucun slot actif</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ACHAT -->
+<div id="buy-modal" style="display:none" class="modal-overlay" onclick="closeModalOut(event)">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-name">Acheter Premium</div>
+    <div class="modal-sub">Choisis le nombre d'heures à acheter.</div>
+    <div class="modal-row"><span class="modal-lbl">Prix/heure</span><span class="modal-val" id="modal-ph">6€</span></div>
+    <div class="modal-row">
+      <span class="modal-lbl">Heures</span>
+      <input type="number" class="hours-inp" id="modal-hours" value="1" min="1" max="720" oninput="updateTotal()">
+    </div>
+    <div class="modal-row"><span class="modal-lbl">Ton solde</span><span class="modal-val" id="modal-bal">0€</span></div>
+    <div class="total-box"><span class="total-lbl">Total</span><span class="total-num" id="modal-total">6€</span></div>
+    <div id="modal-err"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Annuler</button>
+      <button class="btn-confirm" onclick="confirmBuy()">✓ Confirmer</button>
+    </div>
+  </div>
 </div>
 
 <script>
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  var nb = document.getElementById('nav-' + name);
-  if (nb) nb.classList.add('active');
+var currentUser=null,currentPlan=null;
+
+function showPage(n){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.nav-link').forEach(function(b){b.classList.remove('active')});
+  document.getElementById('page-'+n).classList.add('active');
+  var nb=document.getElementById('nav-'+n);
+  if(nb)nb.classList.add('active');
+  if(n==='depot')refreshDepot();
 }
 
-var currentUser = null;
+function requireLogin(p){
+  if(!currentUser||!currentUser.id){alert('Connecte-toi d\'abord !');location.href='/auth/login';return;}
+  showPage(p);
+}
 
-async function loadUser() {
-  try {
-    var r = await fetch('/api/me');
-    currentUser = await r.json();
-  } catch(e) { currentUser = null; }
+async function loadUser(){
+  try{var r=await fetch('/api/me');currentUser=await r.json();}catch(e){currentUser=null;}
   renderAuth();
 }
 
-function renderAuth() {
-  var area = document.getElementById('auth-area');
-  if (currentUser && currentUser.id) {
-    area.innerHTML = '<div style="display:flex;align-items:center;gap:8px"><div class="user-pill"><img src="' + currentUser.avatar + '" alt="av"><span>' + currentUser.username + '</span></div><button class="logout-btn" onclick="location.href=\'/auth/logout\'">Déconnexion</button></div>';
-  } else {
-    area.innerHTML = '<button class="btn-discord-nav" onclick="location.href=\'/auth/login\'">🔗 Login Discord</button>';
+function renderAuth(){
+  var a=document.getElementById('auth-area');
+  if(currentUser&&currentUser.id){
+    a.innerHTML='<div class="user-area">'+
+      '<div class="balance-pill" onclick="requireLogin(\'depot\')">💰 '+currentUser.balance.toFixed(2)+'€</div>'+
+      '<div class="user-pill"><img src="'+currentUser.avatar+'" alt=""><span>'+currentUser.username+'</span></div>'+
+      '<button class="logout-btn" onclick="location.href=\'/auth/logout\'">Déconnexion</button>'+
+      '</div>';
+  }else{
+    a.innerHTML='<button class="btn-discord-nav" onclick="location.href=\'/auth/login\'">🔗 Login Discord</button>';
   }
 }
 
-var BRAINROT_ICONS = {
-  'Bacuru And Egguru':'🦷','Burguro And Fryuro':'🧸','Chicleteira Noelteira':'🌶️',
-  'Chillin Chili':'🔥','Tralalero Tralala':'🎵','Bombardiro Crocodilo':'🐊',
-  'Brr Brr Patapim':'❄️','Tung Tung Sahur':'🥁','Skibidi Toilet':'🚽',
-  'Lirili Larila':'🎶','Capuccino Assassino':'☕','Bobritto Bandito':'🎸',
-};
+var ICONS={'Bacuru And Egguru':'🦷','Burguro And Fryuro':'🧸','Chicleteira Noelteira':'🌶️','Chillin Chili':'🔥','Tralalero Tralala':'🎵','Bombardiro Crocodilo':'🐊','Brr Brr Patapim':'❄️','Tung Tung Sahur':'🥁'};
 
-async function loadPlans() {
-  var r = await fetch('/api/plans');
-  var plans = await r.json();
-  var grid = document.getElementById('plans-grid');
-  grid.innerHTML = '';
-  plans.forEach(function(plan) {
-    var el = document.createElement('div');
-    el.className = 'plan-card' + (plan.featured ? ' featured' : '');
-    var pct = Math.round((plan.slotsUsed / plan.slots) * 100);
-    var inner = '';
-    if (plan.featured) inner += '<div class="plan-badge">MOST POPULAR</div>';
-    if (plan.isBid) {
-      inner += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span class="section-label">BID SLOT</span><div class="watching-row"><div class="dot-live"></div>' + plan.watching + ' watching</div></div>';
-      inner += '<div class="bid-info-row"><div class="plan-name">' + plan.name + '</div><div style="display:flex;gap:8px;align-items:center"><div class="bid-timer"><span class="bid-time">' + plan.nextSlot + '</span><span class="bid-time-label">NEXT SLOT</span></div><div class="filled-box"><div class="filled-label">FILLED</div><div class="filled-val">' + plan.slotsUsed + '/' + plan.slots + '</div></div></div></div>';
-      inner += '<div class="avail-row"><span>Filled</span><span>' + pct + '%</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div>';
-      inner += '<div class="stat-box" style="margin-top:12px"><div class="stat-label">DEFAULT MAX · 2H SLOT · $/HR BIDS</div><div class="stat-value">' + plan.maxGen + '</div><div class="stat-desc">' + plan.desc + '</div></div>';
-      inner += '<div class="last-sale"><strong>Last sale ' + plan.lastSale + '</strong> (' + plan.lastSaleHr + ') · ' + plan.heldBy + ' · 7m ago</div>';
-      inner += '<div class="held-by">Held by <strong>' + plan.heldBy + '</strong>.</div>';
-      inner += '<div class="min-bid-row"><span class="min-bid-label">MIN BID</span><span class="win-label">Win: $14.00 (2h)</span></div><div class="min-bid-val">' + plan.minBid + '</div>';
-      inner += '<div class="full-notice">All slots full — next opens when one expires.</div>';
-      inner += '<button class="btn-main btn-primary" onclick="handleLogin()">Login with Discord to bid</button>';
-    } else {
-      inner += '<div class="plan-header"><div class="plan-name">' + plan.name + '</div><div class="slots-badge"><div class="slots-label">SLOTS</div><div class="slots-val">' + plan.slotsUsed + '/' + plan.slots + '</div></div></div>';
-      inner += '<div class="avail-row"><span>Availability</span><span>' + (pct === 100 ? '100% filled' : pct + '%') + '</span></div><div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div>';
-      inner += '<div class="stat-box"><div class="stat-label">DEFAULT MAX GENERATION</div><div class="stat-value">' + plan.maxGen + '</div><div class="stat-desc">' + plan.desc + '</div></div>';
-      if (plan.brainrots) {
-        inner += '<div class="brainrot-section"><div class="brainrot-header"><span class="brainrot-title">PER-BRAINROT LIMITS</span><span class="brainrot-count">' + plan.brainrots.length + ' brainrots</span></div><div class="brainrot-sub">Caps override the default max.</div><div class="brainrot-list">';
-        plan.brainrots.forEach(function(b) {
-          var icon = BRAINROT_ICONS[b.name] || '🧠';
-          inner += '<div class="brainrot-item"><div class="brainrot-left"><div class="brainrot-icon">' + icon + '</div><span class="brainrot-name">' + b.name + '</span></div>' + (b.cap ? '<span class="cap-val">' + b.cap + '</span>' : '<span class="cap-none">NO CAP</span>') + '</div>';
-        });
-        inner += '</div></div>';
+async function loadPlans(){
+  var r=await fetch('/api/plans'),plans=await r.json();
+  var g=document.getElementById('plans-grid');g.innerHTML='';
+  plans.forEach(function(p){
+    var el=document.createElement('div');
+    el.className='plan-card'+(p.featured?' featured':'');
+    var pct=Math.round((p.slotsUsed/p.slots)*100),inner='';
+    if(p.featured)inner+='<div class="plan-badge">MOST POPULAR</div>';
+    if(p.isBid){
+      inner+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span class="section-label">BID SLOT</span><div class="watching-row"><div class="dot-live"></div>'+p.watching+' watching</div></div>';
+      inner+='<div class="bid-info-row"><div class="plan-name">'+p.name+'</div><div style="display:flex;gap:8px;align-items:center"><div class="bid-timer"><span class="bid-time">'+p.nextSlot+'</span><span class="bid-time-label">NEXT SLOT</span></div><div class="filled-box"><div class="filled-label">FILLED</div><div class="filled-val">'+p.slotsUsed+'/'+p.slots+'</div></div></div></div>';
+      inner+='<div class="avail-row"><span>Filled</span><span>'+pct+'%</span></div><div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%"></div></div>';
+      inner+='<div class="stat-box" style="margin-top:12px"><div class="stat-label">DEFAULT MAX</div><div class="stat-value">'+p.maxGen+'</div><div class="stat-desc">'+p.desc+'</div></div>';
+      inner+='<div class="last-sale"><strong>Last sale '+p.lastSale+'</strong> ('+p.lastSaleHr+') · '+p.heldBy+'</div><div class="held-by">Held by <strong>'+p.heldBy+'</strong></div>';
+      inner+='<div class="min-bid-row"><span class="min-bid-label">MIN BID</span><span class="win-label">Win: 14€ (2h)</span></div><div class="min-bid-val">'+p.minBid+'</div>';
+      inner+='<button class="btn-main btn-green" onclick="openBuy(\'bid\',7,\'Bid\')">⚡ Acheter ce slot</button>';
+    }else{
+      inner+='<div class="plan-header"><div class="plan-name">'+p.name+'</div><div class="slots-badge"><div class="slots-label">SLOTS</div><div class="slots-val">'+p.slotsUsed+'/'+p.slots+'</div></div></div>';
+      inner+='<div class="avail-row"><span>Disponibilité</span><span>'+pct+'% utilisé</span></div><div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%"></div></div>';
+      inner+='<div class="stat-box"><div class="stat-label">DEFAULT MAX GENERATION</div><div class="stat-value">'+p.maxGen+'</div><div class="stat-desc">'+p.desc+'</div></div>';
+      if(p.brainrots&&p.brainrots.length){
+        inner+='<div class="brainrot-section"><div class="brainrot-header"><span class="brainrot-title">PER-BRAINROT LIMITS</span><span class="brainrot-count">'+p.brainrots.length+' brainrots</span></div><div class="brainrot-sub">Caps override the default max.</div><div class="brainrot-list">';
+        p.brainrots.forEach(function(b){var ic=ICONS[b.name]||'🧠';inner+='<div class="brainrot-item"><div class="brainrot-left"><div class="brainrot-icon">'+ic+'</div><span class="brainrot-name">'+b.name+'</span></div>'+(b.cap?'<span class="cap-val">'+b.cap+'</span>':'<span class="cap-none">NO CAP</span>')+'</div>';});
+        inner+='</div></div>';
       }
-      if (plan.full) inner += '<div class="notice-box">All slots are in use. Check back when a spot opens.</div>';
-      inner += '<div class="price-row"><div class="price-label">PRICE</div><div class="price-val">' + plan.price + '</div></div>';
-      inner += '<button class="btn-main btn-primary" onclick="handleLogin()">Login with Discord</button>';
+      inner+='<div class="price-row"><div class="price-label">PRIX</div><div class="price-val">'+p.price+'</div></div>';
+      inner+='<button class="btn-main btn-green" onclick="openBuy(\''+p.id+'\','+p.priceNum+',\''+p.name+'\')">⚡ Acheter ce slot</button>';
     }
-    el.innerHTML = inner;
-    grid.appendChild(el);
+    el.innerHTML=inner;g.appendChild(el);
   });
 }
 
-async function loadLeaderboard() {
-  var r = await fetch('/api/leaderboard');
-  var data = await r.json();
-  var table = document.getElementById('lb-table');
-  table.innerHTML = '';
-  var medals = ['gold','silver','bronze'];
-  var rankClass = ['r1','r2','r3'];
-  var rankEmoji = ['🥇','🥈','🥉'];
-  data.forEach(function(u, i) {
-    var row = document.createElement('div');
-    row.className = 'lb-row' + (i < 3 ? ' ' + medals[i] : '');
-    var initial = u.username[0].toUpperCase();
-    row.innerHTML = '<div class="lb-rank ' + (i < 3 ? rankClass[i] : 'other') + '">' + (i < 3 ? rankEmoji[i] : '#' + (i+1)) + '</div>' +
-      '<div class="lb-avatar">' + (u.avatar ? '<img src="' + u.avatar + '" alt="' + u.username + '">' : initial) + '</div>' +
-      '<div class="lb-info"><div class="lb-username">' + u.username + '</div><div class="lb-sub">Farmer depuis 2024</div></div>' +
-      '<div class="lb-joins"><div class="lb-joins-val">' + u.joins + '</div><div class="lb-joins-label">JOINS</div></div>' +
-      '<div class="lb-score"><div class="lb-score-val">' + u.score.toLocaleString() + '</div><div class="lb-score-label">SCORE</div></div>';
-    table.appendChild(row);
+async function loadLeaderboard(){
+  var r=await fetch('/api/leaderboard'),data=await r.json();
+  var t=document.getElementById('lb-table');t.innerHTML='';
+  var medals=['gold','silver','bronze'],rc=['r1','r2','r3'],re=['🥇','🥈','🥉'];
+  data.forEach(function(u,i){
+    var row=document.createElement('div');
+    row.className='lb-row'+(i<3?' '+medals[i]:'');
+    row.innerHTML='<div class="lb-rank '+(i<3?rc[i]:'other')+'">'+(i<3?re[i]:'#'+(i+1))+'</div>'+
+      '<div class="lb-avatar">'+(u.avatar?'<img src="'+u.avatar+'">':u.username[0].toUpperCase())+'</div>'+
+      '<div class="lb-info"><div class="lb-username">'+u.username+'</div><div class="lb-sub">Farmer depuis 2024</div></div>'+
+      '<div class="lb-joins"><div class="lb-joins-val">'+u.joins+'</div><div class="lb-joins-label">JOINS</div></div>'+
+      '<div class="lb-score"><div class="lb-score-val">'+u.score.toLocaleString()+'</div><div class="lb-score-label">SCORE</div></div>';
+    t.appendChild(row);
   });
 }
 
-function handleLogin() {
-  if (currentUser && currentUser.id) {
-    alert('Tu es déjà connecté en tant que ' + currentUser.username + ' !');
-  } else {
-    location.href = '/auth/login';
+function openBuy(id,price,name){
+  if(!currentUser||!currentUser.id){alert('Connecte-toi d\'abord !');location.href='/auth/login';return;}
+  currentPlan={id:id,price:price,name:name};
+  document.getElementById('modal-name').textContent='Acheter '+name;
+  document.getElementById('modal-ph').textContent=price+'€/h';
+  document.getElementById('modal-hours').value=1;
+  document.getElementById('modal-bal').textContent=currentUser.balance.toFixed(2)+'€';
+  document.getElementById('modal-err').innerHTML='';
+  updateTotal();
+  document.getElementById('buy-modal').style.display='flex';
+}
+
+function updateTotal(){
+  var h=parseInt(document.getElementById('modal-hours').value)||1;
+  document.getElementById('modal-total').textContent=(currentPlan.price*h).toFixed(2)+'€';
+}
+
+function closeModal(){document.getElementById('buy-modal').style.display='none';}
+function closeModalOut(e){if(e.target.id==='buy-modal')closeModal();}
+
+async function confirmBuy(){
+  var h=parseInt(document.getElementById('modal-hours').value)||1;
+  var total=currentPlan.price*h;
+  if(currentUser.balance<total){
+    document.getElementById('modal-err').innerHTML='<div class="modal-err">Solde insuffisant ! Va déposer du LTC d\'abord.</div>';
+    return;
   }
+  try{
+    var r=await fetch('/api/buy-slot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({planId:currentPlan.id,hours:h})});
+    var d=await r.json();
+    if(d.success){
+      currentUser.balance=d.balance;
+      renderAuth();closeModal();
+      alert('✅ Slot '+currentPlan.name+' acheté pour '+h+'h ! Solde restant : '+d.balance.toFixed(2)+'€');
+      refreshDepot();
+    }else{
+      document.getElementById('modal-err').innerHTML='<div class="modal-err">'+d.error+'</div>';
+    }
+  }catch(e){document.getElementById('modal-err').innerHTML='<div class="modal-err">Erreur serveur</div>';}
 }
 
-loadUser();
-loadPlans();
-loadLeaderboard();
+function copyLTC(){
+  navigator.clipboard.writeText('LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9').then(function(){alert('✅ Adresse LTC copiée !');});
+}
+
+async function checkDeposit(){
+  var btn=document.querySelector('.btn-check');
+  btn.textContent='⏳ Vérification...';btn.disabled=true;
+  var st=document.getElementById('check-status');
+  try{
+    var r=await fetch('/api/deposit/check',{method:'POST'});
+    var d=await r.json();
+    if(d.added>0){
+      st.innerHTML='<div class="status-msg status-ok">✅ +'+d.added.toFixed(2)+'€ crédités ! Nouveau solde : '+d.balance.toFixed(2)+'€</div>';
+      currentUser.balance=d.balance;
+      renderAuth();refreshDepot();
+    }else{
+      st.innerHTML='<div class="status-msg status-err">Aucun nouveau dépôt détecté. Attends quelques minutes après ton envoi.</div>';
+    }
+  }catch(e){
+    st.innerHTML='<div class="status-msg status-err">Erreur de vérification</div>';
+  }
+  btn.textContent='🔍 Vérifier mon dépôt';btn.disabled=false;
+}
+
+async function refreshDepot(){
+  if(!currentUser||!currentUser.id)return;
+  try{
+    var r=await fetch('/api/me');
+    var u=await r.json();
+    if(!u)return;
+    currentUser=u;
+    document.getElementById('depot-balance').textContent=u.balance.toFixed(2);
+    var sl=document.getElementById('my-slots');
+    if(!u.slots||u.slots.length===0){
+      sl.innerHTML='<div class="no-slots">Aucun slot actif</div>';
+    }else{
+      sl.innerHTML='';
+      u.slots.forEach(function(s){
+        var exp=new Date(s.endDate).toLocaleString('fr-FR');
+        sl.innerHTML+='<div class="slot-item"><div><div class="slot-name">'+s.planName+'</div><div class="slot-exp">Expire le '+exp+'</div></div><div class="slot-badge">ACTIF</div></div>';
+      });
+    }
+    var rr=await fetch('/api/ltc-rate');
+    var rd=await rr.json();
+    document.getElementById('ltc-rate').textContent='1 LTC = '+rd.rate.toFixed(2)+'€';
+  }catch(e){}
+}
+
+loadUser();loadPlans();loadLeaderboard();
 </script>
 </body>
 </html>
+HTMLEOF
