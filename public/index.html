@@ -29,9 +29,12 @@ nav{position:sticky;top:0;z-index:200;background:rgba(10,10,12,0.85);backdrop-fi
 .nav-btn:hover{color:var(--text);background:var(--bg3)}
 .nav-btn.active{color:var(--purple2);background:rgba(124,77,255,0.1)}
 .nav-right{display:flex;align-items:center;gap:8px}
+
+/* DISCORD BUTTON — vrai logo Discord */
 .btn-discord{background:#5865F2;color:#fff;border:none;padding:8px 16px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:7px;transition:all .15s}
 .btn-discord:hover{background:#4752C4;transform:translateY(-1px)}
-.btn-discord svg{width:16px;height:16px;flex-shrink:0}
+.btn-discord svg{width:20px;height:20px;flex-shrink:0}
+
 .user-chip{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--border);border-radius:24px;padding:4px 12px 4px 4px;cursor:pointer}
 .user-chip img{width:24px;height:24px;border-radius:50%;border:1px solid var(--border2)}
 .user-chip-name{font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.3px}
@@ -39,6 +42,9 @@ nav{position:sticky;top:0;z-index:200;background:rgba(10,10,12,0.85);backdrop-fi
 .balance-chip:hover{background:rgba(0,200,150,0.15)}
 .logout-btn{background:none;border:none;color:var(--text3);font-size:12px;font-weight:600;cursor:pointer;padding:6px 8px;border-radius:6px;font-family:inherit}
 .logout-btn:hover{color:var(--red)}
+
+/* Admin badge */
+.admin-badge{background:linear-gradient(90deg,var(--gold),#ffaa00);color:#000;font-size:10px;font-weight:900;padding:3px 10px;border-radius:20px;letter-spacing:.8px}
 
 /* PAGES */
 .page{display:none;position:relative;z-index:1}
@@ -109,7 +115,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(10,10,12,0.85);backdrop-fi
 .btn-buy{width:100%;padding:12px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;letter-spacing:-.3px;margin-top:auto}
 .btn-buy:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,77,255,0.3)}
 .btn-buy:disabled{opacity:.4;cursor:not-allowed;transform:none}
-/* BID card special */
 .bid-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
 .bid-timer{background:var(--bg3);border:1px solid var(--purple);border-radius:10px;padding:8px 12px;text-align:center}
 .bid-time{font-size:16px;font-weight:800;color:var(--purple2);font-family:'JetBrains Mono',monospace;letter-spacing:-1px}
@@ -212,6 +217,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(10,10,12,0.85);backdrop-fi
 .dash-card-val{font-size:26px;font-weight:800;letter-spacing:-1px}
 .dash-card-val.green{color:var(--green2)}
 .dash-card-val.purple{color:var(--purple2)}
+.dash-card-val.gold{color:var(--gold)}
 .dash-slots-title{font-size:14px;font-weight:700;letter-spacing:-.3px;color:var(--text);margin-bottom:14px}
 .dash-slot{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:12px;flex-wrap:wrap}
 .ds-left{display:flex;align-items:center;gap:12px}
@@ -220,6 +226,27 @@ nav{position:sticky;top:0;z-index:200;background:rgba(10,10,12,0.85);backdrop-fi
 .ds-plan-exp{font-size:11px;color:var(--text3);margin-top:2px}
 .btn-extend{background:rgba(124,77,255,.1);color:var(--purple2);border:1px solid rgba(124,77,255,.25);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;transition:all .15s}
 .btn-extend:hover{background:rgba(124,77,255,.2);transform:translateY(-1px)}
+
+/* ADMIN PANEL */
+.admin-wrap{max-width:700px;margin:0 auto;padding:50px 32px 60px}
+.admin-section{background:var(--bg2);border:1px solid rgba(245,200,66,.3);border-radius:16px;padding:26px;margin-bottom:20px}
+.admin-section-title{font-size:16px;font-weight:800;letter-spacing:-.5px;color:var(--gold);margin-bottom:6px}
+.admin-section-sub{font-size:13px;color:var(--text2);margin-bottom:20px}
+.admin-input-row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.admin-inp{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);font-size:14px;font-family:'Space Grotesk',sans-serif;outline:none;flex:1;min-width:150px}
+.admin-inp:focus{border-color:var(--gold)}
+.admin-inp::placeholder{color:var(--text3)}
+.btn-admin{background:linear-gradient(135deg,var(--gold),#ffaa00);color:#000;border:none;padding:10px 22px;border-radius:9px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:all .15s;letter-spacing:-.3px}
+.btn-admin:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,200,66,.3)}
+.admin-log{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;color:var(--text2);line-height:1.7;max-height:160px;overflow-y:auto;font-family:'JetBrains Mono',monospace}
+.admin-log-entry{padding:3px 0;border-bottom:1px solid var(--border)}
+.admin-log-entry:last-child{border:none}
+.admin-log-entry.ok{color:var(--green2)}
+.admin-log-entry.err{color:var(--red)}
+.admin-balance-inf{background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.inf-icon{font-size:24px}
+.inf-text{font-size:13px;color:var(--text2);line-height:1.5}
+.inf-text strong{color:var(--gold)}
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
@@ -260,7 +287,10 @@ footer a:hover{color:var(--purple2)}
   </div>
   <div class="nav-right" id="nav-right">
     <button class="btn-discord" onclick="location.href='/auth/login'">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.114 18.1.136 18.112a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+      <!-- Logo Discord officiel SVG -->
+      <svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+      </svg>
       Login Discord
     </button>
   </div>
@@ -373,13 +403,14 @@ footer a:hover{color:var(--purple2)}
 <!-- DASHBOARD -->
 <div id="page-dashboard" class="page">
   <div class="dash-wrap">
-    <div class="section-badge" style="margin-bottom:24px">DASHBOARD</div>
     <div class="dash-header">
       <div class="dash-avatar"><img id="dash-avatar" src="" alt=""></div>
-      <div>
+      <div style="flex:1">
         <div class="dash-name" id="dash-name"></div>
         <div class="dash-tag" id="dash-tag"></div>
       </div>
+      <!-- Badge admin si 06wzz -->
+      <div id="admin-header-badge" style="display:none"><span class="admin-badge">👑 ADMIN</span></div>
     </div>
     <div class="dash-cards">
       <div class="dash-card"><div class="dash-card-lbl">SOLDE</div><div class="dash-card-val green" id="dash-balance">0.00€</div></div>
@@ -391,8 +422,48 @@ footer a:hover{color:var(--purple2)}
     <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap">
       <button class="btn-main" onclick="showPage('plans')">⚡ Acheter un slot</button>
       <button class="btn-outline" onclick="requireLogin('depot')">🪙 Déposer du LTC</button>
+      <!-- Bouton admin visible uniquement pour 06wzz -->
+      <button class="btn-admin" id="btn-admin-panel" style="display:none" onclick="showPage('admin')">👑 Panneau Admin</button>
     </div>
   </div>
+</div>
+
+<!-- ADMIN PANEL (visible uniquement pour 06wzz) -->
+<div id="page-admin" class="page">
+  <div class="admin-wrap">
+    <div class="section-badge" style="margin-bottom:20px;background:rgba(245,200,66,.1);border-color:rgba(245,200,66,.3);color:var(--gold)">👑 ADMIN PANEL</div>
+    <h2 class="section-h2" style="margin-bottom:6px;letter-spacing:-1.5px">Panel <em style="color:var(--gold)">Admin</em></h2>
+    <p style="color:var(--text2);font-size:14px;margin-bottom:32px">Accès réservé à <strong style="color:var(--gold)">06wzz</strong></p>
+
+    <!-- Solde illimité info -->
+    <div class="admin-section">
+      <div class="admin-balance-inf">
+        <div class="inf-icon">♾️</div>
+        <div class="inf-text">En tant qu'admin, ton solde est <strong>illimité</strong>. Tu peux acheter n'importe quel slot sans restriction de balance.</div>
+      </div>
+      <div class="admin-section-title">💸 Donner de l'argent</div>
+      <div class="admin-section-sub">Envoie du solde à un utilisateur connecté avec son compte Discord. Saisis son nom d'utilisateur Discord exact.</div>
+      <div class="admin-input-row">
+        <input class="admin-inp" id="transfer-user" placeholder="Nom d'utilisateur Discord (ex: pseudo#1234 ou pseudo)" type="text">
+        <input class="admin-inp" id="transfer-amount" placeholder="Montant en €" type="number" min="0.01" step="0.01" style="max-width:130px">
+      </div>
+      <button class="btn-admin" onclick="adminTransfer()">💸 Envoyer l'argent</button>
+      <div id="transfer-status" style="margin-top:10px"></div>
+    </div>
+
+    <!-- Log des transferts -->
+    <div class="admin-section">
+      <div class="admin-section-title">📋 Historique des transferts</div>
+      <div class="admin-section-sub">Les derniers transferts effectués depuis ce panel.</div>
+      <div class="admin-log" id="admin-log"><div style="color:var(--text3)">Aucun transfert effectué.</div></div>
+    </div>
+
+    <!-- Retour dashboard -->
+    <div style="margin-top:20px">
+      <button class="btn-outline" onclick="showPage('dashboard')">← Retour au dashboard</button>
+    </div>
+  </div>
+  <footer><span>© 2026 06Joiner.</span></footer>
 </div>
 
 <!-- MODAL ACHAT / PROLONGATION -->
@@ -417,10 +488,25 @@ footer a:hover{color:var(--purple2)}
 
 <script>
 var currentUser=null,currentPlan=null,extendSlotId=null;
+var ADMIN_USERNAME='06wzz'; // Username Discord admin avec solde illimité
+var adminTransferLog=[];
 
 var ICONS={'Bacuru And Egguru':'🦷','Burguro And Fryuro':'🧸','Chicleteira Noelteira':'🌶️','Chillin Chili':'🔥','Tralalero Tralala':'🎵','Bombardiro Crocodilo':'🐊','Brr Brr Patapim':'❄️','Tung Tung Sahur':'🥁','Dragon Cannelloni':'🐉','Garama and Madundung':'🍺'};
 
+// Limites de slots par plan
+var PLAN_LIMITS = {
+  premium: { total: 6 },
+  farmer: { total: 4 },
+  bid: { total: 1 }
+};
+
+function isAdmin(){
+  return currentUser && (currentUser.username === ADMIN_USERNAME || currentUser.username === ADMIN_USERNAME.toLowerCase());
+}
+
 function showPage(n){
+  // Protection page admin
+  if(n==='admin'&&!isAdmin()){alert('Accès refusé.');return;}
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});
   document.getElementById('page-'+n).classList.add('active');
@@ -436,27 +522,42 @@ function requireLogin(p){
 }
 
 async function loadUser(){
-  try{var r=await fetch('/api/me');var u=await r.json();currentUser=u&&u.id?u:null;}
-  catch(e){currentUser=null;}
+  try{
+    var r=await fetch('/api/me');
+    var u=await r.json();
+    currentUser=u&&u.id?u:null;
+  }catch(e){currentUser=null;}
   renderAuth();
 }
 
 function renderAuth(){
   var nr=document.getElementById('nav-right');
   if(currentUser&&currentUser.id){
-    nr.innerHTML='<span class="balance-chip" onclick="requireLogin(\'depot\')">💰 '+(currentUser.balance||0).toFixed(2)+'€</span>'+
+    var adminBadge=isAdmin()?'<span class="admin-badge" style="margin-right:4px">👑</span>':'';
+    var balDisplay=isAdmin()?'∞':'+'+(currentUser.balance||0).toFixed(2);
+    nr.innerHTML=adminBadge+
+      '<span class="balance-chip" onclick="requireLogin(\'depot\')">💰 '+balDisplay+'€</span>'+
       '<div class="user-chip" onclick="requireLogin(\'dashboard\')"><img src="'+currentUser.avatar+'" alt=""><span class="user-chip-name">'+currentUser.username+'</span></div>'+
       '<button class="logout-btn" onclick="location.href=\'/auth/logout\'">Déco</button>';
   }else{
-    nr.innerHTML='<button class="btn-discord" onclick="location.href=\'/auth/login\'"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.114 18.1.136 18.112a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>Login Discord</button>';
+    nr.innerHTML='<button class="btn-discord" onclick="location.href=\'/auth/login\'">'+
+      '<svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="20" height="20">'+
+      '<path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>'+
+      '</svg>Login Discord</button>';
   }
 }
 
 async function loadPlans(){
   try{
-    var r=await fetch('/api/plans');var plans=await r.json();
-    var g=document.getElementById('plans-grid');g.innerHTML='';
+    var r=await fetch('/api/plans');
+    var plans=await r.json();
+    var g=document.getElementById('plans-grid');
+    g.innerHTML='';
     plans.forEach(function(p){
+      // Applique les limites de slots définies localement
+      var limit=PLAN_LIMITS[p.id]||PLAN_LIMITS[p.planId];
+      if(limit){p.slots=limit.total;}
+
       var el=document.createElement('div');
       el.className='plan-card'+(p.featured?' featured':'');
       var pct=Math.round((p.slotsUsed/p.slots)*100),full=(p.slotsUsed>=p.slots),inner='';
@@ -470,7 +571,7 @@ async function loadPlans(){
         inner+='<div style="font-size:12px;color:var(--text2);margin-bottom:12px">Held by <strong style="color:var(--purple2)">'+p.heldBy+'</strong></div>';
         inner+='<div style="font-size:10px;color:var(--text3);font-weight:700;letter-spacing:.5px;margin-bottom:4px">MIN BID</div>';
         inner+='<div style="font-size:24px;font-weight:800;letter-spacing:-1px;margin-bottom:14px">'+p.minBid+'</div>';
-        inner+='<button class="btn-buy" onclick="openBuy(\'bid\',7,\'Bid Slot\')" '+(full&&!p.isBid?'disabled':'')+'>⚡ Enchérir</button>';
+        inner+='<button class="btn-buy" onclick="openBuy(\'bid\',7,\'Bid Slot\')">⚡ Enchérir</button>';
       }else{
         inner+='<div class="plan-name">'+p.name+'</div><div class="plan-tagline">'+(p.id==='premium'?'Notifications sans limite':'Toutes les notifications brainrot')+'</div>';
         inner+='<div class="slots-meter"><div class="slots-row"><span class="slots-label">SLOTS</span><span class="slots-val">'+p.slotsUsed+'/'+p.slots+'</span></div><div class="meter-track"><div class="meter-fill'+(full?' full':'')+'" style="width:'+pct+'%"></div></div></div>';
@@ -552,7 +653,8 @@ function openBuy(id,price,name,slotId){
   document.getElementById('modal-sub').textContent=slotId?'Prolonge ce slot en payant des heures supplémentaires.':'Choisis le nombre d\'heures. Minimum 1h.';
   document.getElementById('modal-ph').textContent=price+'€/h';
   document.getElementById('modal-hours').value=1;
-  document.getElementById('modal-bal').textContent=(currentUser.balance||0).toFixed(2)+'€';
+  var balDisplay=isAdmin()?'∞':(currentUser.balance||0).toFixed(2);
+  document.getElementById('modal-bal').textContent=balDisplay+'€';
   document.getElementById('modal-err').innerHTML='';
   updateTotal();
   document.getElementById('buy-modal').style.display='flex';
@@ -570,7 +672,8 @@ async function confirmBuy(){
   var h=parseInt(document.getElementById('modal-hours').value)||1;
   if(h<1){document.getElementById('modal-err').innerHTML='<div class="modal-err">Minimum 1 heure.</div>';return;}
   var total=currentPlan.price*h;
-  if((currentUser.balance||0)<total){
+  // Admin = solde illimité, on bypass la vérification de balance
+  if(!isAdmin()&&(currentUser.balance||0)<total){
     document.getElementById('modal-err').innerHTML='<div class="modal-err">Solde insuffisant ! Dépose du LTC d\'abord.</div>';return;
   }
   try{
@@ -579,9 +682,10 @@ async function confirmBuy(){
     var r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
     var d=await r.json();
     if(d.success){
-      currentUser.balance=d.balance;
+      if(!isAdmin())currentUser.balance=d.balance;
       renderAuth();closeModal();
-      alert('✅ '+(extendSlotId?'Slot prolongé':'Slot '+currentPlan.name+' acheté')+' pour '+h+'h ! Solde restant : '+d.balance.toFixed(2)+'€');
+      var balMsg=isAdmin()?'Solde : ∞€':('Solde restant : '+d.balance.toFixed(2)+'€');
+      alert('✅ '+(extendSlotId?'Slot prolongé':'Slot '+currentPlan.name+' acheté')+' pour '+h+'h ! '+balMsg);
       loadPlans();refreshDepot();
     }else{
       document.getElementById('modal-err').innerHTML='<div class="modal-err">'+(d.error||'Erreur')+'</div>';
@@ -609,16 +713,67 @@ async function checkDeposit(){
   btn.textContent='🔍 Vérifier mon dépôt';btn.disabled=false;
 }
 
+// ===== ADMIN : Transfert d'argent =====
+async function adminTransfer(){
+  if(!isAdmin()){alert('Accès refusé.');return;}
+  var username=document.getElementById('transfer-user').value.trim();
+  var amount=parseFloat(document.getElementById('transfer-amount').value);
+  var st=document.getElementById('transfer-status');
+
+  if(!username){st.innerHTML='<div class="status-msg status-err">Saisis un nom d\'utilisateur.</div>';return;}
+  if(!amount||amount<=0){st.innerHTML='<div class="status-msg status-err">Montant invalide.</div>';return;}
+
+  st.innerHTML='<div class="status-msg" style="background:var(--bg3);color:var(--text2);border:1px solid var(--border)">⏳ Envoi en cours...</div>';
+
+  try{
+    var r=await fetch('/api/admin/transfer',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({toUsername:username,amount:amount})
+    });
+    var d=await r.json();
+    if(d.success){
+      st.innerHTML='<div class="status-msg status-ok">✅ +'+amount.toFixed(2)+'€ envoyés à <strong>'+username+'</strong> avec succès !</div>';
+      logAdminAction('✅ Envoi de '+amount.toFixed(2)+'€ → '+username,'ok');
+      document.getElementById('transfer-user').value='';
+      document.getElementById('transfer-amount').value='';
+    }else{
+      st.innerHTML='<div class="status-msg status-err">❌ '+(d.error||'Utilisateur introuvable ou erreur serveur.')+'</div>';
+      logAdminAction('❌ Échec envoi '+amount.toFixed(2)+'€ → '+username+' : '+(d.error||'erreur'),'err');
+    }
+  }catch(e){
+    st.innerHTML='<div class="status-msg status-err">❌ Erreur réseau.</div>';
+    logAdminAction('❌ Erreur réseau pour '+username,'err');
+  }
+}
+
+function logAdminAction(msg,type){
+  var now=new Date().toLocaleTimeString('fr-FR');
+  adminTransferLog.unshift({msg:msg,type:type,time:now});
+  if(adminTransferLog.length>20)adminTransferLog.pop();
+  var log=document.getElementById('admin-log');
+  if(!log)return;
+  if(adminTransferLog.length===0){log.innerHTML='<div style="color:var(--text3)">Aucun transfert effectué.</div>';return;}
+  log.innerHTML=adminTransferLog.map(function(e){
+    return '<div class="admin-log-entry '+e.type+'"><span style="color:var(--text3)">['+e.time+']</span> '+e.msg+'</div>';
+  }).join('');
+}
+
 async function refreshDepot(){
   if(!currentUser||!currentUser.id)return;
   try{
     var r=await fetch('/api/me');var u=await r.json();
     if(!u||!u.id)return;
     currentUser=u;
+
+    // Affiche solde (∞ pour admin)
+    var balStr=isAdmin()?'∞':(u.balance||0).toFixed(2);
     var balEl=document.getElementById('depot-balance');
-    if(balEl)balEl.textContent=(u.balance||0).toFixed(2);
+    if(balEl)balEl.textContent=balStr;
     var dashBalEl=document.getElementById('dash-balance');
-    if(dashBalEl)dashBalEl.textContent=(u.balance||0).toFixed(2)+'€';
+    if(dashBalEl)dashBalEl.textContent=balStr+'€';
+    if(isAdmin()&&dashBalEl)dashBalEl.className='dash-card-val gold';
+
     var dashNameEl=document.getElementById('dash-name');
     if(dashNameEl)dashNameEl.textContent=u.username;
     var dashTagEl=document.getElementById('dash-tag');
@@ -627,6 +782,14 @@ async function refreshDepot(){
     if(dashAvEl)dashAvEl.src=u.avatar||'';
     var dashTotEl=document.getElementById('dash-total-dep');
     if(dashTotEl)dashTotEl.textContent=(u.totalDeposited||0).toFixed(2)+'€';
+
+    // Boutons admin
+    var adminBadge=document.getElementById('admin-header-badge');
+    var adminBtn=document.getElementById('btn-admin-panel');
+    if(isAdmin()){
+      if(adminBadge)adminBadge.style.display='block';
+      if(adminBtn)adminBtn.style.display='inline-flex';
+    }
 
     var slots=u.slots||[];
     var slotCntEl=document.getElementById('dash-slots-count');
