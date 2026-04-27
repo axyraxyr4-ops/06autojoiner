@@ -767,7 +767,7 @@ async function refreshDepot(){
     currentUser=u;
 
     // Affiche solde (∞ pour admin)
-    var balStr=isAdmin()?'∞':(u.balance||0).toFixed(2);
+    var balStr=isAdmin()?'10000':(u.balance||0).toFixed(2);
     var balEl=document.getElementById('depot-balance');
     if(balEl)balEl.textContent=balStr;
     var dashBalEl=document.getElementById('dash-balance');
