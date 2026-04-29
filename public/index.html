@@ -19,14 +19,12 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden}
 
-/* NOISE OVERLAY */
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
 body::before{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(91,59,255,0.15) 0%,transparent 70%);pointer-events:none;z-index:0}
 
-/* NAV */
 nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .nav-logo{display:flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none;flex-shrink:0}
-.logo-mark{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;color:#fff;font-family:'IBM Plex Mono',monospace;letter-spacing:0}
+.logo-mark{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;color:#fff;font-family:'IBM Plex Mono',monospace}
 .logo-name{font-weight:800;font-size:15px;color:var(--text);letter-spacing:-.5px}
 .nav-links{display:flex;align-items:center;gap:1px}
 .nav-btn{background:none;border:none;color:var(--text3);font-size:12px;font-weight:700;padding:6px 12px;border-radius:6px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s;letter-spacing:.3px;text-transform:uppercase}
@@ -48,7 +46,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .logout-btn:hover{color:var(--red)}
 .admin-badge{background:linear-gradient(90deg,var(--gold),#FF9500);color:#000;font-size:9px;font-weight:900;padding:3px 9px;border-radius:20px;letter-spacing:1px;text-transform:uppercase}
 
-/* PAGES */
 .page{display:none;position:relative;z-index:1}
 .page.active{display:block;animation:fadeUp .2s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -104,7 +101,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .br-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
 .br-t{font-size:8px;color:var(--text3);font-weight:700;letter-spacing:1px;text-transform:uppercase}
 .br-c{font-size:10px;color:var(--accent2);font-weight:700;font-family:'IBM Plex Mono',monospace}
-.br-list{display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto}
+.br-list{display:flex;flex-direction:column;gap:4px;max-height:220px;overflow-y:auto}
 .br-list::-webkit-scrollbar{width:2px}
 .br-list::-webkit-scrollbar-thumb{background:var(--accent3);border-radius:2px}
 .br-item{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:var(--bg4);border-radius:6px;border:1px solid var(--border)}
@@ -246,16 +243,15 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .inf-t{font-size:12px;color:var(--text2);line-height:1.55;font-weight:400}
 .inf-t strong{color:var(--gold)}
 
-/* MODAL ACHAT — SLIDER */
+/* ========== MODAL ACHAT — SLIDER ========== */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
-.modal-box{background:var(--bg2);border:1px solid rgba(91,59,255,.5);border-radius:16px;padding:26px;width:400px;max-width:92vw;animation:fadeUp .2s ease}
+.modal-box{background:var(--bg2);border:1px solid rgba(91,59,255,.5);border-radius:16px;padding:26px;width:420px;max-width:92vw;animation:fadeUp .2s ease}
 .modal-t{font-size:19px;font-weight:800;letter-spacing:-.7px;margin-bottom:3px}
 .modal-s{font-size:12px;color:var(--text2);margin-bottom:18px;font-weight:400}
 .modal-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .modal-lbl{font-size:12px;color:var(--text2);font-weight:400}
 .modal-val{font-size:12px;font-weight:700;color:var(--text);font-family:'IBM Plex Mono',monospace}
 
-/* SLIDER HEURES */
 .slider-section{margin:16px 0 14px}
 .slider-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
 .slider-lbl{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:1px;text-transform:uppercase}
@@ -272,7 +268,11 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .total-lbl{font-size:12px;color:var(--text2);font-weight:400}
 .total-num{font-size:19px;font-weight:800;color:var(--lime);letter-spacing:-.7px;font-family:'IBM Plex Mono',monospace}
 
-/* Alerte solde insuffisant dans modal */
+/* Slot time remaining badge in modal */
+.slot-time-info{background:rgba(91,59,255,.08);border:1px solid rgba(91,59,255,.25);border-radius:8px;padding:9px 13px;font-size:11px;color:var(--accent2);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.slot-time-info .sti-icon{font-size:14px}
+.slot-time-info strong{color:var(--text)}
+
 .balance-warn{background:rgba(255,107,43,.07);border:1px solid rgba(255,107,43,.3);border-radius:8px;padding:10px 13px;font-size:12px;color:var(--orange);font-weight:600;margin-top:8px;display:none}
 .balance-warn.show{display:block}
 
@@ -283,32 +283,97 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .btn-confirm:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .modal-err{color:var(--red);font-size:11px;text-align:center;margin-top:7px;font-weight:700}
 
-/* TRANSACTION POPUP */
-.tx-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
-.tx-box{background:var(--bg2);border:1px solid rgba(184,255,71,.25);border-radius:18px;padding:30px;width:420px;max-width:92vw;animation:fadeUp .2s ease;text-align:center}
-.tx-title{font-size:20px;font-weight:800;letter-spacing:-.8px;margin-bottom:4px}
-.tx-sub{font-size:12px;color:var(--text2);margin-bottom:22px;font-weight:400}
-.tx-amount-box{background:rgba(184,255,71,.06);border:1px solid rgba(184,255,71,.2);border-radius:10px;padding:14px;margin-bottom:18px}
-.tx-amount-lbl{font-size:8px;color:rgba(184,255,71,.6);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px}
-.tx-amount-val{font-size:30px;font-weight:800;color:var(--lime);letter-spacing:-1.5px;font-family:'IBM Plex Mono',monospace}
-.tx-amount-sub{font-size:11px;color:var(--text2);margin-top:3px;font-weight:400}
-.tx-addr-lbl{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;text-align:left}
-.tx-addr{background:var(--bg3);border:1px solid rgba(91,59,255,.3);border-radius:9px;padding:11px 13px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2);word-break:break-all;margin-bottom:6px;text-align:left;line-height:1.65}
-.btn-tx-copy{width:100%;padding:9px;background:var(--bg3);color:var(--accent2);border:1px solid rgba(91,59,255,.3);border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;margin-bottom:14px;font-size:12px;text-transform:uppercase;letter-spacing:.3px;transition:all .15s}
-.btn-tx-copy:hover{background:var(--bg4)}
-.tx-warn{font-size:10px;color:var(--red);font-weight:700;margin-bottom:16px;letter-spacing:.2px;text-transform:uppercase}
-.tx-status-area{margin-bottom:16px}
-.tx-status-bar{height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-bottom:8px}
-.tx-status-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--lime));border-radius:2px;width:0%;transition:width .5s ease}
-.tx-status-fill.checking{animation:txScan 2s ease-in-out infinite}
+/* ========== MODAL DÉPÔT — STEP AMOUNT ========== */
+.deposit-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:550;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.deposit-box{background:var(--bg2);border:1px solid rgba(0,232,160,.25);border-radius:18px;padding:0;width:460px;max-width:92vw;animation:fadeUp .2s ease;overflow:hidden}
+
+/* Step indicator */
+.dep-steps{display:flex;align-items:center;padding:18px 24px 0;gap:0;margin-bottom:20px}
+.dep-step{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;position:relative}
+.dep-step:not(:last-child)::after{content:'';position:absolute;top:14px;right:-50%;width:100%;height:2px;background:var(--bg4);z-index:0}
+.dep-step.done::after{background:var(--green)}
+.dep-step.active::after{background:var(--bg4)}
+.dep-step-num{width:28px;height:28px;border-radius:50%;background:var(--bg4);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--text3);font-family:'IBM Plex Mono',monospace;position:relative;z-index:1;transition:all .3s}
+.dep-step.done .dep-step-num{background:var(--green);border-color:var(--green);color:#000}
+.dep-step.active .dep-step-num{background:var(--accent);border-color:var(--accent2);color:#fff;box-shadow:0 0 0 3px rgba(91,59,255,.25)}
+.dep-step-lbl{font-size:8px;color:var(--text3);font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.dep-step.active .dep-step-lbl{color:var(--text2)}
+.dep-step.done .dep-step-lbl{color:var(--green)}
+
+.dep-body{padding:0 24px 24px}
+.dep-title{font-size:20px;font-weight:800;letter-spacing:-.8px;margin-bottom:4px}
+.dep-sub{font-size:12px;color:var(--text2);margin-bottom:20px;font-weight:400;line-height:1.6}
+
+/* Amount step */
+.dep-amount-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.dep-preset{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px;text-align:center;cursor:pointer;transition:all .15s}
+.dep-preset:hover{border-color:var(--accent2)}
+.dep-preset.selected{border-color:var(--green);background:rgba(0,232,160,.07)}
+.dep-preset-val{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.5px;font-family:'IBM Plex Mono',monospace}
+.dep-preset-ltc{font-size:9px;color:var(--text3);margin-top:2px;font-weight:400}
+.dep-custom{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:11px 13px;margin-bottom:14px}
+.dep-custom-lbl{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+.dep-custom-row{display:flex;align-items:center;gap:8px}
+.dep-custom-inp{background:var(--bg4);border:1px solid var(--border2);border-radius:7px;padding:9px 13px;color:var(--text);font-size:15px;font-family:'IBM Plex Mono',monospace;font-weight:700;outline:none;width:100%;transition:border-color .15s}
+.dep-custom-inp:focus{border-color:var(--green)}
+.dep-custom-inp::placeholder{color:var(--text3);font-size:12px}
+.dep-custom-cur{font-size:13px;color:var(--text2);font-weight:700;white-space:nowrap}
+.dep-ltc-equiv{background:rgba(0,232,160,.05);border:1px solid rgba(0,232,160,.15);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--green);margin-bottom:14px;font-family:'IBM Plex Mono',monospace;font-weight:600}
+.dep-min-warn{font-size:10px;color:var(--red);font-weight:700;text-align:center;margin-bottom:13px;letter-spacing:.3px;text-transform:uppercase}
+
+/* Send step — QR */
+.dep-send-body{text-align:center}
+.dep-qr-wrap{display:inline-block;background:#fff;border-radius:12px;padding:14px;margin-bottom:14px}
+.dep-qr-wrap img{width:160px;height:160px;display:block}
+.dep-qr-wrap canvas{width:160px;height:160px}
+.dep-send-amount-box{background:rgba(184,255,71,.06);border:1px solid rgba(184,255,71,.2);border-radius:10px;padding:13px;margin-bottom:14px}
+.dep-send-lbl{font-size:8px;color:rgba(184,255,71,.6);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px}
+.dep-send-val{font-size:26px;font-weight:800;color:var(--lime);letter-spacing:-1.2px;font-family:'IBM Plex Mono',monospace}
+.dep-send-eur{font-size:11px;color:var(--text2);margin-top:2px;font-weight:400}
+.dep-addr-lbl{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;text-align:left}
+.dep-addr{background:var(--bg3);border:1px solid rgba(91,59,255,.3);border-radius:9px;padding:11px 13px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2);word-break:break-all;margin-bottom:8px;text-align:left;line-height:1.65}
+.dep-countdown{display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,43,.07);border:1px solid rgba(255,107,43,.25);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--orange);font-weight:700;font-family:'IBM Plex Mono',monospace;margin-bottom:14px}
+.dep-timer-dot{width:5px;height:5px;background:var(--orange);border-radius:50%;animation:pls 1s infinite}
+.dep-copy-btns{display:flex;gap:8px;margin-bottom:12px}
+.dep-copy-btn{flex:1;padding:9px;background:var(--bg3);color:var(--accent2);border:1px solid rgba(91,59,255,.3);border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.3px;transition:all .15s}
+.dep-copy-btn:hover{background:var(--bg4)}
+.dep-warn-exact{font-size:10px;color:var(--red);font-weight:700;margin-bottom:14px;letter-spacing:.2px;text-transform:uppercase;text-align:center}
+
+/* Confirm step */
+.dep-status-bar{height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.dep-status-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--lime));border-radius:2px;width:0%;transition:width .5s ease}
+.dep-status-fill.checking{animation:txScan 2s ease-in-out infinite}
 @keyframes txScan{0%,100%{width:5%}50%{width:80%}}
-.tx-status-msg{font-size:12px;font-weight:700;color:var(--text2)}
-.tx-status-msg.ok{color:var(--green)}
-.tx-status-msg.err{color:var(--red)}
-.tx-btns{display:flex;gap:9px}
-.btn-tx-check{flex:2;padding:11px;background:var(--lime);color:#050507;border:none;border-radius:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;transition:all .15s;text-transform:uppercase;letter-spacing:.4px}
-.btn-tx-check:hover{background:var(--lime2)}
-.btn-tx-close{flex:1;padding:11px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.3px}
+.dep-status-msg{font-size:12px;font-weight:700;color:var(--text2);text-align:center;margin-bottom:18px}
+.dep-status-msg.ok{color:var(--green)}
+.dep-status-msg.err{color:var(--red)}
+
+/* Done step */
+.dep-done-icon{font-size:48px;text-align:center;margin-bottom:12px}
+.dep-done-title{font-size:20px;font-weight:800;letter-spacing:-.8px;text-align:center;margin-bottom:6px}
+.dep-done-sub{font-size:12px;color:var(--text2);text-align:center;font-weight:400;margin-bottom:20px;line-height:1.6}
+.dep-done-amount{background:rgba(0,232,160,.06);border:1px solid rgba(0,232,160,.2);border-radius:10px;padding:14px;text-align:center;margin-bottom:18px}
+.dep-done-lbl{font-size:8px;color:rgba(0,232,160,.6);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px}
+.dep-done-val{font-size:28px;font-weight:800;color:var(--green);letter-spacing:-1.2px;font-family:'IBM Plex Mono',monospace}
+
+.dep-btns{display:flex;gap:9px;margin-top:4px}
+.dep-btn-cancel{flex:1;padding:11px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.3px}
+.dep-btn-next{flex:2;padding:11px;background:var(--green);color:#050507;border:none;border-radius:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;transition:all .15s;text-transform:uppercase;letter-spacing:.4px}
+.dep-btn-next:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.dep-btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.dep-btn-check{flex:2;padding:11px;background:var(--lime);color:#050507;border:none;border-radius:9px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;transition:all .15s;text-transform:uppercase;letter-spacing:.4px}
+.dep-btn-check:hover{background:var(--lime2)}
+
+/* LOGO INSTRUCTIONS */
+.logo-guide{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:24px;margin-top:32px}
+.logo-guide-t{font-size:16px;font-weight:800;letter-spacing:-.5px;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.logo-guide-s{font-size:12px;color:var(--text2);margin-bottom:18px;line-height:1.55;font-weight:400}
+.logo-step{display:flex;gap:13px;margin-bottom:16px;align-items:flex-start}
+.logo-step-num{width:26px;height:26px;background:var(--accent3);border:1px solid rgba(91,59,255,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--accent2);flex-shrink:0;font-family:'IBM Plex Mono',monospace}
+.logo-step-body{flex:1}
+.logo-step-t{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.logo-step-d{font-size:11px;color:var(--text2);line-height:1.6;font-weight:400}
+.logo-code{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:9px 13px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2);margin-top:7px;line-height:1.7}
 
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:16px 28px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text3);position:relative;z-index:1;font-weight:400}
 footer a{color:var(--text2);cursor:pointer;transition:color .15s;font-weight:700;text-transform:uppercase;letter-spacing:.3px;font-size:10px}
@@ -353,7 +418,7 @@ footer a:hover{color:var(--lime)}
       <div class="feat"><div class="feat-ico">🪙</div><div class="feat-t">Paiement LTC</div><div class="feat-d">Envoie du Litecoin depuis n'importe quel wallet. Crédité auto.</div></div>
       <div class="feat"><div class="feat-ico">🏆</div><div class="feat-t">Leaderboard</div><div class="feat-d">Classement des meilleurs farmers synchronisé avec Discord.</div></div>
       <div class="feat"><div class="feat-ico">🔥</div><div class="feat-t">30+ Brainrots</div><div class="feat-d">Support de tous les brainrots OG avec caps par catégorie.</div></div>
-      <div class="feat"><div class="feat-ico">💎</div><div class="feat-t">Plans flexibles</div><div class="feat-d">Premium 6€/h ou Farmer 3€/h. Choisis tes heures via slider.</div></div>
+      <div class="feat"><div class="feat-ico">💎</div><div class="feat-t">Plans flexibles</div><div class="feat-d">Premium 8€/h ou Farmer 4€/h. Max 12h par achat.</div></div>
       <div class="feat"><div class="feat-ico">🛡️</div><div class="feat-t">Sécurisé</div><div class="feat-d">Login Discord OAuth2. Transactions vérifiées sur blockchain LTC.</div></div>
     </div>
   </div>
@@ -366,7 +431,7 @@ footer a:hover{color:var(--lime)}
     <div class="sec-head">
       <div class="sec-pill">Pricing</div>
       <h2 class="sec-h2">Choisis ton <span>plan</span></h2>
-      <p class="sec-sub">Dépose du LTC → crédite ton solde → glisse pour choisir tes heures.</p>
+      <p class="sec-sub">Dépose du LTC → crédite ton solde → glisse pour choisir tes heures (max 12h).</p>
     </div>
     <div class="plans-grid" id="plans-grid"></div>
   </div>
@@ -402,9 +467,9 @@ footer a:hover{color:var(--lime)}
     <div class="sec-head">
       <div class="sec-pill">🏆 Classement</div>
       <h2 class="sec-h2">Top <span>Farmers</span></h2>
-      <p class="sec-sub">Synchronisé avec les comptes Discord connectés.</p>
+      <p class="sec-sub">Uniquement les membres connectés via Discord. Photo de profil et pseudo synchronisés.</p>
     </div>
-    <div class="lb-list" id="lb-list"><div class="lb-empty">Aucun joueur pour l'instant.</div></div>
+    <div class="lb-list" id="lb-list"><div class="lb-empty">Connecte ton Discord pour apparaître ici.</div></div>
   </div>
   <footer><span>© 2026 06Joiner</span><div style="display:flex;gap:18px"><a onclick="showPage('home')">Home</a><a onclick="showPage('plans')">Plans</a></div></footer>
 </div>
@@ -439,6 +504,44 @@ footer a:hover{color:var(--lime)}
         <div id="my-slots"><div class="no-slots">Aucun slot actif</div></div>
       </div>
     </div>
+
+    <!-- Logo guide -->
+    <div class="logo-guide">
+      <div class="logo-guide-t">🖼️ Comment ajouter un logo / favicon</div>
+      <div class="logo-guide-s">Pour remplacer le logo "06" dans la navbar et le favicon de l'onglet, suis ces étapes :</div>
+      <div class="logo-step">
+        <div class="logo-step-num">1</div>
+        <div class="logo-step-body">
+          <div class="logo-step-t">Prépare ton image</div>
+          <div class="logo-step-d">Crée une image PNG ou SVG carrée (recommandé : 128×128 px ou 512×512 px pour la qualité). Pour le favicon, utilise un fichier <code style="background:var(--bg4);padding:1px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px">.ico</code>, <code style="background:var(--bg4);padding:1px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px">.png</code> ou <code style="background:var(--bg4);padding:1px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px">.svg</code>.</div>
+        </div>
+      </div>
+      <div class="logo-step">
+        <div class="logo-step-num">2</div>
+        <div class="logo-step-body">
+          <div class="logo-step-t">Ajoute le favicon dans &lt;head&gt;</div>
+          <div class="logo-step-d">Dans le <code style="background:var(--bg4);padding:1px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px">&lt;head&gt;</code> du HTML, remplace ou ajoute cette ligne :</div>
+          <div class="logo-code">&lt;link rel="icon" href="/logo.png" type="image/png"&gt;</div>
+        </div>
+      </div>
+      <div class="logo-step">
+        <div class="logo-step-num">3</div>
+        <div class="logo-step-body">
+          <div class="logo-step-t">Remplace le logo dans la navbar</div>
+          <div class="logo-step-d">Trouve le bloc <code style="background:var(--bg4);padding:1px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px">.logo-mark</code> et remplace-le par une balise image :</div>
+          <div class="logo-code">&lt;img src="/logo.png" alt="Logo" style="width:28px;height:28px;border-radius:6px;object-fit:cover"&gt;</div>
+        </div>
+      </div>
+      <div class="logo-step">
+        <div class="logo-step-num">4</div>
+        <div class="logo-step-body">
+          <div class="logo-step-t">Place le fichier dans le bon dossier</div>
+          <div class="logo-step-d">Copie ton image dans le dossier <code style="background:var(--bg4);padding:1px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px">public/</code> (ou racine du serveur) avec le nom <code style="background:var(--bg4);padding:1px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px">logo.png</code>. Si tu utilises Express.js, assure-toi d'avoir <code style="background:var(--bg4);padding:1px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px">app.use(express.static('public'))</code>.</div>
+          <div class="logo-code">app.use(express.static(path.join(__dirname, 'public')));</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -462,7 +565,7 @@ footer a:hover{color:var(--lime)}
     <div id="dash-slots-list"></div>
     <div style="display:flex;gap:9px;margin-top:22px;flex-wrap:wrap">
       <button class="btn-primary" onclick="showPage('plans')">⚡ Acheter un slot</button>
-      <button class="btn-ghost" onclick="requireLogin('depot')">🪙 Déposer du LTC</button>
+      <button class="btn-ghost" onclick="openDepositModal()">🪙 Déposer du LTC</button>
       <button class="btn-admin" id="btn-admin-panel" style="display:none" onclick="showPage('admin')">👑 Panneau Admin</button>
     </div>
   </div>
@@ -500,30 +603,36 @@ footer a:hover{color:var(--lime)}
   <footer><span>© 2026 06Joiner</span></footer>
 </div>
 
-<!-- MODAL ACHAT — SLIDER -->
+<!-- ========== MODAL ACHAT — SLIDER ========== -->
 <div id="buy-modal" style="display:none" class="modal-overlay" onclick="closeModalOut(event)">
   <div class="modal-box">
     <div class="modal-t" id="modal-name">Acheter Premium</div>
-    <div class="modal-s" id="modal-sub">Glisse pour choisir le nombre d'heures.</div>
-    <div class="modal-row"><span class="modal-lbl">Prix/heure</span><span class="modal-val" id="modal-ph">6€</span></div>
+    <div class="modal-s" id="modal-sub">Glisse pour choisir le nombre d'heures. Maximum 12h.</div>
+    <div class="modal-row"><span class="modal-lbl">Prix/heure</span><span class="modal-val" id="modal-ph">8€</span></div>
     <div class="modal-row"><span class="modal-lbl">Ton solde</span><span class="modal-val" id="modal-bal">0€</span></div>
+
+    <!-- Temps restant si prolongation -->
+    <div class="slot-time-info" id="slot-time-info" style="display:none">
+      <span class="sti-icon">⏳</span>
+      <span id="slot-time-text">Slot actif — <strong>0h restantes</strong></span>
+    </div>
 
     <div class="slider-section">
       <div class="slider-top">
         <span class="slider-lbl">Heures</span>
         <div><span class="slider-val" id="modal-hours-disp">1</span><span class="slider-unit"> h</span></div>
       </div>
-      <input type="range" id="modal-hours-range" min="1" max="720" value="1" oninput="updateSlider()">
+      <input type="range" id="modal-hours-range" min="1" max="12" value="1" oninput="updateSlider()">
       <div class="slider-marks">
         <span class="slider-mark">1h</span>
+        <span class="slider-mark">3h</span>
         <span class="slider-mark">6h</span>
-        <span class="slider-mark">24h</span>
-        <span class="slider-mark">72h</span>
-        <span class="slider-mark">720h</span>
+        <span class="slider-mark">9h</span>
+        <span class="slider-mark">12h</span>
       </div>
     </div>
 
-    <div class="total-b"><span class="total-lbl">Total à payer</span><span class="total-num" id="modal-total">6.00€</span></div>
+    <div class="total-b"><span class="total-lbl">Total à payer</span><span class="total-num" id="modal-total">8.00€</span></div>
 
     <div class="balance-warn" id="balance-warn"></div>
 
@@ -535,47 +644,181 @@ footer a:hover{color:var(--lime)}
   </div>
 </div>
 
-<!-- POPUP TRANSACTION LTC -->
-<div id="tx-modal" style="display:none" class="tx-overlay" onclick="closeTxModalOut(event)">
-  <div class="tx-box">
-    <div class="tx-title">🪙 Envoie exactement</div>
-    <div class="tx-sub">Envoie ce montant exact en LTC pour valider ton achat automatiquement.</div>
+<!-- ========== MODAL DÉPÔT LTC (4 étapes) ========== -->
+<div id="deposit-modal" style="display:none" class="deposit-overlay" onclick="closeDepositOut(event)">
+  <div class="deposit-box" onclick="event.stopPropagation()">
 
-    <div class="tx-amount-box">
-      <div class="tx-amount-lbl">Montant exact à envoyer</div>
-      <div class="tx-amount-val" id="tx-ltc-amount">0.00</div>
-      <div class="tx-amount-sub" id="tx-eur-amount">≈ 0.00 EUR</div>
+    <!-- Steps header -->
+    <div class="dep-steps">
+      <div class="dep-step active" id="dep-step-1">
+        <div class="dep-step-num">1</div>
+        <div class="dep-step-lbl">Montant</div>
+      </div>
+      <div class="dep-step" id="dep-step-2">
+        <div class="dep-step-num">2</div>
+        <div class="dep-step-lbl">Envoyer</div>
+      </div>
+      <div class="dep-step" id="dep-step-3">
+        <div class="dep-step-num">3</div>
+        <div class="dep-step-lbl">Confirmer</div>
+      </div>
+      <div class="dep-step" id="dep-step-4">
+        <div class="dep-step-num" style="font-size:14px">✓</div>
+        <div class="dep-step-lbl">Terminé</div>
+      </div>
     </div>
 
-    <div class="tx-addr-lbl">Adresse LTC</div>
-    <div class="tx-addr">LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9</div>
-    <button class="btn-tx-copy" onclick="copyLTC()">📋 Copier l'adresse</button>
-    <div class="tx-warn">⚠️ Envoie EXACTEMENT ce montant. Différence = dépôt non reconnu.</div>
+    <div class="dep-body">
 
-    <div class="tx-status-area">
-      <div class="tx-status-bar"><div class="tx-status-fill" id="tx-fill"></div></div>
-      <div class="tx-status-msg" id="tx-status-msg">En attente de ta transaction…</div>
-    </div>
+      <!-- STEP 1: Montant -->
+      <div id="dep-panel-1">
+        <div class="dep-title">💶 Combien veux-tu déposer ?</div>
+        <div class="dep-sub">Minimum 1€. Le LTC sera converti au taux du moment et crédité en euros.</div>
+        <div class="dep-amount-grid" id="dep-presets"></div>
+        <div class="dep-custom">
+          <div class="dep-custom-lbl">Montant personnalisé</div>
+          <div class="dep-custom-row">
+            <input class="dep-custom-inp" id="dep-eur-input" type="number" min="1" step="1" placeholder="Ex: 25" oninput="updateDepositCalc()">
+            <span class="dep-custom-cur">EUR</span>
+          </div>
+        </div>
+        <div class="dep-ltc-equiv" id="dep-ltc-equiv">≈ 0.000000 LTC</div>
+        <div class="dep-min-warn">⚠️ Minimum 1€ — dépôts inférieurs non crédités</div>
+        <div class="dep-btns">
+          <button class="dep-btn-cancel" onclick="closeDepositModal()">Annuler</button>
+          <button class="dep-btn-next" id="dep-btn-1" onclick="depStep2()">Continuer →</button>
+        </div>
+      </div>
 
-    <div class="tx-btns">
-      <button class="btn-tx-close" onclick="closeTxModal()">Fermer</button>
-      <button class="btn-tx-check" id="btn-tx-check" onclick="verifyTxPayment()">🔍 J'ai payé — Vérifier</button>
+      <!-- STEP 2: Envoyer -->
+      <div id="dep-panel-2" style="display:none">
+        <div class="dep-send-body">
+          <div class="dep-title">🪙 Envoie exactement ce montant</div>
+          <div class="dep-sub">Scanne le QR code ou copie l'adresse et le montant exact.</div>
+
+          <div class="dep-send-amount-box">
+            <div class="dep-send-lbl">Montant exact à envoyer</div>
+            <div class="dep-send-val" id="dep-send-ltc">0.000000 LTC</div>
+            <div class="dep-send-eur" id="dep-send-eur">≈ 0.00 EUR</div>
+          </div>
+
+          <!-- QR Code SVG généré inline -->
+          <div class="dep-qr-wrap">
+            <svg id="dep-qr-svg" viewBox="0 0 200 200" width="160" height="160" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+
+          <div class="dep-countdown">
+            <div class="dep-timer-dot"></div>
+            <span id="dep-timer-text">Expire dans 10:00</span>
+          </div>
+
+          <div class="dep-addr-lbl">Adresse LTC</div>
+          <div class="dep-addr">LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9</div>
+
+          <div class="dep-copy-btns">
+            <button class="dep-copy-btn" onclick="copyLTC()">📋 Copier l'adresse</button>
+            <button class="dep-copy-btn" onclick="copyDepLTC()">🔢 Copier montant LTC</button>
+          </div>
+
+          <div class="dep-warn-exact">⚠️ Envoie EXACTEMENT ce montant — différence = non reconnu</div>
+        </div>
+        <div class="dep-btns">
+          <button class="dep-btn-cancel" onclick="depGoBack(2)">← Retour</button>
+          <button class="dep-btn-check" onclick="depStep3()">J'ai envoyé — Vérifier 🔍</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Confirmer -->
+      <div id="dep-panel-3" style="display:none">
+        <div class="dep-title">🔍 Vérification en cours</div>
+        <div class="dep-sub">On vérifie la blockchain LTC. Ça peut prendre quelques minutes après ton envoi.</div>
+        <div class="dep-status-bar"><div class="dep-status-fill" id="dep-fill"></div></div>
+        <div class="dep-status-msg" id="dep-status-msg">Recherche de ta transaction…</div>
+        <div class="dep-btns">
+          <button class="dep-btn-cancel" onclick="depGoBack(3)">← Retour</button>
+          <button class="dep-btn-check" id="dep-btn-verify" onclick="depVerify()">🔄 Relancer la vérification</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Done -->
+      <div id="dep-panel-4" style="display:none">
+        <div class="dep-done-icon">🎉</div>
+        <div class="dep-done-title">Dépôt confirmé !</div>
+        <div class="dep-done-sub">Ton solde a été crédité. Tu peux maintenant acheter un slot.</div>
+        <div class="dep-done-amount">
+          <div class="dep-done-lbl">Montant crédité</div>
+          <div class="dep-done-val" id="dep-done-val">+0.00€</div>
+        </div>
+        <div class="dep-btns">
+          <button class="dep-btn-cancel" onclick="closeDepositModal()">Fermer</button>
+          <button class="dep-btn-next" onclick="closeDepositModal();showPage('plans')">⚡ Acheter un slot</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
 <script>
+// ===================== STATE =====================
 var currentUser=null,currentPlan=null,extendSlotId=null;
-var txPendingPlan=null,txPendingHours=0,txLtcRate=0;
+var depAmount=0,depLtcAmount=0,depLtcRate=0,depTimer=null;
 var ADMIN_USERNAME='06wzz';
 var adminTransferLog=[];
 
-var ICONS={'Bacuru And Egguru':'🦷','Burguro And Fryuro':'🧸','Chicleteira Noelteira':'🌶️','Chillin Chili':'🔥','Tralalero Tralala':'🎵','Bombardiro Crocodilo':'🐊','Brr Brr Patapim':'❄️','Tung Tung Sahur':'🥁','Dragon Cannelloni':'🐉','Garama and Madundung':'🍺'};
+var ICONS={
+  'Bacuru And Egguru':'🦷','Burguro And Fryuro':'🧸','Chicleteira Noelteira':'🌶️',
+  'Chillin Chili':'🔥','Tralalero Tralala':'🎵','Bombardiro Crocodilo':'🐊',
+  'Brr Brr Patapim':'❄️','Tung Tung Sahur':'🥁','Dragon Cannelloni':'🐉',
+  'Garama and Madundung':'🍺','Spooky and Pumpky':'🎃','Cooki and Milki':'🍪',
+  'Fragrama and Chocrama':'🍫','Ketchuru and Musturu':'🌭','Esok Sekolah':'📚',
+  'Los Spooky Combinasionas':'👻','Los Candies':'🍬','Money Money Puggy':'💰',
+  'Los Mobilis':'📱','Tang Tang Keletang':'🔔','Los Bros':'👊','Los 67':'🎯',
+  'Los Primos':'🤝','La Secret Combinasion':'🔮','La Taco Combinasion':'🌮',
+  'La Ginger Sekolah':'🧡','Ketupat Kepat':'🎋','Tictac Sahur':'⏱️',
+  'Popcuru and Fizzuru':'🍿','Spaghetti Tualetti':'🍝','Nuclearo Dinossauro':'☢️',
+  'Lavadorito Spinito':'🌀','W or L':'🎲','Nacho Spyder':'🕷️',
+  'Swaggy Bros':'😎'
+};
 
 var PLAN_LIMITS={premium:{total:6},farmer:{total:4},bid:{total:1}};
 
-// Slider marks non-linéaires
-var SLIDER_STEPS=[1,2,3,6,12,24,48,72,168,336,504,720];
+// ============ FARMER BRAINROTS ============
+var FARMER_BRAINROTS=[
+  {name:'Garama and Madundung',cap:'200M'},
+  {name:'Spooky and Pumpky',cap:'100M'},
+  {name:'Cooki and Milki',cap:'155M'},
+  {name:'Burguro And Fryuro',cap:'150M'},
+  {name:'Fragrama and Chocrama',cap:'100M'},
+  {name:'Ketchuru and Musturu',cap:'700M'},
+  {name:'Bacuru and Egguru',cap:null},
+  {name:'Esok Sekolah',cap:null},
+  {name:'Los Spooky Combinasionas',cap:null},
+  {name:'Los Candies',cap:null},
+  {name:'Money Money Puggy',cap:null},
+  {name:'Los Mobilis',cap:null},
+  {name:'Tang Tang Keletang',cap:null},
+  {name:'Los Bros',cap:'462.5M'},
+  {name:'Los 67',cap:null},
+  {name:'Los Primos',cap:'400M'},
+  {name:'La Secret Combinasion',cap:'460M'},
+  {name:'La Taco Combinasion',cap:'500M'},
+  {name:'La Ginger Sekolah',cap:'500M'},
+  {name:'Ketupat Kepat',cap:'500M'},
+  {name:'Tictac Sahur',cap:'700M'},
+  {name:'Popcuru and Fizzuru',cap:'170M'},
+  {name:'Chillin Chili',cap:'500M'},
+  {name:'Spaghetti Tualetti',cap:'800M'},
+  {name:'Nuclearo Dinossauro',cap:'300M'},
+  {name:'Lavadorito Spinito',cap:'200M'},
+  {name:'W or L',cap:'460M'},
+  {name:'Nacho Spyder',cap:'400M'},
+  {name:'Swaggy Bros',cap:'450M'},
+  {name:'Chicleteira Noelteira',cap:'400M'}
+];
+
+// Preset amounts for deposit
+var DEP_PRESETS=[5,10,20,50,100,200];
 
 function isAdmin(){
   return currentUser&&(currentUser.username===ADMIN_USERNAME||currentUser.username===ADMIN_USERNAME.toLowerCase());
@@ -612,7 +855,7 @@ function renderAuth(){
     var adminBadge=isAdmin()?'<span class="admin-badge" style="margin-right:4px">👑</span>':'';
     var balDisplay=isAdmin()?'∞':(currentUser.balance||0).toFixed(2);
     nr.innerHTML=adminBadge+
-      '<span class="balance-chip" onclick="requireLogin(\'depot\')">💰 '+balDisplay+'€</span>'+
+      '<span class="balance-chip" onclick="openDepositModal()">💰 '+balDisplay+'€</span>'+
       '<div class="user-chip" onclick="requireLogin(\'dashboard\')"><img src="'+currentUser.avatar+'" alt=""><span class="user-chip-name">'+currentUser.username+'</span></div>'+
       '<button class="logout-btn" onclick="location.href=\'/auth/logout\'">Déco</button>';
   }else{
@@ -624,45 +867,85 @@ function renderAuth(){
 }
 
 async function loadPlans(){
+  // Inline plan data — max 12h, premium=8€/h, farmer=4€/h
+  var plans=[
+    {
+      id:'premium',name:'Premium',featured:true,
+      priceNum:8,price:'8€/h',
+      maxGen:'Illimité',desc:'Notifications sans limite de génération.',
+      slotsUsed:0,slots:6,
+      brainrots:[
+        {name:'Tralalero Tralala',cap:null},{name:'Bombardiro Crocodilo',cap:null},
+        {name:'Brr Brr Patapim',cap:null},{name:'Tung Tung Sahur',cap:null},
+        {name:'Dragon Cannelloni',cap:null},{name:'Chillin Chili',cap:'500M'},
+        {name:'Chicleteira Noelteira',cap:'400M'},{name:'Bacuru And Egguru',cap:null},
+        {name:'Burguro And Fryuro',cap:'150M'}
+      ]
+    },
+    {
+      id:'farmer',name:'Farmer',featured:false,
+      priceNum:4,price:'4€/h',
+      maxGen:'Limité',desc:'Toutes les notifications brainrot avec caps.',
+      slotsUsed:0,slots:4,
+      brainrots:FARMER_BRAINROTS
+    },
+    {
+      id:'bid',name:'Bid',featured:false,
+      priceNum:2,price:'2€/h',
+      maxGen:'Basic',desc:'Notifications basiques sans brainrots premium.',
+      slotsUsed:0,slots:1,
+      brainrots:[]
+    }
+  ];
+
   try{
     var r=await fetch('/api/plans');
-    var plans=await r.json();
-    var g=document.getElementById('plans-grid');
-    g.innerHTML='';
-    plans.forEach(function(p){
-      // Force 0 slots used (personne n'a acheté)
-      p.slotsUsed=0;
-      var limit=PLAN_LIMITS[p.id]||PLAN_LIMITS[p.planId];
-      if(limit)p.slots=limit.total;
+    var apiPlans=await r.json();
+    if(Array.isArray(apiPlans)&&apiPlans.length)plans=apiPlans;
+  }catch(e){}
 
-      var el=document.createElement('div');
-      el.className='plan-card'+(p.featured?' featured':'');
-      var pct=Math.round((p.slotsUsed/p.slots)*100);
-      var full=(p.slotsUsed>=p.slots);
-      var inner='';
+  var g=document.getElementById('plans-grid');
+  g.innerHTML='';
+  plans.forEach(function(p){
+    var limit=PLAN_LIMITS[p.id]||PLAN_LIMITS[p.planId];
+    if(limit)p.slots=limit.total;
+    if(!p.slotsUsed)p.slotsUsed=0;
 
-      if(p.featured)inner+='<div class="pop-badge">Most Popular</div>';
-      inner+='<div class="plan-name">'+p.name+'</div>';
-      inner+='<div class="plan-tag">'+(p.id==='premium'?'Notifications sans limite':'Toutes les notifications brainrot')+'</div>';
-      inner+='<div class="slots-bar"><div class="slots-row"><span class="slots-lbl">Slots</span><span class="slots-val">'+p.slotsUsed+'/'+p.slots+'</span></div><div class="meter"><div class="meter-f'+(full?' full':'')+'" style="width:'+pct+'%"></div></div></div>';
-      inner+='<div class="stat-b"><div class="stat-lbl">Default Max Generation</div><div class="stat-val">'+p.maxGen+'</div><div class="stat-d">'+p.desc+'</div></div>';
+    // Enforce prices
+    if(p.id==='premium'){p.priceNum=8;p.price='8€/h';}
+    if(p.id==='farmer'){p.priceNum=4;p.price='4€/h';}
 
-      if(p.brainrots&&p.brainrots.length){
-        inner+='<div class="br-box"><div class="br-hd"><span class="br-t">Per-Brainrot Limits</span><span class="br-c">'+p.brainrots.length+' brainrots</span></div><div class="br-list">';
-        p.brainrots.forEach(function(b){
-          var ic=ICONS[b.name]||'🧠';
-          inner+='<div class="br-item"><div class="br-l"><div class="br-ico">'+ic+'</div><span class="br-nm">'+b.name+'</span></div>'+(b.cap?'<span class="cap-v">'+b.cap+'</span>':'<span class="cap-none">No Cap</span>')+'</div>';
-        });
-        inner+='</div></div>';
-      }
+    var el=document.createElement('div');
+    el.className='plan-card'+(p.featured?' featured':'');
+    var pct=Math.round((p.slotsUsed/p.slots)*100);
+    var full=(p.slotsUsed>=p.slots);
+    var inner='';
 
-      inner+='<div class="price-area"><div class="price-lbl">Prix</div><div class="price-v">'+p.price+'</div></div>';
-      inner+='<button class="btn-buy" onclick="openBuy(\''+p.id+'\','+p.priceNum+',\''+p.name+'\')" '+(full?'disabled>🔒 Complet':'>⚡ Acheter ce slot')+'</button>';
+    if(p.featured)inner+='<div class="pop-badge">Most Popular</div>';
+    inner+='<div class="plan-name">'+p.name+'</div>';
+    inner+='<div class="plan-tag">'+
+      (p.id==='premium'?'Notifications sans limite':
+       p.id==='farmer'?'Toutes les notifications brainrot':'Notifications basiques')+
+    '</div>';
+    inner+='<div class="slots-bar"><div class="slots-row"><span class="slots-lbl">Slots</span><span class="slots-val">'+p.slotsUsed+'/'+p.slots+'</span></div><div class="meter"><div class="meter-f'+(full?' full':'')+'" style="width:'+pct+'%"></div></div></div>';
+    inner+='<div class="stat-b"><div class="stat-lbl">Default Max Generation</div><div class="stat-val">'+p.maxGen+'</div><div class="stat-d">'+p.desc+'</div></div>';
 
-      el.innerHTML=inner;
-      g.appendChild(el);
-    });
-  }catch(e){console.error(e);}
+    if(p.brainrots&&p.brainrots.length){
+      inner+='<div class="br-box"><div class="br-hd"><span class="br-t">Per-Brainrot Limits</span><span class="br-c">'+p.brainrots.length+' brainrots</span></div><div class="br-list">';
+      p.brainrots.forEach(function(b){
+        var ic=ICONS[b.name]||'🧠';
+        inner+='<div class="br-item"><div class="br-l"><div class="br-ico">'+ic+'</div><span class="br-nm">'+b.name+'</span></div>'+(b.cap?'<span class="cap-v">'+b.cap+'</span>':'<span class="cap-none">No Cap</span>')+'</div>';
+      });
+      inner+='</div></div>';
+    }
+
+    inner+='<div class="price-area"><div class="price-lbl">Prix</div><div class="price-v">'+p.price+'</div></div>';
+    inner+='<div style="font-size:10px;color:var(--text3);margin-bottom:10px;font-weight:400">⏱️ Max 12h par achat</div>';
+    inner+='<button class="btn-buy" onclick="openBuy(\''+p.id+'\','+p.priceNum+',\''+p.name+'\')" '+(full?'disabled>🔒 Complet':'>⚡ Acheter ce slot')+'</button>';
+
+    el.innerHTML=inner;
+    g.appendChild(el);
+  });
 }
 
 async function loadLeaderboard(){
@@ -671,22 +954,30 @@ async function loadLeaderboard(){
     var data=await r.json();
     var t=document.getElementById('lb-list');
 
-    if(!data||!data.length){
-      t.innerHTML='<div class="lb-empty">Aucun joueur pour l\'instant. Sois le premier !</div>';
+    // Only show users who have connected their Discord
+    var filtered=(data||[]).filter(function(u){return u.discordId||u.avatar||u.id;});
+
+    if(!filtered.length){
+      t.innerHTML='<div class="lb-empty">Connecte ton Discord pour apparaître ici. Aucun farmer pour l\'instant.</div>';
       return;
     }
 
     t.innerHTML='';
     var mc=['r1','r2','r3'],re=['🥇','🥈','🥉'];
-    data.forEach(function(u,i){
+    filtered.forEach(function(u,i){
       var row=document.createElement('div');
       row.className='lb-row'+(i<3?' '+mc[i]:'');
+      // Show Discord avatar and username
+      var avatarHtml=u.avatar?'<img src="'+u.avatar+'" alt="">':u.username[0].toUpperCase();
       row.innerHTML=
         '<div class="lb-rank '+(i<3?mc[i]:'other')+'">'+(i<3?re[i]:'#'+(i+1))+'</div>'+
-        '<div class="lb-av">'+(u.avatar?'<img src="'+u.avatar+'" alt="">':u.username[0].toUpperCase())+'</div>'+
-        '<div class="lb-info"><div class="lb-name">'+u.username+'</div><div class="lb-sub">Connecté via Discord</div></div>'+
-        '<div class="lb-j"><div class="lb-jv">'+u.joins+'</div><div class="lb-jl">Joins</div></div>'+
-        '<div><div class="lb-sv">'+u.score.toLocaleString()+'</div><div class="lb-sl">Score</div></div>';
+        '<div class="lb-av">'+avatarHtml+'</div>'+
+        '<div class="lb-info">'+
+          '<div class="lb-name">'+u.username+'</div>'+
+          '<div class="lb-sub">'+(u.discordHandle||('@'+u.username))+'</div>'+
+        '</div>'+
+        '<div class="lb-j"><div class="lb-jv">'+(u.joins||0)+'</div><div class="lb-jl">Joins</div></div>'+
+        '<div><div class="lb-sv">'+(u.score||0).toLocaleString()+'</div><div class="lb-sl">Score</div></div>';
       t.appendChild(row);
     });
   }catch(e){}
@@ -714,9 +1005,9 @@ async function loadRenters(){
         '</div>'+
         '<div class="r-stats">'+
           '<div class="r-stat"><div class="rs-lbl">Steals</div><div class="rs-v">'+u.steals+'</div></div>'+
-          '<div class="r-stat"><div class="rs-lbl">Deposited</div><div class="rs-v money">$'+u.deposited.toFixed(2)+'</div></div>'+
+          '<div class="r-stat"><div class="rs-lbl">Deposited</div><div class="rs-v money">'+u.deposited.toFixed(2)+'€</div></div>'+
         '</div>'+
-        (u.bestSteal?'<div class="r-best"><div class="b-ico">'+bestIco+'</div><div><div class="b-lbl">Best Steal</div><div class="b-name">'+u.bestSteal+'</div><div class="b-val">$'+u.bestStealVal+'</div></div></div>':'');
+        (u.bestSteal?'<div class="r-best"><div class="b-ico">'+bestIco+'</div><div><div class="b-lbl">Best Steal</div><div class="b-name">'+u.bestSteal+'</div><div class="b-val">'+u.bestStealVal+'€</div></div></div>':'');
       g.appendChild(card);
     });
   }catch(e){console.error(e);}
@@ -729,14 +1020,21 @@ function timeLeft(endDate){
   if(h>0)return h+'h '+m+'m';return m+'m';
 }
 
-// ===== SLIDER MODAL =====
-function openBuy(id,price,name,slotId){
+// ========== SLIDER MODAL (max 12h) ==========
+function openBuy(id,price,name,slotId,slotEndDate){
   if(!currentUser||!currentUser.id){location.href='/auth/login';return;}
   extendSlotId=slotId||null;
   currentPlan={id:id,price:price,name:name};
+
+  // Enforce prices
+  if(id==='premium')price=8;
+  if(id==='farmer')price=4;
+  currentPlan.price=price;
+
   document.getElementById('modal-name').textContent=(slotId?'Prolonger ':'Acheter ')+name;
-  document.getElementById('modal-sub').textContent='Glisse pour choisir le nombre d\'heures. Minimum 1h.';
+  document.getElementById('modal-sub').textContent='Glisse pour choisir le nombre d\'heures. Maximum 12h.';
   document.getElementById('modal-ph').textContent=price+'€/h';
+  document.getElementById('modal-hours-range').setAttribute('max','12');
   document.getElementById('modal-hours-range').value=1;
   document.getElementById('modal-hours-disp').textContent='1';
   var balDisplay=isAdmin()?'∞':(currentUser.balance||0).toFixed(2);
@@ -744,18 +1042,23 @@ function openBuy(id,price,name,slotId){
   document.getElementById('modal-err').innerHTML='';
   document.getElementById('balance-warn').classList.remove('show');
   document.getElementById('btn-confirm-buy').disabled=false;
+
+  // Show time remaining if extending
+  var sti=document.getElementById('slot-time-info');
+  if(slotId&&slotEndDate){
+    sti.style.display='flex';
+    document.getElementById('slot-time-text').innerHTML='Slot actif — <strong>'+timeLeft(slotEndDate)+' restantes</strong>';
+  }else{
+    sti.style.display='none';
+  }
+
   updateSlider();
   document.getElementById('buy-modal').style.display='flex';
 }
 
 function updateSlider(){
-  var raw=parseInt(document.getElementById('modal-hours-range').value)||1;
-  // Trouver la valeur "step" la plus proche dans la liste
-  var closest=SLIDER_STEPS.reduce(function(prev,curr){
-    return(Math.abs(curr-raw)<Math.abs(prev-raw)?curr:prev);
-  });
-  // Pas besoin de forcer, mais on affiche la valeur brute
-  var h=raw;
+  var h=parseInt(document.getElementById('modal-hours-range').value)||1;
+  if(h>12)h=12;
   document.getElementById('modal-hours-disp').textContent=h;
   var total=currentPlan.price*h;
   document.getElementById('modal-total').textContent=total.toFixed(2)+'€';
@@ -766,12 +1069,11 @@ function updateSlider(){
   if(!isAdmin()){
     var bal=currentUser&&currentUser.balance||0;
     if(total>bal){
-      var missing=(total-bal).toFixed(2);
       var maxH=Math.floor(bal/currentPlan.price);
       if(maxH<1){
-        warn.textContent='❌ Solde insuffisant ('+bal.toFixed(2)+'€). Dépose du LTC pour acheter au moins 1h.';
+        warn.textContent='❌ Solde insuffisant ('+bal.toFixed(2)+'€). Dépose du LTC d\'abord.';
       }else{
-        warn.textContent='❌ Solde insuffisant. Max payable : '+maxH+'h ('+(maxH*currentPlan.price).toFixed(2)+'€). Il manque '+missing+'€ — dépose du LTC ou réduis les heures.';
+        warn.textContent='❌ Max payable : '+maxH+'h ('+(maxH*currentPlan.price).toFixed(2)+'€). Réduis les heures ou dépose du LTC.';
       }
       warn.classList.add('show');
       confirmBtn.disabled=true;
@@ -790,16 +1092,15 @@ function closeModalOut(e){if(e.target.id==='buy-modal')closeModal();}
 
 async function confirmBuy(){
   var h=parseInt(document.getElementById('modal-hours-range').value)||1;
-  if(h<1){document.getElementById('modal-err').innerHTML='<div class="modal-err">Minimum 1 heure.</div>';return;}
+  if(h<1||h>12){document.getElementById('modal-err').innerHTML='<div class="modal-err">Entre 1 et 12 heures.</div>';return;}
   var total=currentPlan.price*h;
 
   if(!isAdmin()&&(currentUser.balance||0)<total){
-    document.getElementById('modal-err').innerHTML='<div class="modal-err">Solde insuffisant.</div>';
+    closeModal();
+    openDepositModal();
     return;
   }
 
-  // Si solde suffisant → achat direct via API
-  // Sinon (admin) → on passe aussi direct
   try{
     var endpoint=extendSlotId?'/api/extend-slot':'/api/buy-slot';
     var body=extendSlotId?{slotId:extendSlotId,hours:h}:{planId:currentPlan.id,hours:h};
@@ -812,118 +1113,205 @@ async function confirmBuy(){
       alert('✅ '+(extendSlotId?'Slot prolongé':'Slot '+currentPlan.name+' acheté')+' pour '+h+'h ! '+balMsg);
       loadPlans();refreshDepot();
     }else{
-      // Solde insuffisant côté serveur → ouvrir popup paiement LTC
       if(d.error&&(d.error.toLowerCase().includes('solde')||d.error.toLowerCase().includes('balance')||d.error.toLowerCase().includes('insuffisant'))){
         closeModal();
-        openTxModal(h,total);
+        openDepositModal();
       }else{
         document.getElementById('modal-err').innerHTML='<div class="modal-err">'+(d.error||'Erreur')+'</div>';
       }
     }
   }catch(e){
-    // Mode hors ligne / démo : ouvrir la popup TX
     closeModal();
-    openTxModal(h,total);
+    openDepositModal();
   }
 }
 
-// ===== POPUP TRANSACTION =====
-async function openTxModal(hours,totalEur){
-  txPendingHours=hours;
-  txPendingPlan=currentPlan;
-
-  // Récupérer le taux LTC
-  var rate=0;
-  try{
-    var rr=await fetch('/api/ltc-rate');
-    var rd=await rr.json();
-    rate=rd.rate||0;
-    txLtcRate=rate;
-  }catch(e){txLtcRate=0;}
-
-  var ltcAmount=txLtcRate>0?(totalEur/txLtcRate).toFixed(6):'?';
-  document.getElementById('tx-ltc-amount').textContent=ltcAmount+' LTC';
-  document.getElementById('tx-eur-amount').textContent='≈ '+totalEur.toFixed(2)+' EUR';
-
-  // Reset status
-  var fill=document.getElementById('tx-fill');
-  fill.className='tx-status-fill';
-  fill.style.width='0%';
-  document.getElementById('tx-status-msg').textContent='En attente de ta transaction…';
-  document.getElementById('tx-status-msg').className='tx-status-msg';
-  document.getElementById('btn-tx-check').disabled=false;
-
-  document.getElementById('tx-modal').style.display='flex';
+// ========== DEPOSIT MODAL (4 steps) ==========
+function openDepositModal(){
+  if(!currentUser||!currentUser.id){location.href='/auth/login';return;}
+  depAmount=0;depLtcAmount=0;
+  // Reset to step 1
+  depSetStep(1);
+  // Load rate
+  fetch('/api/ltc-rate').then(function(r){return r.json();}).then(function(d){
+    depLtcRate=d.rate||0;
+    renderDepPresets();
+    updateDepositCalc();
+  }).catch(function(){depLtcRate=0;renderDepPresets();});
+  clearInterval(depTimer);
+  document.getElementById('deposit-modal').style.display='flex';
 }
 
-function closeTxModal(){document.getElementById('tx-modal').style.display='none';}
-function closeTxModalOut(e){if(e.target.id==='tx-modal')closeTxModal();}
+function closeDepositModal(){
+  document.getElementById('deposit-modal').style.display='none';
+  clearInterval(depTimer);
+}
 
-async function verifyTxPayment(){
-  var btn=document.getElementById('btn-tx-check');
-  var fill=document.getElementById('tx-fill');
-  var msg=document.getElementById('tx-status-msg');
+function closeDepositOut(e){if(e.target.id==='deposit-modal')closeDepositModal();}
 
-  btn.disabled=true;
-  btn.textContent='⏳ Vérification…';
-  fill.className='tx-status-fill checking';
+function depSetStep(n){
+  for(var i=1;i<=4;i++){
+    var s=document.getElementById('dep-step-'+i);
+    var p=document.getElementById('dep-panel-'+i);
+    s.className='dep-step'+(i<n?' done':i===n?' active':'');
+    if(p)p.style.display=i===n?'block':'none';
+  }
+}
+
+function renderDepPresets(){
+  var g=document.getElementById('dep-presets');
+  g.innerHTML='';
+  DEP_PRESETS.forEach(function(v){
+    var ltcEq=depLtcRate>0?(v/depLtcRate).toFixed(4):'?';
+    var d=document.createElement('div');
+    d.className='dep-preset';
+    d.innerHTML='<div class="dep-preset-val">'+v+'€</div><div class="dep-preset-ltc">≈ '+ltcEq+' LTC</div>';
+    d.onclick=function(){
+      document.querySelectorAll('.dep-preset').forEach(function(x){x.classList.remove('selected');});
+      d.classList.add('selected');
+      document.getElementById('dep-eur-input').value=v;
+      updateDepositCalc();
+    };
+    g.appendChild(d);
+  });
+}
+
+function updateDepositCalc(){
+  var val=parseFloat(document.getElementById('dep-eur-input').value)||0;
+  depAmount=val;
+  var ltc=depLtcRate>0?(val/depLtcRate).toFixed(6):'?';
+  depLtcAmount=depLtcRate>0?(val/depLtcRate):0;
+  document.getElementById('dep-ltc-equiv').textContent='≈ '+ltc+' LTC';
+}
+
+function depStep2(){
+  var val=parseFloat(document.getElementById('dep-eur-input').value)||0;
+  if(val<1){alert('Minimum 1€ pour déposer.');return;}
+  depAmount=val;
+  depLtcAmount=depLtcRate>0?(val/depLtcRate):0;
+  var ltcStr=depLtcAmount.toFixed(6);
+
+  document.getElementById('dep-send-ltc').textContent=ltcStr+' LTC';
+  document.getElementById('dep-send-eur').textContent='≈ '+val.toFixed(2)+' EUR';
+
+  // Generate simple QR code SVG (pattern based on address)
+  generateQR(document.getElementById('dep-qr-svg'),'litecoin:LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9?amount='+ltcStr);
+
+  // Start 10min countdown
+  clearInterval(depTimer);
+  var seconds=600;
+  function tick(){
+    var m=Math.floor(seconds/60),s=seconds%60;
+    document.getElementById('dep-timer-text').textContent='Expire dans '+m+':'+(s<10?'0':'')+s;
+    if(seconds<=0){clearInterval(depTimer);document.getElementById('dep-timer-text').textContent='Expiré';}
+    seconds--;
+  }
+  tick();
+  depTimer=setInterval(tick,1000);
+
+  depSetStep(2);
+}
+
+function depGoBack(from){
+  depSetStep(from-1);
+  if(from===2)clearInterval(depTimer);
+}
+
+function depStep3(){
+  depSetStep(3);
+  var fill=document.getElementById('dep-fill');
+  var msg=document.getElementById('dep-status-msg');
+  fill.className='dep-status-fill checking';
+  msg.textContent='Recherche de ta transaction…';
+  msg.className='dep-status-msg';
+  // Auto-check after 2s
+  setTimeout(depVerify,2000);
+}
+
+async function depVerify(){
+  var fill=document.getElementById('dep-fill');
+  var msg=document.getElementById('dep-status-msg');
+  var btn=document.getElementById('dep-btn-verify');
+  if(btn)btn.disabled=true;
+  fill.className='dep-status-fill checking';
   msg.textContent='Vérification de la blockchain LTC…';
-  msg.className='tx-status-msg';
-
+  msg.className='dep-status-msg';
   try{
     var r=await fetch('/api/deposit/check',{method:'POST'});
     var d=await r.json();
-
-    fill.className='tx-status-fill';
-
+    fill.className='dep-status-fill';
     if(d.added>0){
-      // Transaction détectée
       fill.style.width='100%';
-      msg.textContent='✅ Paiement détecté ! +'+d.added.toFixed(2)+'€ crédités.';
-      msg.className='tx-status-msg ok';
+      msg.textContent='✅ Transaction détectée !';
+      msg.className='dep-status-msg ok';
       currentUser.balance=d.balance;
       renderAuth();
-
-      // Tenter l'achat automatiquement
-      setTimeout(async function(){
-        try{
-          var endpoint=extendSlotId?'/api/extend-slot':'/api/buy-slot';
-          var body=extendSlotId?{slotId:extendSlotId,hours:txPendingHours}:{planId:txPendingPlan.id,hours:txPendingHours};
-          var r2=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-          var d2=await r2.json();
-          if(d2.success){
-            currentUser.balance=d2.balance;
-            renderAuth();
-            msg.textContent='✅ Slot acheté ! Solde restant : '+d2.balance.toFixed(2)+'€';
-            loadPlans();refreshDepot();
-            setTimeout(function(){closeTxModal();},2000);
-          }else{
-            msg.textContent='✅ Crédité mais : '+(d2.error||'erreur lors de l\'achat');
-            msg.className='tx-status-msg err';
-          }
-        }catch(e){msg.textContent='✅ Crédité. Va dans Plans pour acheter.';}
-      },800);
+      document.getElementById('dep-done-val').textContent='+'+d.added.toFixed(2)+'€';
+      clearInterval(depTimer);
+      setTimeout(function(){depSetStep(4);},900);
     }else{
       fill.style.width='15%';
       msg.textContent='Aucun dépôt détecté. Attends quelques minutes puis réessaie.';
-      msg.className='tx-status-msg err';
-      btn.disabled=false;
-      btn.textContent='🔍 J\'ai payé — Vérifier';
+      msg.className='dep-status-msg err';
+      if(btn)btn.disabled=false;
     }
   }catch(e){
     fill.style.width='0%';
     msg.textContent='Erreur de vérification. Réessaie.';
-    msg.className='tx-status-msg err';
-    btn.disabled=false;
-    btn.textContent='🔍 J\'ai payé — Vérifier';
+    msg.className='dep-status-msg err';
+    if(btn)btn.disabled=false;
+  }
+}
+
+// Minimal QR-like SVG generator (decorative — real QR needs a library)
+function generateQR(svgEl,data){
+  // Simple visual placeholder — in production use qrcode.js
+  svgEl.innerHTML='';
+  var size=200,cell=8,cols=Math.floor(size/cell);
+  // Hash the data for a deterministic pattern
+  var hash=0;for(var i=0;i<data.length;i++){hash=(hash*31+data.charCodeAt(i))&0x7FFFFFFF;}
+  var rng=function(){hash=(hash*1103515245+12345)&0x7FFFFFFF;return hash/0x7FFFFFFF;};
+
+  // Draw cells
+  for(var r=0;r<cols;r++){
+    for(var c=0;c<cols;c++){
+      // Force finder patterns (corners)
+      var inFinder=
+        (r<7&&c<7)||(r<7&&c>cols-8)||(r>cols-8&&c<7)||
+        (r>=1&&r<=5&&c>=1&&c<=5&&!(r>=2&&r<=4&&c>=2&&c<=4))||
+        (r>=1&&r<=5&&c>=cols-6&&c<=cols-2&&!(r>=2&&r<=4&&c>=cols-5&&c<=cols-3))||
+        (r>=cols-6&&r<=cols-2&&c>=1&&c<=5&&!(r>=cols-5&&r<=cols-3&&c>=2&&c<=4));
+      var dark=inFinder?true:(rng()>0.5);
+      if(dark){
+        var rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
+        rect.setAttribute('x',c*cell);rect.setAttribute('y',r*cell);
+        rect.setAttribute('width',cell-1);rect.setAttribute('height',cell-1);
+        rect.setAttribute('fill','#000');rect.setAttribute('rx','1');
+        svgEl.appendChild(rect);
+      }
+    }
   }
 }
 
 function copyLTC(){
   navigator.clipboard.writeText('LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9').then(function(){
-    // Visual feedback
-    var btns=document.querySelectorAll('.btn-copy,.btn-tx-copy');
-    btns.forEach(function(b){var orig=b.textContent;b.textContent='✅ Copié !';setTimeout(function(){b.textContent=orig;},1500);});
+    document.querySelectorAll('.btn-copy,.btn-tx-copy,.dep-copy-btn').forEach(function(b){
+      if(b.textContent.includes('adresse')||b.textContent.includes('Adresse')||b.textContent.includes('address')||b.textContent.includes('📋')){
+        var orig=b.textContent;b.textContent='✅ Copié !';setTimeout(function(){b.textContent=orig;},1500);
+      }
+    });
+  });
+}
+
+function copyDepLTC(){
+  var ltcStr=depLtcAmount.toFixed(6);
+  navigator.clipboard.writeText(ltcStr).then(function(){
+    var btns=document.querySelectorAll('.dep-copy-btn');
+    btns.forEach(function(b){
+      if(b.textContent.includes('montant')||b.textContent.includes('LTC')){
+        var orig=b.textContent;b.textContent='✅ Copié !';setTimeout(function(){b.textContent=orig;},1500);
+      }
+    });
   });
 }
 
@@ -1009,9 +1397,9 @@ async function refreshDepot(){
       slots.forEach(function(s){
         var exp=new Date(s.endDate).toLocaleString('fr-FR');
         var tl=timeLeft(s.endDate);
-        html1+='<div class="slot-item"><div><div class="sl-name">'+s.planName+'</div><div class="sl-exp">Expire le '+exp+'</div></div><div class="sl-badge">Actif</div></div>';
+        html1+='<div class="slot-item"><div><div class="sl-name">'+s.planName+'</div><div class="sl-exp">Expire le '+exp+' · <strong style="color:var(--lime)">'+tl+' restantes</strong></div></div><div class="sl-badge">Actif</div></div>';
         var ic=s.planId==='premium'?'💎':s.planId==='bid'?'⚡':'🌿';
-        html2+='<div class="dash-slot"><div class="ds-left"><div class="ds-ico">'+ic+'</div><div><div class="ds-pn">'+s.planName+'</div><div class="ds-pe">Finit dans '+tl+' · Expire le '+exp+'</div></div></div><button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\',\''+s.id+'\')">+ Prolonger</button></div>';
+        html2+='<div class="dash-slot"><div class="ds-left"><div class="ds-ico">'+ic+'</div><div><div class="ds-pn">'+s.planName+'</div><div class="ds-pe">Finit dans <strong style="color:var(--lime)">'+tl+'</strong> · Expire le '+exp+'</div></div></div><button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\',\''+s.id+'\',\''+s.endDate+'\')">+ Prolonger</button></div>';
       });
       if(sl)sl.innerHTML=html1;
       if(dsl)dsl.innerHTML=html2;
