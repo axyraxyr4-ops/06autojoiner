@@ -172,10 +172,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .lb-sv{font-size:14px;font-weight:800;color:var(--accent2);letter-spacing:-.5px;text-align:right;font-family:'IBM Plex Mono',monospace}
 .lb-sl{font-size:8px;color:var(--text3);font-weight:700;letter-spacing:.5px;text-align:right;text-transform:uppercase}
 .lb-empty{text-align:center;padding:60px 20px;color:var(--text3);font-size:13px;font-weight:400}
-.lb-tab{background:var(--bg2);border:1px solid var(--border);color:var(--text3);font-size:12px;font-weight:700;padding:8px 20px;border-radius:20px;cursor:none;font-family:'Syne',sans-serif;transition:all .15s;letter-spacing:.3px;text-transform:uppercase}
-.lb-tab:hover{color:var(--text);border-color:var(--border2)}
-.lb-tab.active{background:rgba(184,255,71,0.08);border-color:rgba(184,255,71,0.3);color:var(--lime)}
-
 
 /* DASHBOARD */
 .dash-wrap{max-width:880px;margin:0 auto;padding:56px 28px 60px}
@@ -404,13 +400,9 @@ footer a:hover{color:var(--lime)}
     <div class="sec-head">
       <div class="sec-pill">🏆 Classement</div>
       <h2 class="sec-h2">Top <span>Farmers</span></h2>
-      <p class="sec-sub">Classement des membres selon leurs dépôts et heures achetées.</p>
+      <p class="sec-sub">Uniquement les membres connectés via Discord.</p>
     </div>
-    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:28px">
-      <button class="lb-tab active" id="lb-tab-dep" onclick="switchLbTab('dep')">💰 Top Dépôts</button>
-      <button class="lb-tab" id="lb-tab-hrs" onclick="switchLbTab('hrs')">⏱️ Top Heures</button>
-    </div>
-    <div class="lb-list" id="lb-list"></div>
+    <div class="lb-list" id="lb-list"><div class="lb-empty">Aucun farmer pour l'instant.</div></div>
   </div>
   <footer><span>© 2026 06Joiner</span></footer>
 </div>
@@ -426,9 +418,9 @@ footer a:hover{color:var(--lime)}
       </div>
     </div>
     <div class="dash-cards">
-      <div class="dash-card"><div class="dc-lbl">Solde</div><div class="dc-val green" id="dash-balance">1000.00€</div></div>
+      <div class="dash-card"><div class="dc-lbl">Solde</div><div class="dc-val green" id="dash-balance">25.00€</div></div>
       <div class="dash-card"><div class="dc-lbl">Slots actifs</div><div class="dc-val purple" id="dash-slots-count">0</div></div>
-      <div class="dash-card"><div class="dc-lbl">Total déposé</div><div class="dc-val" id="dash-total-dep">1000.00€</div></div>
+      <div class="dash-card"><div class="dc-lbl">Total déposé</div><div class="dc-val" id="dash-total-dep">25.00€</div></div>
     </div>
     <div class="dash-st">Mes slots actifs</div>
     <div id="dash-slots-list"><div style="color:var(--text3);font-size:12px;padding:14px 0;font-weight:400">Aucun slot actif. <a onclick="showPage('plans')" style="color:var(--accent2);cursor:none;text-decoration:underline">Acheter un plan</a></div></div>
@@ -444,7 +436,6 @@ footer a:hover{color:var(--lime)}
   <div class="modal-box">
     <div class="modal-t" id="modal-name">Acheter Premium</div>
     <div class="modal-s">Glisse pour choisir le nombre d'heures. Maximum 12h.</div>
-    <div id="modal-extend-info"></div>
     <div class="modal-row"><span class="modal-lbl">Prix/heure</span><span class="modal-val" id="modal-ph">8€</span></div>
     <div class="modal-row"><span class="modal-lbl">Ton solde</span><span class="modal-val" id="modal-bal">0€</span></div>
     <div class="slider-section">
@@ -647,8 +638,8 @@ footer a:hover{color:var(--lime)}
 
 // ===== STATE (LOCAL — pas de serveur) =====
 var state={
-  balance:1000.00,
-  totalDeposited:1000.00,
+  balance:25.00,
+  totalDeposited:25.00,
   slots:[],
   nextSlotId:1
 };
@@ -771,10 +762,9 @@ function renderPlans(){
   });
 }
 
-function openBuy(id,price,name,existingSlotId){
-  currentPlan={id:id,price:price,name:name,existingSlotId:existingSlotId||null};
-  var isExtend=!!existingSlotId;
-  document.getElementById('modal-name').textContent=(isExtend?'Prolonger ':'Acheter ')+name;
+function openBuy(id,price,name){
+  currentPlan={id:id,price:price,name:name};
+  document.getElementById('modal-name').textContent='Acheter '+name;
   document.getElementById('modal-ph').textContent=price+'€/h';
   document.getElementById('modal-hours-range').value=1;
   document.getElementById('modal-hours-disp').textContent='1';
@@ -782,15 +772,6 @@ function openBuy(id,price,name,existingSlotId){
   document.getElementById('modal-err').innerHTML='';
   document.getElementById('balance-warn').classList.remove('show');
   document.getElementById('btn-confirm-buy').disabled=false;
-  // Afficher info slot actuel si prolongation
-  var infoEl=document.getElementById('modal-extend-info');
-  if(isExtend){
-    var slot=state.slots.find(function(s){return s.id===existingSlotId;});
-    if(slot){
-      var tl=timeLeft(slot.endDate);
-      infoEl.innerHTML='<div style="background:rgba(91,59,255,.08);border:1px solid rgba(91,59,255,.25);border-radius:8px;padding:9px 13px;font-size:11px;color:var(--accent2);margin-bottom:10px;display:flex;align-items:center;gap:7px"><span>⏳</span><span>Slot actif — <strong style="color:var(--text)">'+tl+' restantes</strong>. Les heures ajoutées s\'accumulent.</span></div>';
-    }
-  }else{infoEl.innerHTML='';}
   updateSlider();
   document.getElementById('buy-modal').style.display='flex';
 }
@@ -816,24 +797,8 @@ function confirmBuy(){
   var h=parseInt(document.getElementById('modal-hours-range').value)||1;
   var total=currentPlan.price*h;
   if(total>state.balance){openDepositModal();closeModal();return;}
+  // Acheter le slot
   state.balance-=total;
-
-  if(currentPlan.existingSlotId){
-    // PROLONGATION : ajouter les heures au temps restant
-    var slot=state.slots.find(function(s){return s.id===currentPlan.existingSlotId;});
-    if(slot){
-      var currentEnd=new Date(slot.endDate);
-      var base=currentEnd>new Date()?currentEnd:new Date();
-      slot.endDate=new Date(base.getTime()+h*3600000).toISOString();
-      slot.hours=(slot.hours||0)+h;
-      renderNav();renderPlans();renderDashboard();
-      closeModal();
-      toast('⏳ +'+h+'h ajoutées ! Slot '+currentPlan.name+' : '+timeLeft(slot.endDate)+' restantes');
-      return;
-    }
-  }
-
-  // NOUVEL ACHAT
   var endDate=new Date(Date.now()+h*3600000);
   var slot={
     id:state.nextSlotId++,
@@ -845,7 +810,8 @@ function confirmBuy(){
   planSlots[currentPlan.id].used++;
   renderNav();renderPlans();renderDashboard();
   closeModal();
-  toast('✅ Slot '+currentPlan.name+' acheté pour '+h+'h ! Solde : '+state.balance.toFixed(2)+'€');
+  toast('✅ Slot '+currentPlan.name+' acheté pour '+h+'h ! Solde restant : '+state.balance.toFixed(2)+'€');
+  // Ajouter dans renters
   addToRenters(slot);
 }
 
@@ -878,7 +844,7 @@ function renderDashboard(){
   state.slots.forEach(function(s){
     var exp=new Date(s.endDate).toLocaleString('fr-FR');var tl=timeLeft(s.endDate);
     var ic=s.planId==='premium'?'💎':s.planId==='bid'?'⚡':'🌿';
-    html+='<div class="dash-slot"><div class="ds-left"><div class="ds-ico">'+ic+'</div><div><div class="ds-pn">'+s.planName+'</div><div class="ds-pe">Finit dans <strong style="color:var(--lime)">'+tl+'</strong> · Expire le '+exp+'</div></div></div><button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\','+s.id+')">+ Prolonger</button></div>';
+    html+='<div class="dash-slot"><div class="ds-left"><div class="ds-ico">'+ic+'</div><div><div class="ds-pn">'+s.planName+'</div><div class="ds-pe">Finit dans <strong style="color:var(--lime)">'+tl+'</strong> · Expire le '+exp+'</div></div></div><button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\')">+ Prolonger</button></div>';
   });
   dsl.innerHTML=html;
 }
@@ -1016,65 +982,8 @@ function copyDepLTC(){
   navigator.clipboard.writeText(depLtcAmount.toFixed(6)).then(function(){toast('🔢 Montant LTC copié !');});
 }
 
-// ===== LEADERBOARD =====
-var lbCurrentTab='dep';
-var lbData=[
-  {username:'06wzz',handle:'@06wzz',deposited:1000.00,hours:0,avatar:null},
-];
-
-function switchLbTab(tab){
-  lbCurrentTab=tab;
-  document.querySelectorAll('.lb-tab').forEach(function(b){b.classList.remove('active');});
-  document.getElementById('lb-tab-'+tab).classList.add('active');
-  renderLeaderboard();
-}
-
-function renderLeaderboard(){
-  var sorted=lbData.slice().sort(function(a,b){
-    return lbCurrentTab==='dep'?(b.deposited-a.deposited):(b.hours-a.hours);
-  });
-  var t=document.getElementById('lb-list');
-  if(!sorted.length){t.innerHTML='<div class="lb-empty">Aucun farmer pour l'instant.</div>';return;}
-  t.innerHTML='';
-  var mc=['r1','r2','r3'],re=['🥇','🥈','🥉'];
-  sorted.forEach(function(u,i){
-    var row=document.createElement('div');row.className='lb-row'+(i<3?' '+mc[i]:'');
-    var avatarHtml=u.avatar?'<img src="'+u.avatar+'" alt="">':u.username[0].toUpperCase();
-    var valMain=lbCurrentTab==='dep'?u.deposited.toFixed(2)+'€':u.hours+'h';
-    var valSub=lbCurrentTab==='dep'?'Déposé':'Heures achetées';
-    var val2=lbCurrentTab==='dep'?u.hours+'h achetées':u.deposited.toFixed(2)+'€ déposés';
-    row.innerHTML='<div class="lb-rank '+(i<3?mc[i]:'other')+'">'+(i<3?re[i]:'#'+(i+1))+'</div>'+
-      '<div class="lb-av">'+avatarHtml+'</div>'+
-      '<div class="lb-info"><div class="lb-name">'+u.username+'</div><div class="lb-sub">'+u.handle+' · '+val2+'</div></div>'+
-      '<div><div class="lb-sv">'+valMain+'</div><div class="lb-sl">'+valSub+'</div></div>';
-    t.appendChild(row);
-  });
-}
-
-function addToLeaderboard(username,handle,depositAmt,hoursAmt){
-  var existing=lbData.find(function(u){return u.username===username;});
-  if(existing){existing.deposited+=depositAmt||0;existing.hours+=hoursAmt||0;}
-  else{lbData.push({username:username,handle:handle||('@'+username),deposited:depositAmt||0,hours:hoursAmt||0,avatar:null});}
-  renderLeaderboard();
-}
-
-// Patch confirmBuy to update leaderboard hours
-var _origConfirmBuy=confirmBuy;
-confirmBuy=function(){
-  var h=parseInt(document.getElementById('modal-hours-range').value)||1;
-  _origConfirmBuy();
-  addToLeaderboard('06wzz','@06wzz',0,h);
-};
-
-// Patch depVerifyDemo to update leaderboard deposits
-var _origDepVerify=depVerifyDemo;
-depVerifyDemo=function(){
-  _origDepVerify();
-  setTimeout(function(){addToLeaderboard('06wzz','@06wzz',depAmount,0);},2000);
-};
-
 // Init
-renderNav();renderPlans();renderLeaderboard();
+renderNav();renderPlans();
 </script>
 </body>
 </html>
