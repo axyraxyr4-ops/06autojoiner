@@ -227,7 +227,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .btn-confirm:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .modal-err{color:var(--red);font-size:11px;text-align:center;margin-top:7px;font-weight:700}
 
-/* MODAL DÉPÔT amélioré */
+/* MODAL DÉPÔT */
 .deposit-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:550;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
 .deposit-box{background:var(--bg2);border:1px solid rgba(0,232,160,.22);border-radius:18px;width:480px;max-width:92vw;animation:fadeUp .2s ease;overflow:hidden}
 .dep-steps{display:flex;align-items:center;padding:20px 26px 0;margin-bottom:22px;gap:0}
@@ -244,7 +244,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .dep-title{font-size:20px;font-weight:800;letter-spacing:-.8px;margin-bottom:4px}
 .dep-sub{font-size:12px;color:var(--text2);margin-bottom:20px;font-weight:400;line-height:1.6}
 
-/* LTC Calc box — NOUVEAU */
+/* LTC Calc box */
 .ltc-calc-box{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px}
 .ltc-calc-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .ltc-calc-inp{background:var(--bg4);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);font-size:20px;font-family:'IBM Plex Mono',monospace;font-weight:700;outline:none;flex:1;transition:border-color .15s}
@@ -435,12 +435,12 @@ footer a:hover{color:var(--lime)}
 <div id="buy-modal" style="display:none" class="modal-overlay" onclick="closeModalOut(event)">
   <div class="modal-box">
     <div class="modal-t" id="modal-name">Acheter Premium</div>
-    <div class="modal-s">Glisse pour choisir le nombre d'heures. Maximum 12h.</div>
+    <div class="modal-s" id="modal-sub-text">Glisse pour choisir le nombre d'heures. Maximum 12h.</div>
     <div class="modal-row"><span class="modal-lbl">Prix/heure</span><span class="modal-val" id="modal-ph">8€</span></div>
     <div class="modal-row"><span class="modal-lbl">Ton solde</span><span class="modal-val" id="modal-bal">0€</span></div>
     <div class="slider-section">
       <div class="slider-top">
-        <span class="slider-lbl">Heures</span>
+        <span class="slider-lbl">Heures à ajouter</span>
         <div><span class="slider-val" id="modal-hours-disp">1</span><span class="slider-unit"> h</span></div>
       </div>
       <input type="range" id="modal-hours-range" min="1" max="12" value="1" oninput="updateSlider()">
@@ -477,7 +477,6 @@ footer a:hover{color:var(--lime)}
         <div class="dep-title">💶 Combien veux-tu déposer ?</div>
         <div class="dep-sub">Choisis un montant ou saisis le tien. Tu verras exactement combien de LTC envoyer.</div>
         <div class="dep-presets-grid" id="dep-presets"></div>
-        <!-- LTC CALC BOX -->
         <div class="ltc-calc-box">
           <div class="ltc-calc-row">
             <input class="ltc-calc-inp" id="dep-eur-input" type="number" min="1" step="1" placeholder="Montant en €" oninput="updateDepositCalc()">
@@ -555,13 +554,50 @@ footer a:hover{color:var(--lime)}
 </div>
 
 <script>
+// ===== BLOQUER DEVTOOLS / F12 / CLIC DROIT =====
+(function(){
+  // Bloquer clic droit
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); return false; });
+
+  // Bloquer raccourcis clavier DevTools
+  document.addEventListener('keydown', function(e){
+    // F12
+    if(e.key === 'F12'){ e.preventDefault(); return false; }
+    // Ctrl+Shift+I / Cmd+Option+I
+    if((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')){ e.preventDefault(); return false; }
+    // Ctrl+Shift+J / Cmd+Option+J
+    if((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j')){ e.preventDefault(); return false; }
+    // Ctrl+Shift+C / Cmd+Option+C
+    if((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c')){ e.preventDefault(); return false; }
+    // Ctrl+U (view source)
+    if((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u')){ e.preventDefault(); return false; }
+    // Ctrl+S (save)
+    if((e.ctrlKey || e.metaKey) && (e.key === 'S' || e.key === 's')){ e.preventDefault(); return false; }
+  });
+
+  // Détecter si DevTools est ouvert (taille window change)
+  var devtoolsOpen = false;
+  setInterval(function(){
+    var threshold = 160;
+    var widthDiff = window.outerWidth - window.innerWidth;
+    var heightDiff = window.outerHeight - window.innerHeight;
+    if(widthDiff > threshold || heightDiff > threshold){
+      if(!devtoolsOpen){
+        devtoolsOpen = true;
+        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#050507;color:#B8FF47;font-family:monospace;font-size:20px;font-weight:bold;flex-direction:column;gap:12px"><div>🚫 DevTools détectées.</div><div style="font-size:13px;color:#4A4468">Ferme l\'inspecteur pour continuer.</div></div>';
+      }
+    } else {
+      if(devtoolsOpen){ location.reload(); }
+    }
+  }, 500);
+})();
+
 // ===== CURSOR PREMIUM =====
 (function(){
   var dot=document.getElementById('c-dot');
   var ring=document.getElementById('c-ring');
   var px=0,py=0,rx=0,ry=0;
   var sparks=[];
-  // Créer 6 sparks
   for(var i=0;i<6;i++){
     var s=document.createElement('div');
     s.className='c-spark';
@@ -573,7 +609,6 @@ footer a:hover{color:var(--lime)}
     px=e.clientX;py=e.clientY;
     dot.style.left=px+'px';dot.style.top=py+'px';
   });
-  // Ring smooth follow
   var rLastT=0;
   function animRing(t){
     var dt=Math.min((t-rLastT)/1000,0.05);rLastT=t;
@@ -581,7 +616,6 @@ footer a:hover{color:var(--lime)}
     rx+=(px-rx)*spd*dt;
     ry+=(py-ry)*spd*dt;
     ring.style.left=rx+'px';ring.style.top=ry+'px';
-    // Distorsion en fonction de la vitesse
     var dx=px-rx,dy=py-ry;
     var speed=Math.sqrt(dx*dx+dy*dy);
     var scale=1+Math.min(speed*0.003,0.35);
@@ -590,7 +624,6 @@ footer a:hover{color:var(--lime)}
     requestAnimationFrame(animRing);
   }
   requestAnimationFrame(animRing);
-  // Sparks on click
   document.addEventListener('mousedown',function(){
     document.body.classList.add('clk');
     for(var i=0;i<6;i++){
@@ -625,7 +658,6 @@ footer a:hover{color:var(--lime)}
     requestAnimationFrame(animSparks);
   });
   document.addEventListener('mouseup',function(){document.body.classList.remove('clk');});
-  // Hover
   function bindHover(){
     document.querySelectorAll('button,a,[onclick],.feat,.plan-card,.renter-card,.lb-row,.dep-preset,.balance-chip,.user-chip').forEach(function(el){
       if(el._hovBound)return;el._hovBound=true;
@@ -636,16 +668,16 @@ footer a:hover{color:var(--lime)}
   bindHover();setInterval(bindHover,1500);
 })();
 
-// ===== STATE (LOCAL — pas de serveur) =====
+// ===== STATE =====
 var state={
   balance:25.00,
   totalDeposited:25.00,
   slots:[],
   nextSlotId:1
 };
-// Slots compteur par plan (commence à 0)
 var planSlots={premium:{used:0,total:6},farmer:{used:0,total:4},bid:{used:0,total:1}};
 var currentPlan=null;
+var extendSlotId=null; // ID du slot à prolonger (null = nouveau slot)
 var depAmount=0,depLtcAmount=0,depLtcRate=84.50,depTimer=null;
 
 var ICONS={
@@ -680,16 +712,15 @@ var FARMER_BRAINROTS=[
   {name:'Swaggy Bros',cap:'450M'},{name:'Chicleteira Noelteira',cap:'400M'}
 ];
 
+// PREMIUM : brainrots sans les 6 du screenshot (Tung Tung Sahur, Dragon Cannelloni, Chillin Chili, Chicleteira Noelteira, Bacuru And Egguru, Burguro And Fryuro)
 var PLANS=[
   {
     id:'premium',name:'Premium',featured:true,priceNum:8,price:'8€/h',
     maxGen:'Illimité',desc:'Notifications sans limite de génération.',
     brainrots:[
-      {name:'Tralalero Tralala',cap:null},{name:'Bombardiro Crocodilo',cap:null},
-      {name:'Brr Brr Patapim',cap:null},{name:'Tung Tung Sahur',cap:null},
-      {name:'Dragon Cannelloni',cap:null},{name:'Chillin Chili',cap:'500M'},
-      {name:'Chicleteira Noelteira',cap:'400M'},{name:'Bacuru And Egguru',cap:null},
-      {name:'Burguro And Fryuro',cap:'150M'}
+      {name:'Tralalero Tralala',cap:null},
+      {name:'Bombardiro Crocodilo',cap:null},
+      {name:'Brr Brr Patapim',cap:null}
     ]
   },
   {
@@ -757,14 +788,24 @@ function renderPlans(){
     }
     inner+='<div class="price-area"><div class="price-lbl">Prix</div><div class="price-v">'+p.price+'</div></div>';
     inner+='<div style="font-size:10px;color:var(--text3);margin-bottom:10px;font-weight:400">⏱️ Max 12h par achat</div>';
-    inner+='<button class="btn-buy" onclick="openBuy(\''+p.id+'\','+p.priceNum+',\''+p.name+'\')" '+(full?'disabled>🔒 Complet':'>⚡ Acheter ce slot')+'</button>';
+    inner+='<button class="btn-buy" onclick="openBuy(\''+p.id+'\','+p.priceNum+',\''+p.name+'\',null)" '+(full?'disabled>🔒 Complet':'>⚡ Acheter ce slot')+'</button>';
     el.innerHTML=inner;g.appendChild(el);
   });
 }
 
-function openBuy(id,price,name){
+// openBuy: slotId = null → nouveau slot | slotId = id → prolonger ce slot
+function openBuy(id, price, name, slotId){
   currentPlan={id:id,price:price,name:name};
-  document.getElementById('modal-name').textContent='Acheter '+name;
+  extendSlotId = slotId; // null = nouveau, sinon prolonger
+
+  if(slotId !== null && slotId !== undefined){
+    document.getElementById('modal-name').textContent='Prolonger '+name;
+    document.getElementById('modal-sub-text').textContent='Choisir combien d\'heures ajouter à ton slot actif. Maximum 12h.';
+  } else {
+    document.getElementById('modal-name').textContent='Acheter '+name;
+    document.getElementById('modal-sub-text').textContent='Glisse pour choisir le nombre d\'heures. Maximum 12h.';
+  }
+
   document.getElementById('modal-ph').textContent=price+'€/h';
   document.getElementById('modal-hours-range').value=1;
   document.getElementById('modal-hours-disp').textContent='1';
@@ -790,29 +831,46 @@ function updateSlider(){
   }else{warn.classList.remove('show');confirmBtn.disabled=false;}
 }
 
-function closeModal(){document.getElementById('buy-modal').style.display='none';}
+function closeModal(){document.getElementById('buy-modal').style.display='none';extendSlotId=null;}
 function closeModalOut(e){if(e.target.id==='buy-modal')closeModal();}
 
 function confirmBuy(){
   var h=parseInt(document.getElementById('modal-hours-range').value)||1;
   var total=currentPlan.price*h;
   if(total>state.balance){openDepositModal();closeModal();return;}
-  // Acheter le slot
+
   state.balance-=total;
-  var endDate=new Date(Date.now()+h*3600000);
-  var slot={
-    id:state.nextSlotId++,
-    planId:currentPlan.id,planName:currentPlan.name,
-    pricePerHour:currentPlan.price,hours:h,
-    endDate:endDate.toISOString()
-  };
-  state.slots.push(slot);
-  planSlots[currentPlan.id].used++;
-  renderNav();renderPlans();renderDashboard();
-  closeModal();
-  toast('✅ Slot '+currentPlan.name+' acheté pour '+h+'h ! Solde restant : '+state.balance.toFixed(2)+'€');
-  // Ajouter dans renters
-  addToRenters(slot);
+
+  if(extendSlotId !== null && extendSlotId !== undefined){
+    // === PROLONGER : ajouter les heures au slot existant ===
+    var slot = state.slots.find(function(s){ return s.id === extendSlotId; });
+    if(slot){
+      var now = Date.now();
+      var currentEnd = new Date(slot.endDate).getTime();
+      // Si déjà expiré, on repart de maintenant ; sinon on ajoute
+      var baseTime = Math.max(now, currentEnd);
+      slot.endDate = new Date(baseTime + h * 3600000).toISOString();
+      slot.hours += h;
+      renderNav();renderDashboard();
+      closeModal();
+      toast('✅ Slot '+currentPlan.name+' prolongé de +'+h+'h ! Solde restant : '+state.balance.toFixed(2)+'€');
+    }
+  } else {
+    // === NOUVEAU SLOT ===
+    var endDate=new Date(Date.now()+h*3600000);
+    var newSlot={
+      id:state.nextSlotId++,
+      planId:currentPlan.id,planName:currentPlan.name,
+      pricePerHour:currentPlan.price,hours:h,
+      endDate:endDate.toISOString()
+    };
+    state.slots.push(newSlot);
+    planSlots[currentPlan.id].used++;
+    renderNav();renderPlans();renderDashboard();
+    closeModal();
+    toast('✅ Slot '+currentPlan.name+' acheté pour '+h+'h ! Solde restant : '+state.balance.toFixed(2)+'€');
+    addToRenters(newSlot);
+  }
 }
 
 function addToRenters(slot){
@@ -844,7 +902,8 @@ function renderDashboard(){
   state.slots.forEach(function(s){
     var exp=new Date(s.endDate).toLocaleString('fr-FR');var tl=timeLeft(s.endDate);
     var ic=s.planId==='premium'?'💎':s.planId==='bid'?'⚡':'🌿';
-    html+='<div class="dash-slot"><div class="ds-left"><div class="ds-ico">'+ic+'</div><div><div class="ds-pn">'+s.planName+'</div><div class="ds-pe">Finit dans <strong style="color:var(--lime)">'+tl+'</strong> · Expire le '+exp+'</div></div></div><button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\')">+ Prolonger</button></div>';
+    // Bouton Prolonger passe l'ID du slot
+    html+='<div class="dash-slot"><div class="ds-left"><div class="ds-ico">'+ic+'</div><div><div class="ds-pn">'+s.planName+'</div><div class="ds-pe">Finit dans <strong style="color:var(--lime)">'+tl+'</strong> · Expire le '+exp+'</div></div></div><button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\','+s.id+')">+ Prolonger</button></div>';
   });
   dsl.innerHTML=html;
 }
@@ -853,7 +912,6 @@ function renderDashboard(){
 function openDepositModal(){
   depAmount=0;depLtcAmount=0;
   depSetStep(1);
-  // Utilise taux LTC local (ou fetch si dispo)
   var rate=84.50;
   try{
     fetch('/api/ltc-rate').then(function(r){return r.json();}).then(function(d){
@@ -936,14 +994,12 @@ function depStep3(){
   fill.className='dep-status-fill checking';msg.textContent='Recherche de ta transaction…';msg.className='dep-status-msg';
 }
 
-// DEMO : simule la détection d'un dépôt
 function depVerifyDemo(){
   var fill=document.getElementById('dep-fill');var msg=document.getElementById('dep-status-msg');var btn=document.getElementById('dep-btn-verify');
   btn.disabled=true;fill.className='dep-status-fill checking';msg.textContent='Vérification blockchain…';msg.className='dep-status-msg';
   setTimeout(function(){
     fill.className='dep-status-fill';fill.style.width='100%';
     msg.textContent='✅ Transaction détectée !';msg.className='dep-status-msg ok';
-    // Créditer le solde
     state.balance+=depAmount;state.totalDeposited+=depAmount;
     renderNav();
     document.getElementById('dep-done-val').textContent='+'+depAmount.toFixed(2)+'€';
