@@ -1,5 +1,3 @@
-html
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,9 +7,11 @@ html
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+/* ===== CUSTOM CURSOR ===== */
 *{cursor:none!important}
 #cursor{position:fixed;width:10px;height:10px;background:var(--lime);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform .08s ease,background .2s,width .2s,height .2s;mix-blend-mode:difference}
 #cursor-ring{position:fixed;width:32px;height:32px;border:1.5px solid rgba(184,255,71,0.55);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:transform .18s cubic-bezier(.16,1,.3,1),width .25s cubic-bezier(.16,1,.3,1),height .25s cubic-bezier(.16,1,.3,1),border-color .2s,opacity .2s}
+#cursor-trail{position:fixed;width:5px;height:5px;background:rgba(184,255,71,0.25);border-radius:50%;pointer-events:none;z-index:99997;transform:translate(-50%,-50%);transition:transform .35s ease}
 body.cursor-hover #cursor{width:16px;height:16px;background:var(--lime2)}
 body.cursor-hover #cursor-ring{width:48px;height:48px;border-color:rgba(184,255,71,0.35)}
 body.cursor-click #cursor{width:6px;height:6px}
@@ -28,36 +28,9 @@ body.cursor-click #cursor-ring{width:22px;height:22px;border-color:rgba(184,255,
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden}
+
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
 body::before{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(91,59,255,0.15) 0%,transparent 70%);pointer-events:none;z-index:0}
-
-/* ===== CAPTCHA SCREEN ===== */
-#captcha-screen{position:fixed;inset:0;background:var(--bg);z-index:100000;display:flex;align-items:center;justify-content:center;flex-direction:column}
-.cap-box{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px 36px;width:400px;max-width:92vw;text-align:center}
-.cap-logo{width:48px;height:48px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff;font-family:'IBM Plex Mono',monospace;margin:0 auto 20px}
-.cap-title{font-size:22px;font-weight:800;letter-spacing:-.8px;margin-bottom:8px}
-.cap-sub{font-size:12px;color:var(--text2);margin-bottom:28px;line-height:1.6;font-weight:400}
-.cap-challenge{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
-.cap-challenge-lbl{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
-.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.cap-tile{background:var(--bg4);border:2px solid var(--border);border-radius:8px;padding:14px 8px;cursor:none;transition:all .15s;font-size:22px;text-align:center;user-select:none}
-.cap-tile:hover{border-color:var(--accent2);background:rgba(91,59,255,.08)}
-.cap-tile.selected{border-color:var(--lime);background:rgba(184,255,71,.08)}
-.cap-tile.wrong{border-color:var(--red);background:rgba(255,59,92,.08);animation:shake .3s ease}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.cap-instruction{font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px}
-.cap-instruction span{color:var(--lime)}
-.cap-counter{font-size:10px;color:var(--text3);font-weight:400}
-.cap-progress{height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-top:12px}
-.cap-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--lime));border-radius:2px;transition:width .4s ease}
-.btn-cap{width:100%;padding:13px;background:var(--lime);color:#050507;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:none;font-family:'Syne',sans-serif;transition:all .2s;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
-.btn-cap:hover{background:var(--lime2);transform:translateY(-1px)}
-.btn-cap:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.cap-err{font-size:11px;color:var(--red);font-weight:700;margin-top:10px;min-height:18px}
-.cap-success{text-align:center;padding:20px 0}
-.cap-success-icon{font-size:52px;margin-bottom:14px}
-.cap-success-title{font-size:20px;font-weight:800;letter-spacing:-.7px;color:var(--green);margin-bottom:6px}
-.cap-success-sub{font-size:12px;color:var(--text2);font-weight:400}
 
 nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .nav-logo{display:flex;align-items:center;gap:9px;cursor:none;text-decoration:none;flex-shrink:0}
@@ -68,9 +41,11 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .nav-btn:hover{color:var(--text);background:var(--bg3)}
 .nav-btn.active{color:var(--lime);background:rgba(184,255,71,0.07)}
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+
 .btn-discord{background:#5865F2;color:#fff;border:none;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:none;font-family:'Syne',sans-serif;display:flex;align-items:center;gap:6px;transition:all .15s;text-transform:uppercase;letter-spacing:.3px}
 .btn-discord:hover{background:#4752C4;transform:translateY(-1px)}
 .btn-discord svg{width:18px;height:18px;flex-shrink:0}
+
 .user-chip{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:3px 11px 3px 3px;cursor:none;transition:border-color .15s}
 .user-chip:hover{border-color:var(--border2)}
 .user-chip img{width:22px;height:22px;border-radius:50%}
@@ -85,6 +60,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .page.active{display:block;animation:fadeUp .2s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
+/* HOME */
 .home-wrap{max-width:880px;margin:0 auto;padding:90px 28px 60px}
 .live-pill{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(184,255,71,0.25);background:rgba(184,255,71,0.06);color:var(--lime);font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:28px}
 .pulse-dot{width:5px;height:5px;background:var(--lime);border-radius:50%;animation:pls 1.4s infinite}
@@ -97,6 +73,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .btn-primary:hover{background:var(--lime2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,255,71,0.25)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2);padding:12px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:none;font-family:'Syne',sans-serif;transition:all .15s;letter-spacing:.3px;text-transform:uppercase}
 .btn-ghost:hover{color:var(--text);border-color:var(--accent2)}
+
 .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .feat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;transition:border-color .2s}
 .feat:hover{border-color:var(--border2)}
@@ -104,12 +81,14 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .feat-t{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;letter-spacing:-.2px}
 .feat-d{font-size:11px;color:var(--text2);line-height:1.65;font-weight:400}
 
+/* PLANS */
 .plans-wrap{max-width:1020px;margin:0 auto;padding:56px 28px 60px}
 .sec-head{text-align:center;margin-bottom:40px}
 .sec-pill{display:inline-block;border:1px solid rgba(91,59,255,0.4);background:rgba(91,59,255,0.08);color:var(--accent2);font-size:9px;font-weight:700;padding:4px 11px;border-radius:20px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px}
 .sec-h2{font-size:32px;font-weight:800;letter-spacing:-1.5px;margin-bottom:8px}
 .sec-h2 span{color:var(--lime)}
 .sec-sub{color:var(--text2);font-size:13px;font-weight:400}
+
 .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .plan-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;display:flex;flex-direction:column;transition:all .2s}
 .plan-card:hover{border-color:var(--border2);transform:translateY(-2px)}
@@ -148,6 +127,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .btn-buy:hover{background:var(--lime2);transform:translateY(-1px)}
 .btn-buy:disabled{opacity:.35;cursor:not-allowed;transform:none;background:var(--bg4);color:var(--text3)}
 
+/* RENTERS */
 .renters-wrap{max-width:1020px;margin:0 auto;padding:56px 28px 60px}
 .renters-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:14px}
 .ac-box{display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 16px}
@@ -173,8 +153,14 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .rs-lbl{font-size:8px;color:var(--text3);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px}
 .rs-v{font-size:16px;font-weight:800;letter-spacing:-.6px;font-family:'IBM Plex Mono',monospace}
 .rs-v.money{color:var(--green)}
+.r-best{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:9px}
+.b-ico{width:28px;height:28px;background:var(--bg4);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.b-lbl{font-size:8px;color:var(--text3);font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.b-name{font-size:11px;font-weight:700;color:var(--text);letter-spacing:-.2px}
+.b-val{font-size:10px;color:var(--gold);font-weight:700;font-family:'IBM Plex Mono',monospace}
 .no-r{text-align:center;padding:60px 20px;color:var(--text3);font-size:13px;font-weight:400;grid-column:1/-1}
 
+/* LEADERBOARD */
 .lb-wrap{max-width:660px;margin:0 auto;padding:56px 28px 60px}
 .lb-list{display:flex;flex-direction:column;gap:8px}
 .lb-row{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;transition:all .2s}
@@ -196,6 +182,35 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .lb-sl{font-size:8px;color:var(--text3);font-weight:700;letter-spacing:.5px;text-align:right;text-transform:uppercase}
 .lb-empty{text-align:center;padding:60px 20px;color:var(--text3);font-size:13px;font-weight:400}
 
+/* DEPOT */
+.depot-wrap{max-width:820px;margin:0 auto;padding:56px 28px 60px}
+.depot-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+.depot-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px}
+.d-title{font-size:16px;font-weight:800;letter-spacing:-.5px;margin-bottom:5px}
+.d-sub{font-size:12px;color:var(--text2);margin-bottom:18px;line-height:1.55;font-weight:400}
+.ltc-addr{background:var(--bg3);border:1px solid rgba(91,59,255,.3);border-radius:9px;padding:11px 13px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent2);word-break:break-all;margin-bottom:9px;line-height:1.7}
+.rate-box{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:9px 13px;font-size:11px;color:var(--text2);margin-bottom:11px;line-height:1.6;font-weight:400}
+.rate-box strong{color:var(--gold);font-family:'IBM Plex Mono',monospace}
+.min-w{font-size:10px;color:var(--red);text-align:center;margin-bottom:12px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.btn-copy{width:100%;padding:9px;background:var(--bg3);color:var(--accent2);border:1px solid rgba(91,59,255,.3);border-radius:7px;cursor:none;font-family:'Syne',sans-serif;font-weight:700;margin-bottom:9px;font-size:12px;transition:all .15s;text-transform:uppercase;letter-spacing:.3px}
+.btn-copy:hover{background:var(--bg4)}
+.btn-check{width:100%;padding:11px;background:rgba(0,232,160,.07);color:var(--green);border:1px solid rgba(0,232,160,.25);border-radius:9px;cursor:none;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;transition:all .15s;text-transform:uppercase;letter-spacing:.5px}
+.btn-check:hover{background:rgba(0,232,160,.13)}
+.bal-box{background:rgba(0,232,160,.05);border:1px solid rgba(0,232,160,.18);border-radius:10px;padding:18px;text-align:center;margin-bottom:14px}
+.bal-lbl{font-size:9px;color:rgba(0,232,160,.6);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.bal-num{font-size:34px;font-weight:800;color:var(--green);letter-spacing:-2px;font-family:'IBM Plex Mono',monospace}
+.bal-cur{font-size:14px;color:rgba(0,232,160,.6);font-family:'IBM Plex Mono',monospace}
+.slots-hdr{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:7px}
+.slot-item{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.sl-name{font-size:12px;font-weight:700;color:var(--text);letter-spacing:-.2px}
+.sl-exp{font-size:10px;color:var(--text3);margin-top:1px;font-weight:400}
+.sl-badge{font-size:10px;font-weight:700;color:var(--green);background:rgba(0,232,160,.07);padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.3px}
+.no-slots{font-size:12px;color:var(--text3);text-align:center;padding:14px;font-weight:400}
+.status-msg{margin-top:9px;padding:9px 13px;border-radius:7px;font-size:12px;text-align:center;font-weight:700}
+.status-ok{background:rgba(0,232,160,.07);color:var(--green);border:1px solid rgba(0,232,160,.2)}
+.status-err{background:rgba(255,59,92,.07);color:var(--red);border:1px solid rgba(255,59,92,.2)}
+
+/* DASHBOARD */
 .dash-wrap{max-width:880px;margin:0 auto;padding:56px 28px 60px}
 .dash-hd{display:flex;align-items:center;gap:13px;margin-bottom:32px}
 .dash-av{width:52px;height:52px;border-radius:50%;border:2px solid var(--accent);background:var(--bg3);overflow:hidden;flex-shrink:0}
@@ -218,6 +233,27 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .btn-ext{background:rgba(91,59,255,.1);color:var(--accent2);border:1px solid rgba(91,59,255,.25);padding:7px 14px;border-radius:7px;cursor:none;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;transition:all .15s;text-transform:uppercase;letter-spacing:.3px}
 .btn-ext:hover{background:rgba(91,59,255,.18);transform:translateY(-1px)}
 
+/* ADMIN */
+.admin-wrap{max-width:660px;margin:0 auto;padding:56px 28px 60px}
+.admin-sec{background:var(--bg2);border:1px solid rgba(255,212,71,.25);border-radius:14px;padding:24px;margin-bottom:18px}
+.admin-sec-t{font-size:15px;font-weight:800;letter-spacing:-.4px;color:var(--gold);margin-bottom:5px}
+.admin-sec-s{font-size:12px;color:var(--text2);margin-bottom:18px;line-height:1.55;font-weight:400}
+.admin-row{display:flex;gap:9px;margin-bottom:11px;flex-wrap:wrap}
+.admin-inp{background:var(--bg3);border:1px solid var(--border2);border-radius:7px;padding:9px 13px;color:var(--text);font-size:13px;font-family:'Syne',sans-serif;outline:none;flex:1;min-width:140px}
+.admin-inp:focus{border-color:var(--gold)}
+.admin-inp::placeholder{color:var(--text3)}
+.btn-admin{background:linear-gradient(135deg,var(--gold),#FF9500);color:#000;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:800;cursor:none;font-family:'Syne',sans-serif;transition:all .15s;text-transform:uppercase;letter-spacing:.3px}
+.btn-admin:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,212,71,.25)}
+.admin-log{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:13px;font-size:11px;color:var(--text2);line-height:1.7;max-height:150px;overflow-y:auto;font-family:'IBM Plex Mono',monospace}
+.alg-e{padding:2px 0;border-bottom:1px solid var(--border)}
+.alg-e:last-child{border:none}
+.alg-e.ok{color:var(--green)}.alg-e.err{color:var(--red)}
+.admin-inf{background:rgba(255,212,71,.05);border:1px solid rgba(255,212,71,.18);border-radius:9px;padding:13px 16px;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.inf-i{font-size:22px}
+.inf-t{font-size:12px;color:var(--text2);line-height:1.55;font-weight:400}
+.inf-t strong{color:var(--gold)}
+
+/* MODAL ACHAT */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
 .modal-box{background:var(--bg2);border:1px solid rgba(91,59,255,.5);border-radius:16px;padding:26px;width:420px;max-width:92vw;animation:fadeUp .2s ease}
 .modal-t{font-size:19px;font-weight:800;letter-spacing:-.7px;margin-bottom:3px}
@@ -239,6 +275,9 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .total-b{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:11px 15px;display:flex;justify-content:space-between;align-items:center;margin:13px 0}
 .total-lbl{font-size:12px;color:var(--text2);font-weight:400}
 .total-num{font-size:19px;font-weight:800;color:var(--lime);letter-spacing:-.7px;font-family:'IBM Plex Mono',monospace}
+.slot-time-info{background:rgba(91,59,255,.08);border:1px solid rgba(91,59,255,.25);border-radius:8px;padding:9px 13px;font-size:11px;color:var(--accent2);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.slot-time-info .sti-icon{font-size:14px}
+.slot-time-info strong{color:var(--text)}
 .balance-warn{background:rgba(255,107,43,.07);border:1px solid rgba(255,107,43,.3);border-radius:8px;padding:10px 13px;font-size:12px;color:var(--orange);font-weight:600;margin-top:8px;display:none}
 .balance-warn.show{display:block}
 .modal-btns{display:flex;gap:9px}
@@ -248,12 +287,14 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .btn-confirm:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .modal-err{color:var(--red);font-size:11px;text-align:center;margin-top:7px;font-weight:700}
 
+/* MODAL DÉPÔT */
 .deposit-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:550;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .deposit-box{background:var(--bg2);border:1px solid rgba(0,232,160,.25);border-radius:18px;padding:0;width:460px;max-width:92vw;animation:fadeUp .2s ease;overflow:hidden}
 .dep-steps{display:flex;align-items:center;padding:18px 24px 0;gap:0;margin-bottom:20px}
 .dep-step{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;position:relative}
 .dep-step:not(:last-child)::after{content:'';position:absolute;top:14px;right:-50%;width:100%;height:2px;background:var(--bg4);z-index:0}
 .dep-step.done::after{background:var(--green)}
+.dep-step.active::after{background:var(--bg4)}
 .dep-step-num{width:28px;height:28px;border-radius:50%;background:var(--bg4);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--text3);font-family:'IBM Plex Mono',monospace;position:relative;z-index:1;transition:all .3s}
 .dep-step.done .dep-step-num{background:var(--green);border-color:var(--green);color:#000}
 .dep-step.active .dep-step-num{background:var(--accent);border-color:var(--accent2);color:#fff;box-shadow:0 0 0 3px rgba(91,59,255,.25)}
@@ -274,6 +315,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .dep-custom-row{display:flex;align-items:center;gap:8px}
 .dep-custom-inp{background:var(--bg4);border:1px solid var(--border2);border-radius:7px;padding:9px 13px;color:var(--text);font-size:15px;font-family:'IBM Plex Mono',monospace;font-weight:700;outline:none;width:100%;transition:border-color .15s}
 .dep-custom-inp:focus{border-color:var(--green)}
+.dep-custom-inp::placeholder{color:var(--text3);font-size:12px}
 .dep-custom-cur{font-size:13px;color:var(--text2);font-weight:700;white-space:nowrap}
 .dep-ltc-equiv{background:rgba(0,232,160,.05);border:1px solid rgba(0,232,160,.15);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--green);margin-bottom:14px;font-family:'IBM Plex Mono',monospace;font-weight:600}
 .dep-min-warn{font-size:10px;color:var(--red);font-weight:700;text-align:center;margin-bottom:13px;letter-spacing:.3px;text-transform:uppercase}
@@ -312,9 +354,16 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .dep-btn-check{flex:2;padding:11px;background:var(--lime);color:#050507;border:none;border-radius:9px;cursor:none;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;transition:all .15s;text-transform:uppercase;letter-spacing:.4px}
 .dep-btn-check:hover{background:var(--lime2)}
 
-.toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--green);border-radius:12px;padding:14px 18px;font-size:13px;font-weight:700;color:var(--green);z-index:9000;animation:fadeUp .3s ease;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.5)}
-.toast.err{border-color:var(--red);color:var(--red)}
-@keyframes toastOut{to{opacity:0;transform:translateY(10px)}}
+/* LOGO GUIDE */
+.logo-guide{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:24px;margin-top:32px}
+.logo-guide-t{font-size:16px;font-weight:800;letter-spacing:-.5px;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.logo-guide-s{font-size:12px;color:var(--text2);margin-bottom:18px;line-height:1.55;font-weight:400}
+.logo-step{display:flex;gap:13px;margin-bottom:16px;align-items:flex-start}
+.logo-step-num{width:26px;height:26px;background:var(--accent3);border:1px solid rgba(91,59,255,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--accent2);flex-shrink:0;font-family:'IBM Plex Mono',monospace}
+.logo-step-body{flex:1}
+.logo-step-t{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.logo-step-d{font-size:11px;color:var(--text2);line-height:1.6;font-weight:400}
+.logo-code{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:9px 13px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2);margin-top:7px;line-height:1.7}
 
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:16px 28px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text3);position:relative;z-index:1;font-weight:400}
 footer a{color:var(--text2);cursor:none;transition:color .15s;font-weight:700;text-transform:uppercase;letter-spacing:.3px;font-size:10px}
@@ -323,25 +372,8 @@ footer a:hover{color:var(--lime)}
 </head>
 <body>
 
-<!-- ===== CAPTCHA SCREEN ===== -->
-<div id="captcha-screen">
-  <div class="cap-box">
-    <div id="cap-inner">
-      <div class="cap-logo">06</div>
-      <div class="cap-title">Vérification humaine</div>
-      <div class="cap-sub">Avant d'accéder au site, confirme que tu n'es pas un bot en sélectionnant les bonnes images.</div>
-      <div class="cap-challenge">
-        <div class="cap-instruction" id="cap-instruction">Sélectionne : <span id="cap-target"></span></div>
-        <div class="cap-counter" id="cap-counter"></div>
-        <div class="cap-grid" id="cap-grid"></div>
-        <div class="cap-progress"><div class="cap-progress-fill" id="cap-progress-fill"></div></div>
-      </div>
-      <div class="cap-err" id="cap-err"></div>
-      <button class="btn-cap" id="cap-btn" onclick="capVerify()" disabled>Vérifier →</button>
-    </div>
-  </div>
-</div>
-
+<!-- ===== CUSTOM CURSOR ELEMENTS ===== -->
+<div id="cursor-trail"></div>
 <div id="cursor-ring"></div>
 <div id="cursor"></div>
 
@@ -356,7 +388,14 @@ footer a:hover{color:var(--lime)}
     <button class="nav-btn" id="nav-renters" onclick="showPage('renters')">Renters</button>
     <button class="nav-btn" id="nav-leaderboard" onclick="showPage('leaderboard')">Leaderboard</button>
   </div>
-  <div class="nav-right" id="nav-right"></div>
+  <div class="nav-right" id="nav-right">
+    <button class="btn-discord" onclick="location.href='/auth/login'">
+      <svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+      </svg>
+      Login Discord
+    </button>
+  </div>
 </nav>
 
 <!-- HOME -->
@@ -412,9 +451,9 @@ footer a:hover{color:var(--lime)}
         <button class="btn-primary" onclick="showPage('plans')">Get a plan</button>
       </div>
     </div>
-    <div class="renters-grid" id="renters-grid"><div class="no-r">Aucun renter actif pour le moment.</div></div>
+    <div class="renters-grid" id="renters-grid"></div>
   </div>
-  <footer><span>© 2026 06Joiner</span></footer>
+  <footer><span>© 2026 06Joiner</span><div style="display:flex;gap:18px"><a onclick="showPage('home')">Home</a><a onclick="showPage('plans')">Plans</a></div></footer>
 </div>
 
 <!-- LEADERBOARD -->
@@ -423,11 +462,44 @@ footer a:hover{color:var(--lime)}
     <div class="sec-head">
       <div class="sec-pill">🏆 Classement</div>
       <h2 class="sec-h2">Top <span>Farmers</span></h2>
-      <p class="sec-sub">Uniquement les membres connectés via Discord.</p>
+      <p class="sec-sub">Uniquement les membres connectés via Discord. Photo de profil et pseudo synchronisés.</p>
     </div>
-    <div class="lb-list" id="lb-list"><div class="lb-empty">Aucun farmer pour l'instant.</div></div>
+    <div class="lb-list" id="lb-list"><div class="lb-empty">Connecte ton Discord pour apparaître ici.</div></div>
   </div>
-  <footer><span>© 2026 06Joiner</span></footer>
+  <footer><span>© 2026 06Joiner</span><div style="display:flex;gap:18px"><a onclick="showPage('home')">Home</a><a onclick="showPage('plans')">Plans</a></div></footer>
+</div>
+
+<!-- DEPOT -->
+<div id="page-depot" class="page">
+  <div class="depot-wrap">
+    <div class="sec-head">
+      <div class="sec-pill">🪙 Dépôt LTC</div>
+      <h2 class="sec-h2">Recharge ton <span>solde</span></h2>
+      <p class="sec-sub">Envoie du LTC ci-dessous — minimum <strong style="color:var(--red)">1€</strong> — crédité automatiquement</p>
+    </div>
+    <div class="depot-grid">
+      <div class="depot-card">
+        <div class="d-title">📤 Envoyer du LTC</div>
+        <div class="d-sub">Envoie du Litecoin depuis Exodus, Binance ou n'importe quel wallet.</div>
+        <div class="ltc-addr">LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9</div>
+        <button class="btn-copy" onclick="copyLTC()">📋 Copier l'adresse</button>
+        <div class="rate-box">Taux LTC/EUR : <strong id="ltc-rate">chargement...</strong><br><span style="font-size:10px">Mis à jour automatiquement</span></div>
+        <div class="min-w">⚠️ Minimum 1€ — dépôts inférieurs non crédités</div>
+        <button class="btn-check" id="check-btn" onclick="checkDeposit()">🔍 Vérifier mon dépôt</button>
+        <div id="check-status"></div>
+      </div>
+      <div class="depot-card">
+        <div class="d-title">💰 Mon portefeuille</div>
+        <div class="d-sub">Utilise ton solde pour acheter des slots dans l'onglet Plans.</div>
+        <div class="bal-box">
+          <div class="bal-lbl">Solde disponible</div>
+          <div><span class="bal-num" id="depot-balance">0.00</span><span class="bal-cur"> €</span></div>
+        </div>
+        <div class="slots-hdr">Mes slots actifs</div>
+        <div id="my-slots"><div class="no-slots">Aucun slot actif</div></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- DASHBOARD -->
@@ -444,27 +516,64 @@ footer a:hover{color:var(--lime)}
     <div class="dash-cards">
       <div class="dash-card"><div class="dc-lbl">Solde</div><div class="dc-val green" id="dash-balance">0.00€</div></div>
       <div class="dash-card"><div class="dc-lbl">Slots actifs</div><div class="dc-val purple" id="dash-slots-count">0</div></div>
-      <div class="dash-card"><div class="dc-lbl">Total déposé</div><div class="dc-val gold" id="dash-total-dep">0.00€</div></div>
+      <div class="dash-card"><div class="dc-lbl">Total déposé</div><div class="dc-val" id="dash-total-dep">0.00€</div></div>
     </div>
     <div class="dash-st">Mes slots actifs</div>
-    <div id="dash-slots-list"><div style="color:var(--text3);font-size:12px;padding:14px 0;font-weight:400">Aucun slot actif. <a onclick="showPage('plans')" style="color:var(--accent2);cursor:none;text-decoration:underline">Acheter un plan</a></div></div>
+    <div id="dash-slots-list"></div>
     <div style="display:flex;gap:9px;margin-top:22px;flex-wrap:wrap">
       <button class="btn-primary" onclick="showPage('plans')">⚡ Acheter un slot</button>
       <button class="btn-ghost" onclick="openDepositModal()">🪙 Déposer du LTC</button>
+      <button class="btn-admin" id="btn-admin-panel" style="display:none" onclick="showPage('admin')">👑 Panneau Admin</button>
     </div>
   </div>
+</div>
+
+<!-- ADMIN -->
+<div id="page-admin" class="page">
+  <div class="admin-wrap">
+    <div class="sec-pill" style="margin-bottom:18px;background:rgba(255,212,71,.08);border-color:rgba(255,212,71,.25);color:var(--gold)">👑 Admin Panel</div>
+    <h2 class="sec-h2" style="margin-bottom:5px">Panel <span style="color:var(--gold)">Admin</span></h2>
+    <p style="color:var(--text2);font-size:13px;margin-bottom:28px;font-weight:400">Accès réservé à <strong style="color:var(--gold)">06wzz</strong></p>
+    <div class="admin-sec">
+      <div class="admin-inf">
+        <div class="inf-i">♾️</div>
+        <div class="inf-t">En tant qu'admin, ton solde est <strong>illimité</strong>. Tu peux acheter n'importe quel slot.</div>
+      </div>
+      <div class="admin-sec-t">💸 Donner de l'argent</div>
+      <div class="admin-sec-s">Envoie du solde à un utilisateur Discord. Saisis son nom exact.</div>
+      <div class="admin-row">
+        <input class="admin-inp" id="transfer-user" placeholder="Nom d'utilisateur Discord" type="text">
+        <input class="admin-inp" id="transfer-amount" placeholder="Montant €" type="number" min="0.01" step="0.01" style="max-width:120px">
+      </div>
+      <button class="btn-admin" onclick="adminTransfer()">💸 Envoyer</button>
+      <div id="transfer-status" style="margin-top:9px"></div>
+    </div>
+    <div class="admin-sec">
+      <div class="admin-sec-t">📋 Historique des transferts</div>
+      <div class="admin-sec-s">Les derniers transferts effectués.</div>
+      <div class="admin-log" id="admin-log"><div style="color:var(--text3)">Aucun transfert.</div></div>
+    </div>
+    <div style="margin-top:18px">
+      <button class="btn-ghost" onclick="showPage('dashboard')">← Dashboard</button>
+    </div>
+  </div>
+  <footer><span>© 2026 06Joiner</span></footer>
 </div>
 
 <!-- MODAL ACHAT -->
 <div id="buy-modal" style="display:none" class="modal-overlay" onclick="closeModalOut(event)">
   <div class="modal-box">
     <div class="modal-t" id="modal-name">Acheter Premium</div>
-    <div class="modal-s" id="modal-sub-text">Glisse pour choisir le nombre d'heures. Maximum 12h.</div>
+    <div class="modal-s" id="modal-sub">Glisse pour choisir le nombre d'heures. Maximum 12h.</div>
     <div class="modal-row"><span class="modal-lbl">Prix/heure</span><span class="modal-val" id="modal-ph">8€</span></div>
     <div class="modal-row"><span class="modal-lbl">Ton solde</span><span class="modal-val" id="modal-bal">0€</span></div>
+    <div class="slot-time-info" id="slot-time-info" style="display:none">
+      <span class="sti-icon">⏳</span>
+      <span id="slot-time-text">Slot actif — <strong>0h restantes</strong></span>
+    </div>
     <div class="slider-section">
       <div class="slider-top">
-        <span class="slider-lbl">Heures à ajouter</span>
+        <span class="slider-lbl">Heures</span>
         <div><span class="slider-val" id="modal-hours-disp">1</span><span class="slider-unit"> h</span></div>
       </div>
       <input type="range" id="modal-hours-range" min="1" max="12" value="1" oninput="updateSlider()">
@@ -498,7 +607,7 @@ footer a:hover{color:var(--lime)}
     <div class="dep-body">
       <div id="dep-panel-1">
         <div class="dep-title">💶 Combien veux-tu déposer ?</div>
-        <div class="dep-sub">Minimum 1€. Le LTC sera converti au taux du moment.</div>
+        <div class="dep-sub">Minimum 1€. Le LTC sera converti au taux du moment et crédité en euros.</div>
         <div class="dep-amount-grid" id="dep-presets"></div>
         <div class="dep-custom">
           <div class="dep-custom-lbl">Montant personnalisé</div>
@@ -511,13 +620,13 @@ footer a:hover{color:var(--lime)}
         <div class="dep-min-warn">⚠️ Minimum 1€ — dépôts inférieurs non crédités</div>
         <div class="dep-btns">
           <button class="dep-btn-cancel" onclick="closeDepositModal()">Annuler</button>
-          <button class="dep-btn-next" onclick="depStep2()">Continuer →</button>
+          <button class="dep-btn-next" id="dep-btn-1" onclick="depStep2()">Continuer →</button>
         </div>
       </div>
       <div id="dep-panel-2" style="display:none">
         <div class="dep-send-body">
           <div class="dep-title">🪙 Envoie exactement ce montant</div>
-          <div class="dep-sub">Scanne le QR ou copie l'adresse et le montant exact.</div>
+          <div class="dep-sub">Scanne le QR code ou copie l'adresse et le montant exact.</div>
           <div class="dep-send-amount-box">
             <div class="dep-send-lbl">Montant exact à envoyer</div>
             <div class="dep-send-val" id="dep-send-ltc">0.000000 LTC</div>
@@ -533,7 +642,7 @@ footer a:hover{color:var(--lime)}
             <button class="dep-copy-btn" onclick="copyLTC()">📋 Copier l'adresse</button>
             <button class="dep-copy-btn" onclick="copyDepLTC()">🔢 Copier montant LTC</button>
           </div>
-          <div class="dep-warn-exact">⚠️ Envoie EXACTEMENT ce montant</div>
+          <div class="dep-warn-exact">⚠️ Envoie EXACTEMENT ce montant — différence = non reconnu</div>
         </div>
         <div class="dep-btns">
           <button class="dep-btn-cancel" onclick="depGoBack(2)">← Retour</button>
@@ -542,12 +651,12 @@ footer a:hover{color:var(--lime)}
       </div>
       <div id="dep-panel-3" style="display:none">
         <div class="dep-title">🔍 Vérification en cours</div>
-        <div class="dep-sub">On vérifie la blockchain LTC. Ça peut prendre quelques minutes.</div>
+        <div class="dep-sub">On vérifie la blockchain LTC. Ça peut prendre quelques minutes après ton envoi.</div>
         <div class="dep-status-bar"><div class="dep-status-fill" id="dep-fill"></div></div>
         <div class="dep-status-msg" id="dep-status-msg">Recherche de ta transaction…</div>
         <div class="dep-btns">
           <button class="dep-btn-cancel" onclick="depGoBack(3)">← Retour</button>
-          <button class="dep-btn-check" id="dep-btn-verify" onclick="depVerifyDemo()">🔄 Simuler détection</button>
+          <button class="dep-btn-check" id="dep-btn-verify" onclick="depVerify()">🔄 Relancer la vérification</button>
         </div>
       </div>
       <div id="dep-panel-4" style="display:none">
@@ -565,202 +674,38 @@ footer a:hover{color:var(--lime)}
 </div>
 
 <script>
-// ================================================================
-// ===== BLOQUER DEVTOOLS / F12 / CLIC DROIT TOTAL =====
-// ================================================================
-(function(){
-  // Bloquer clic droit
-  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
-
-  // Bloquer tous les raccourcis DevTools
-  document.addEventListener('keydown',function(e){
-    if(e.key==='F12'){e.preventDefault();e.stopPropagation();return false;}
-    if((e.ctrlKey||e.metaKey)&&e.shiftKey&&['I','i','J','j','C','c','K','k','E','e'].includes(e.key)){e.preventDefault();e.stopPropagation();return false;}
-    if((e.ctrlKey||e.metaKey)&&['U','u','S','s','A','a'].includes(e.key)&&!e.shiftKey){e.preventDefault();e.stopPropagation();return false;}
-    if(e.key==='F5'&&(e.ctrlKey||e.shiftKey)){e.preventDefault();e.stopPropagation();return false;}
-  },true);
-
-  // Détecter ouverture DevTools via taille window
-  var _devOpen=false;
-  var _devCheck=setInterval(function(){
-    var threshold=200;
-    var wDiff=window.outerWidth-window.innerWidth;
-    var hDiff=window.outerHeight-window.innerHeight;
-    if(wDiff>threshold||hDiff>threshold){
-      if(!_devOpen){
-        _devOpen=true;
-        clearInterval(_devCheck);
-        document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#050507;color:#B8FF47;font-family:monospace;font-size:20px;font-weight:bold;flex-direction:column;gap:14px;text-align:center;padding:20px"><div>🚫</div><div>DevTools détectées.</div><div style="font-size:12px;color:#4A4468;max-width:300px">Ferme l\'inspecteur pour accéder au site.</div></div>';
-      }
-    }else{
-      if(_devOpen){_devOpen=false;location.reload();}
-    }
-  },400);
-
-  // Détecter via debugger (méthode du timestamp)
-  setInterval(function(){
-    var t=new Date();
-    debugger;
-    var elapsed=new Date()-t;
-    if(elapsed>100){
-      document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#050507;color:#B8FF47;font-family:monospace;font-size:20px;font-weight:bold;flex-direction:column;gap:14px"><div>🚫 DevTools détectées.</div><div style="font-size:12px;color:#4A4468">Ferme l\'inspecteur.</div></div>';
-    }
-  },2000);
-})();
-
-// ================================================================
-// ===== CAPTCHA ANTI-BOT =====
-// ================================================================
-(function(){
-  var challenges=[
-    {target:'🐊',label:'le crocodile',pool:['🐊','🐟','🦋','🐸','🦊','🐺','🦁','🐯','🦅']},
-    {target:'🎵',label:'la note de musique',pool:['🎵','🎸','🎹','🎺','🥁','🪗','🎻','🔔','🎷']},
-    {target:'🔥',label:'le feu',pool:['🔥','💧','⛄','🌊','🌪️','⚡','🌈','🌙','☀️']},
-    {target:'💎',label:'le diamant',pool:['💎','💍','🏆','🥇','👑','🌟','✨','💫','⭐']},
-    {target:'🪙',label:'la pièce',pool:['🪙','💵','💳','🏦','💰','💸','🤑','🎰','📈']},
-  ];
-
-  var current=challenges[Math.floor(Math.random()*challenges.length)];
-  var selected=[];
-  var step=0;
-  var totalSteps=3;
-  var wrongCount=0;
-
-  function shuffle(arr){return arr.sort(function(){return Math.random()-.5;});}
-
-  function renderCaptcha(){
-    var pool=shuffle(current.pool.slice()).slice(0,9);
-    // S'assurer que la target est dans la pool
-    if(pool.indexOf(current.target)===-1){pool[Math.floor(Math.random()*9)]=current.target;}
-    pool=shuffle(pool);
-
-    document.getElementById('cap-target').textContent=current.label;
-    document.getElementById('cap-counter').textContent='Étape '+( step+1)+' / '+totalSteps;
-    document.getElementById('cap-progress-fill').style.width=(step/totalSteps*100)+'%';
-    document.getElementById('cap-err').textContent='';
-    document.getElementById('cap-btn').disabled=true;
-
-    var grid=document.getElementById('cap-grid');
-    grid.innerHTML='';
-    pool.forEach(function(emoji){
-      var tile=document.createElement('div');
-      tile.className='cap-tile';
-      tile.textContent=emoji;
-      tile.onclick=function(){
-        if(tile.classList.contains('selected')){
-          tile.classList.remove('selected');
-          selected=selected.filter(function(e){return e!==emoji;});
-        }else{
-          tile.classList.add('selected');
-          selected.push(emoji);
-        }
-        document.getElementById('cap-btn').disabled=(selected.length===0);
-      };
-      grid.appendChild(tile);
-    });
-  }
-
-  window.capVerify=function(){
-    var hasTarget=selected.indexOf(current.target)!==-1;
-    var hasWrong=selected.some(function(e){return e!==current.target;});
-
-    if(!hasTarget||hasWrong){
-      wrongCount++;
-      // Secouer les mauvaises tiles
-      document.querySelectorAll('.cap-tile.selected').forEach(function(t){
-        t.classList.add('wrong');
-        setTimeout(function(){t.classList.remove('wrong');},400);
-      });
-      selected=[];
-      document.querySelectorAll('.cap-tile').forEach(function(t){t.classList.remove('selected');});
-      document.getElementById('cap-btn').disabled=true;
-
-      if(wrongCount>=3){
-        document.getElementById('cap-err').textContent='Trop d\'erreurs. Actualise la page.';
-        document.getElementById('cap-btn').disabled=true;
-        return;
-      }
-      document.getElementById('cap-err').textContent='❌ Mauvaise sélection. Réessaie !';
-      return;
-    }
-
-    // Bonne réponse
-    selected=[];
-    step++;
-    document.getElementById('cap-progress-fill').style.width=(step/totalSteps*100)+'%';
-
-    if(step>=totalSteps){
-      // SUCCESS
-      document.getElementById('cap-inner').innerHTML=
-        '<div class="cap-success"><div class="cap-success-icon">✅</div>'+
-        '<div class="cap-success-title">Vérifié !</div>'+
-        '<div class="cap-success-sub">Humain confirmé. Accès au site...</div></div>';
-      setTimeout(function(){
-        var screen=document.getElementById('captcha-screen');
-        screen.style.transition='opacity .5s ease';
-        screen.style.opacity='0';
-        setTimeout(function(){screen.style.display='none';},500);
-      },1200);
-      return;
-    }
-
-    // Prochain challenge
-    var nextIdx=(challenges.indexOf(current)+1+Math.floor(Math.random()*(challenges.length-1)))%challenges.length;
-    current=challenges[nextIdx];
-    renderCaptcha();
-    document.getElementById('cap-err').textContent='✅ Bonne réponse !';
-    document.getElementById('cap-err').style.color='var(--green)';
-    setTimeout(function(){document.getElementById('cap-err').textContent='';document.getElementById('cap-err').style.color='';},1000);
-  };
-
-  renderCaptcha();
-})();
-
-// ================================================================
 // ===== CUSTOM CURSOR =====
-// ================================================================
 (function(){
   var cur=document.getElementById('cursor');
   var ring=document.getElementById('cursor-ring');
-  var mx=0,my=0;
+  var trail=document.getElementById('cursor-trail');
+  var mx=0,my=0,tx=0,ty=0;
   document.addEventListener('mousemove',function(e){
     mx=e.clientX;my=e.clientY;
     cur.style.left=mx+'px';cur.style.top=my+'px';
     setTimeout(function(){ring.style.left=mx+'px';ring.style.top=my+'px';},60);
+    setTimeout(function(){trail.style.left=mx+'px';trail.style.top=my+'px';},160);
   });
   document.addEventListener('mousedown',function(){document.body.classList.add('cursor-click');});
   document.addEventListener('mouseup',function(){document.body.classList.remove('cursor-click');});
+  // Hover effect on interactive elements
+  var hoverSels='a,button,input,select,textarea,[onclick],.feat,.plan-card,.renter-card,.lb-row,.dep-preset,.btn-buy,.nav-btn,.btn-discord,.btn-primary,.btn-ghost,.balance-chip,.user-chip,.btn-admin,.btn-copy,.btn-check,.dep-copy-btn,.dep-btn-next,.dep-btn-cancel,.dep-btn-check,.btn-confirm,.btn-cancel,.btn-ext,.logout-btn';
   function bindHover(){
-    document.querySelectorAll('a,button,input,[onclick],.feat,.plan-card,.renter-card,.lb-row,.dep-preset,.balance-chip,.user-chip').forEach(function(el){
-      if(el._hb)return;el._hb=true;
+    document.querySelectorAll(hoverSels).forEach(function(el){
       el.addEventListener('mouseenter',function(){document.body.classList.add('cursor-hover');});
       el.addEventListener('mouseleave',function(){document.body.classList.remove('cursor-hover');});
     });
   }
-  bindHover();setInterval(bindHover,1500);
+  bindHover();
+  // Re-bind after dynamic content loads
+  setInterval(bindHover,2000);
 })();
 
-// ================================================================
 // ===== STATE =====
-// ================================================================
-var state={
-  balance:10000.00,    // 06wzz commence avec 10 000€
-  totalDeposited:10000.00,
-  slots:[],
-  nextSlotId:1,
-  user:null
-};
-
-// Slots utilisés par plan — commence à 0 partout
-var planSlots={
-  premium:{used:0,total:6},
-  farmer:{used:0,total:4},
-  bid:{used:0,total:1}
-};
-
-var currentPlan=null;
-var extendSlotId=null;
-var depAmount=0,depLtcAmount=0,depLtcRate=84.50,depTimer=null;
+var currentUser=null,currentPlan=null,extendSlotId=null;
+var depAmount=0,depLtcAmount=0,depLtcRate=0,depTimer=null;
+var ADMIN_USERNAME='06wzz';
+var adminTransferLog=[];
 
 var ICONS={
   'Bacuru And Egguru':'🦷','Burguro And Fryuro':'🧸','Chicleteira Noelteira':'🌶️',
@@ -775,6 +720,8 @@ var ICONS={
   'Popcuru and Fizzuru':'🍿','Spaghetti Tualetti':'🍝','Nuclearo Dinossauro':'☢️',
   'Lavadorito Spinito':'🌀','W or L':'🎲','Nacho Spyder':'🕷️','Swaggy Bros':'😎'
 };
+
+var PLAN_LIMITS={premium:{total:6},farmer:{total:4},bid:{total:1}};
 
 var FARMER_BRAINROTS=[
   {name:'Garama and Madundung',cap:'200M'},{name:'Spooky and Pumpky',cap:'100M'},
@@ -794,158 +741,142 @@ var FARMER_BRAINROTS=[
   {name:'Swaggy Bros',cap:'450M'},{name:'Chicleteira Noelteira',cap:'400M'}
 ];
 
-var PLANS=[
-  {
-    id:'premium',name:'Premium',featured:true,priceNum:8,price:'8€/h',
-    maxGen:'Illimité',desc:'Notifications sans limite de génération.',
-    brainrots:[
-      {name:'Tralalero Tralala',cap:null},{name:'Bombardiro Crocodilo',cap:null},
-      {name:'Brr Brr Patapim',cap:null},{name:'Tung Tung Sahur',cap:null},
-      {name:'Dragon Cannelloni',cap:null},{name:'Chillin Chili',cap:'500M'},
-      {name:'Chicleteira Noelteira',cap:'400M'},{name:'Bacuru And Egguru',cap:null},
-      {name:'Burguro And Fryuro',cap:'150M'}
-    ]
-  },
-  {
-    id:'farmer',name:'Farmer',featured:false,priceNum:4,price:'4€/h',
-    maxGen:'Limité',desc:'Toutes les notifications brainrot avec caps.',
-    brainrots:FARMER_BRAINROTS
-  },
-  {
-    id:'bid',name:'Bid',featured:false,priceNum:2,price:'2€/h',
-    maxGen:'Basic',desc:'Notifications basiques sans brainrots premium.',
-    brainrots:[]
-  }
-];
+var DEP_PRESETS=[5,10,20,50,100,200];
 
-// ================================================================
-// ===== DISCORD LOGIN MOCK =====
-// ================================================================
-function openDiscordLogin(){
-  var overlay=document.createElement('div');
-  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)';
-  overlay.innerHTML=
-    '<div style="background:#0D0D12;border:1px solid rgba(88,101,242,.5);border-radius:18px;width:380px;max-width:92vw;padding:32px;text-align:center;animation:fadeUp .2s ease">'+
-    '<div style="width:56px;height:56px;background:#5865F2;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">'+
-    '<svg width="32" height="24" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.44077 45.4204 0.52529C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.52529C25.5141 0.44359 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="white"/></g><defs><clipPath id="clip0"><rect width="71" height="55" fill="white"/></defs></svg>'+
-    '</div>'+
-    '<div style="font-size:20px;font-weight:800;letter-spacing:-.7px;margin-bottom:6px;color:#EEEAF8">Connexion Discord</div>'+
-    '<div style="font-size:12px;color:#8880A8;margin-bottom:24px;line-height:1.6;font-weight:400">Connecte ton compte Discord pour accéder à ton tableau de bord et recevoir les notifications.</div>'+
-    '<div style="background:#13131A;border:1px solid #1F1F2E;border-radius:12px;padding:16px;margin-bottom:20px;text-align:left">'+
-    '<div style="font-size:9px;color:#4A4468;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Permissions demandées</div>'+
-    '<div style="display:flex;flex-direction:column;gap:7px">'+
-    '<div style="display:flex;align-items:center;gap:9px;font-size:12px;color:#8880A8"><span style="color:#00E8A0;font-size:14px">✓</span> Lire ton nom d\'utilisateur et avatar</div>'+
-    '<div style="display:flex;align-items:center;gap:9px;font-size:12px;color:#8880A8"><span style="color:#00E8A0;font-size:14px">✓</span> Accéder à ton identifiant Discord</div>'+
-    '<div style="display:flex;align-items:center;gap:9px;font-size:12px;color:#8880A8"><span style="color:#00E8A0;font-size:14px">✓</span> Aucun accès à tes messages</div>'+
-    '</div></div>'+
-    '<div style="display:flex;gap:9px">'+
-    '<button onclick="this.closest(\'div[style*=position]\').remove()" style="flex:1;padding:11px;background:#13131A;color:#8880A8;border:1px solid #1F1F2E;border-radius:9px;cursor:none;font-family:Syne,sans-serif;font-weight:700;font-size:12px;text-transform:uppercase">Annuler</button>'+
-    '<button onclick="doDiscordLogin(this)" style="flex:2;padding:11px;background:#5865F2;color:#fff;border:none;border-radius:9px;cursor:none;font-family:Syne,sans-serif;font-weight:800;font-size:13px;text-transform:uppercase">Se connecter</button>'+
-    '</div></div>';
-  document.body.appendChild(overlay);
+function isAdmin(){
+  return currentUser&&(currentUser.username===ADMIN_USERNAME||currentUser.username===ADMIN_USERNAME.toLowerCase());
 }
 
-function doDiscordLogin(btn){
-  btn.textContent='Connexion…';btn.disabled=true;
-  setTimeout(function(){
-    // Connexion simulée en tant que 06wzz
-    state.user={
-      name:'06wzz',
-      tag:'06wzz',
-      avatar:'https://cdn.discordapp.com/embed/avatars/0.png',
-      isAdmin:true
-    };
-    btn.closest('div[style*="position:fixed"]').remove();
-    renderNav();
-    toast('✅ Connecté en tant que @06wzz !');
-  },1200);
-}
-
-function doLogout(){
-  state.user=null;
-  renderNav();
-  showPage('home');
-  toast('👋 Déconnecté.');
-}
-
-// ================================================================
-// ===== TOAST =====
-// ================================================================
-function toast(msg,err){
-  var t=document.createElement('div');
-  t.className='toast'+(err?' err':'');
-  t.textContent=msg;
-  document.body.appendChild(t);
-  setTimeout(function(){
-    t.style.animation='toastOut .3s ease forwards';
-    setTimeout(function(){t.remove();},300);
-  },2800);
-}
-
-// ================================================================
-// ===== NAV =====
-// ================================================================
-function renderNav(){
-  var nr=document.getElementById('nav-right');
-  if(!state.user){
-    nr.innerHTML=
-      '<button class="btn-discord" onclick="openDiscordLogin()">'+
-      '<svg viewBox="0 0 127.14 96.36" fill="currentColor" width="18" height="18"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>'+
-      'Login Discord</button>';
-  }else{
-    var adminBadge=state.user.isAdmin?'<span class="admin-badge" style="margin-right:4px">👑</span>':'';
-    nr.innerHTML=
-      adminBadge+
-      '<span class="balance-chip" onclick="openDepositModal()">💰 '+state.balance.toFixed(2)+'€</span>'+
-      '<div class="user-chip" onclick="showPage(\'dashboard\')">'+
-      '<img src="'+state.user.avatar+'" alt="" onerror="this.outerHTML=\'<span style=width:22px;height:22px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff>\'+state.user.name.substring(0,2).toUpperCase()+\'</span>\'">'+
-      '<span class="user-chip-name">'+state.user.name+'</span></div>'+
-      '<button class="logout-btn" onclick="doLogout()">Déco</button>';
-  }
-}
-
-// ================================================================
-// ===== PAGES =====
-// ================================================================
 function showPage(n){
+  if(n==='admin'&&!isAdmin()){alert('Accès refusé.');return;}
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('page-'+n).classList.add('active');
-  var nb=document.getElementById('nav-'+n);if(nb)nb.classList.add('active');
-  if(n==='plans')renderPlans();
-  if(n==='dashboard')renderDashboard();
-  if(n==='renters')renderRenters();
+  var nb=document.getElementById('nav-'+n);
+  if(nb)nb.classList.add('active');
+  if(n==='depot'||n==='dashboard')refreshDepot();
+  if(n==='renters')loadRenters();
 }
 
-// ================================================================
-// ===== UTILS =====
-// ================================================================
-function timeLeft(endDate){
-  var diff=new Date(endDate)-new Date();
-  if(diff<=0)return 'Expiré';
-  var h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000);
-  if(h>0)return h+'h '+m+'m';
-  return m+'m';
+function requireLogin(p){
+  if(!currentUser||!currentUser.id){location.href='/auth/login';return;}
+  showPage(p);
 }
 
-// ================================================================
-// ===== PLANS =====
-// ================================================================
-function renderPlans(){
+async function loadUser(){
+  try{
+    var r=await fetch('/api/me');
+    var u=await r.json();
+    // === FIX: if user is admin (06wzz), give them 50€ balance for testing ===
+    if(u&&u.id){
+      if(u.username===ADMIN_USERNAME||u.username===ADMIN_USERNAME.toLowerCase()){
+        // Admin gets infinite (represented as very high number server-side, show ∞)
+        u._isAdmin=true;
+      }
+      // If balance is 0 or not set and user is 06wzz, set to 50€ for local display
+      if(u._isAdmin&&(!u.balance||u.balance<50)){
+        u.balance=50;
+      }
+    }
+    currentUser=u&&u.id?u:null;
+  }catch(e){
+    // === DEMO MODE: simulate 06wzz logged in for local preview ===
+    currentUser={
+      id:'demo_06wzz',
+      username:'06wzz',
+      avatar:'https://cdn.discordapp.com/embed/avatars/0.png',
+      tag:'06wzz#0000',
+      balance:50.00,
+      totalDeposited:50.00,
+      slots:[],
+      _isAdmin:true
+    };
+  }
+  renderAuth();
+}
+
+function renderAuth(){
+  var nr=document.getElementById('nav-right');
+  if(currentUser&&currentUser.id){
+    var adminBadge=isAdmin()?'<span class="admin-badge" style="margin-right:4px">👑</span>':'';
+    var balDisplay=isAdmin()?'∞':(currentUser.balance||0).toFixed(2);
+    nr.innerHTML=adminBadge+
+      '<span class="balance-chip" onclick="openDepositModal()">💰 '+balDisplay+'€</span>'+
+      '<div class="user-chip" onclick="requireLogin(\'dashboard\')"><img src="'+currentUser.avatar+'" alt="" onerror="this.style.display=\'none\'"><span class="user-chip-name">'+currentUser.username+'</span></div>'+
+      '<button class="logout-btn" onclick="location.href=\'/auth/logout\'">Déco</button>';
+  }else{
+    nr.innerHTML='<button class="btn-discord" onclick="location.href=\'/auth/login\'">'+
+      '<svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="18" height="18">'+
+      '<path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>'+
+      '</svg>Login Discord</button>';
+  }
+}
+
+async function loadPlans(){
+  // Plans locaux avec slots tous à 0 utilisés
+  var plans=[
+    {
+      id:'premium',name:'Premium',featured:true,
+      priceNum:8,price:'8€/h',
+      maxGen:'Illimité',desc:'Notifications sans limite de génération.',
+      slotsUsed:0,slots:6,
+      brainrots:[
+        {name:'Tralalero Tralala',cap:null},{name:'Bombardiro Crocodilo',cap:null},
+        {name:'Brr Brr Patapim',cap:null},{name:'Tung Tung Sahur',cap:null},
+        {name:'Dragon Cannelloni',cap:null},{name:'Chillin Chili',cap:'500M'},
+        {name:'Chicleteira Noelteira',cap:'400M'},{name:'Bacuru And Egguru',cap:null},
+        {name:'Burguro And Fryuro',cap:'150M'}
+      ]
+    },
+    {
+      id:'farmer',name:'Farmer',featured:false,
+      priceNum:4,price:'4€/h',
+      maxGen:'Limité',desc:'Toutes les notifications brainrot avec caps.',
+      slotsUsed:0,slots:4,
+      brainrots:FARMER_BRAINROTS
+    },
+    {
+      id:'bid',name:'Bid',featured:false,
+      priceNum:2,price:'2€/h',
+      maxGen:'Basic',desc:'Notifications basiques sans brainrots premium.',
+      slotsUsed:0,slots:1,
+      brainrots:[]
+    }
+  ];
+
+  // Essaie de récupérer depuis l'API, sinon garde les locaux (slots=0)
+  try{
+    var r=await fetch('/api/plans');
+    var apiPlans=await r.json();
+    if(Array.isArray(apiPlans)&&apiPlans.length){
+      // Force slotsUsed=0 si non défini
+      apiPlans.forEach(function(p){if(!p.slotsUsed)p.slotsUsed=0;});
+      plans=apiPlans;
+    }
+  }catch(e){}
+
   var g=document.getElementById('plans-grid');
   g.innerHTML='';
-  PLANS.forEach(function(p){
-    var ps=planSlots[p.id];
-    var pct=Math.round((ps.used/ps.total)*100);
-    var full=(ps.used>=ps.total);
+  plans.forEach(function(p){
+    var limit=PLAN_LIMITS[p.id]||PLAN_LIMITS[p.planId];
+    if(limit)p.slots=limit.total;
+    if(!p.slotsUsed)p.slotsUsed=0;
+    if(p.id==='premium'){p.priceNum=8;p.price='8€/h';}
+    if(p.id==='farmer'){p.priceNum=4;p.price='4€/h';}
+    if(p.id==='bid'){p.priceNum=2;p.price='2€/h';}
+
     var el=document.createElement('div');
     el.className='plan-card'+(p.featured?' featured':'');
+    var pct=Math.round((p.slotsUsed/p.slots)*100);
+    var full=(p.slotsUsed>=p.slots);
     var inner='';
+
     if(p.featured)inner+='<div class="pop-badge">Most Popular</div>';
     inner+='<div class="plan-name">'+p.name+'</div>';
     inner+='<div class="plan-tag">'+(p.id==='premium'?'Notifications sans limite':p.id==='farmer'?'Toutes les notifications brainrot':'Notifications basiques')+'</div>';
-    inner+='<div class="slots-bar"><div class="slots-row"><span class="slots-lbl">Slots</span><span class="slots-val">'+ps.used+'/'+ps.total+'</span></div><div class="meter"><div class="meter-f'+(full?' full':'')+'" style="width:'+pct+'%"></div></div></div>';
+    inner+='<div class="slots-bar"><div class="slots-row"><span class="slots-lbl">Slots</span><span class="slots-val">'+p.slotsUsed+'/'+p.slots+'</span></div><div class="meter"><div class="meter-f'+(full?' full':'')+'" style="width:'+pct+'%"></div></div></div>';
     inner+='<div class="stat-b"><div class="stat-lbl">Default Max Generation</div><div class="stat-val">'+p.maxGen+'</div><div class="stat-d">'+p.desc+'</div></div>';
+
     if(p.brainrots&&p.brainrots.length){
       inner+='<div class="br-box"><div class="br-hd"><span class="br-t">Per-Brainrot Limits</span><span class="br-c">'+p.brainrots.length+' brainrots</span></div><div class="br-list">';
       p.brainrots.forEach(function(b){
@@ -954,232 +885,149 @@ function renderPlans(){
       });
       inner+='</div></div>';
     }
+
     inner+='<div class="price-area"><div class="price-lbl">Prix</div><div class="price-v">'+p.price+'</div></div>';
     inner+='<div style="font-size:10px;color:var(--text3);margin-bottom:10px;font-weight:400">⏱️ Max 12h par achat</div>';
-    inner+='<button class="btn-buy" onclick="openBuy(\''+p.id+'\','+p.priceNum+',\''+p.name+'\',null)"'+(full?' disabled>🔒 Complet':'>⚡ Acheter ce slot')+'</button>';
+    inner+='<button class="btn-buy" onclick="openBuy(\''+p.id+'\','+p.priceNum+',\''+p.name+'\')" '+(full?'disabled>🔒 Complet':'>⚡ Acheter ce slot')+'</button>';
+
     el.innerHTML=inner;
     g.appendChild(el);
   });
 }
 
-// ================================================================
-// ===== BUY MODAL =====
-// ================================================================
-function openBuy(id,price,name,slotId){
-  if(!state.user){openDiscordLogin();return;}
+async function loadLeaderboard(){
+  try{
+    var r=await fetch('/api/leaderboard');
+    var data=await r.json();
+    var t=document.getElementById('lb-list');
+    var filtered=(data||[]).filter(function(u){return u.discordId||u.avatar||u.id;});
+    if(!filtered.length){t.innerHTML='<div class="lb-empty">Connecte ton Discord pour apparaître ici. Aucun farmer pour l\'instant.</div>';return;}
+    t.innerHTML='';
+    var mc=['r1','r2','r3'],re=['🥇','🥈','🥉'];
+    filtered.forEach(function(u,i){
+      var row=document.createElement('div');row.className='lb-row'+(i<3?' '+mc[i]:'');
+      var avatarHtml=u.avatar?'<img src="'+u.avatar+'" alt="">':u.username[0].toUpperCase();
+      row.innerHTML='<div class="lb-rank '+(i<3?mc[i]:'other')+'">'+(i<3?re[i]:'#'+(i+1))+'</div>'+
+        '<div class="lb-av">'+avatarHtml+'</div>'+
+        '<div class="lb-info"><div class="lb-name">'+u.username+'</div><div class="lb-sub">'+(u.discordHandle||('@'+u.username))+'</div></div>'+
+        '<div class="lb-j"><div class="lb-jv">'+(u.joins||0)+'</div><div class="lb-jl">Joins</div></div>'+
+        '<div><div class="lb-sv">'+(u.score||0).toLocaleString()+'</div><div class="lb-sl">Score</div></div>';
+      t.appendChild(row);
+    });
+  }catch(e){}
+}
+
+async function loadRenters(){
+  try{
+    var r=await fetch('/api/renters');
+    var data=await r.json();
+    document.getElementById('active-num').textContent=data.length;
+    var g=document.getElementById('renters-grid');
+    g.innerHTML='';
+    if(!data.length){g.innerHTML='<div class="no-r">Aucun renter actif pour le moment.</div>';return;}
+    data.forEach(function(u){
+      var card=document.createElement('div');card.className='renter-card';
+      var exp=u.endDate?timeLeft(u.endDate):'?';
+      var pc=u.planId==='premium'?'premium':u.planId==='farmer'?'farmer':'bid';
+      var bestIco=ICONS[u.bestSteal]||'🎮';
+      card.innerHTML='<div class="renter-top">'+
+        '<div class="r-av">'+(u.avatar?'<img src="'+u.avatar+'" alt="">':u.username[0].toUpperCase())+'</div>'+
+        '<div class="r-name">'+u.username+'</div><div class="r-handle">@'+u.discordHandle+'</div>'+
+        '<div class="r-badges"><span class="ptag '+pc+'">'+u.planName.toUpperCase()+'</span><span class="ttag">Finit dans '+exp+'</span></div></div>'+
+        '<div class="r-stats"><div class="r-stat"><div class="rs-lbl">Steals</div><div class="rs-v">'+u.steals+'</div></div>'+
+        '<div class="r-stat"><div class="rs-lbl">Deposited</div><div class="rs-v money">'+u.deposited.toFixed(2)+'€</div></div></div>'+
+        (u.bestSteal?'<div class="r-best"><div class="b-ico">'+bestIco+'</div><div><div class="b-lbl">Best Steal</div><div class="b-name">'+u.bestSteal+'</div><div class="b-val">'+u.bestStealVal+'€</div></div></div>':'');
+      g.appendChild(card);
+    });
+  }catch(e){}
+}
+
+function timeLeft(endDate){
+  var diff=new Date(endDate)-new Date();
+  if(diff<=0)return 'Expiré';
+  var h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000);
+  if(h>0)return h+'h '+m+'m';return m+'m';
+}
+
+function openBuy(id,price,name,slotId,slotEndDate){
+  if(!currentUser||!currentUser.id){location.href='/auth/login';return;}
+  extendSlotId=slotId||null;
+  if(id==='premium')price=8;
+  if(id==='farmer')price=4;
+  if(id==='bid')price=2;
   currentPlan={id:id,price:price,name:name};
-  extendSlotId=slotId;
-  if(slotId!==null&&slotId!==undefined){
-    document.getElementById('modal-name').textContent='Prolonger '+name;
-    document.getElementById('modal-sub-text').textContent='Heures ajoutées au temps restant du slot. Maximum 12h par achat.';
-  }else{
-    document.getElementById('modal-name').textContent='Acheter '+name;
-    document.getElementById('modal-sub-text').textContent='Glisse pour choisir le nombre d\'heures. Maximum 12h.';
-  }
+  document.getElementById('modal-name').textContent=(slotId?'Prolonger ':'Acheter ')+name;
+  document.getElementById('modal-sub').textContent='Glisse pour choisir le nombre d\'heures. Maximum 12h.';
   document.getElementById('modal-ph').textContent=price+'€/h';
+  document.getElementById('modal-hours-range').setAttribute('max','12');
   document.getElementById('modal-hours-range').value=1;
   document.getElementById('modal-hours-disp').textContent='1';
-  document.getElementById('modal-bal').textContent=state.balance.toFixed(2)+'€';
+  var balDisplay=isAdmin()?'∞':(currentUser.balance||0).toFixed(2);
+  document.getElementById('modal-bal').textContent=balDisplay+'€';
   document.getElementById('modal-err').innerHTML='';
   document.getElementById('balance-warn').classList.remove('show');
   document.getElementById('btn-confirm-buy').disabled=false;
+  var sti=document.getElementById('slot-time-info');
+  if(slotId&&slotEndDate){sti.style.display='flex';document.getElementById('slot-time-text').innerHTML='Slot actif — <strong>'+timeLeft(slotEndDate)+' restantes</strong>';}
+  else{sti.style.display='none';}
   updateSlider();
   document.getElementById('buy-modal').style.display='flex';
 }
 
 function updateSlider(){
   var h=parseInt(document.getElementById('modal-hours-range').value)||1;
+  if(h>12)h=12;
   document.getElementById('modal-hours-disp').textContent=h;
   var total=currentPlan.price*h;
   document.getElementById('modal-total').textContent=total.toFixed(2)+'€';
   var warn=document.getElementById('balance-warn');
   var confirmBtn=document.getElementById('btn-confirm-buy');
-  if(total>state.balance){
-    var maxH=Math.floor(state.balance/currentPlan.price);
-    if(maxH<1){warn.textContent='❌ Solde insuffisant ('+state.balance.toFixed(2)+'€). Dépose du LTC d\'abord.';}
-    else{warn.textContent='❌ Max payable : '+maxH+'h ('+(maxH*currentPlan.price).toFixed(2)+'€).';}
-    warn.classList.add('show');
-    confirmBtn.disabled=true;
-  }else{
-    warn.classList.remove('show');
-    confirmBtn.disabled=false;
-  }
+  if(!isAdmin()){
+    var bal=currentUser&&currentUser.balance||0;
+    if(total>bal){
+      var maxH=Math.floor(bal/currentPlan.price);
+      if(maxH<1){warn.textContent='❌ Solde insuffisant ('+bal.toFixed(2)+'€). Dépose du LTC d\'abord.';}
+      else{warn.textContent='❌ Max payable : '+maxH+'h ('+(maxH*currentPlan.price).toFixed(2)+'€). Réduis les heures ou dépose du LTC.';}
+      warn.classList.add('show');confirmBtn.disabled=true;
+    }else{warn.classList.remove('show');confirmBtn.disabled=false;}
+  }else{warn.classList.remove('show');confirmBtn.disabled=false;}
 }
 
-function closeModal(){document.getElementById('buy-modal').style.display='none';extendSlotId=null;}
+function closeModal(){document.getElementById('buy-modal').style.display='none';}
 function closeModalOut(e){if(e.target.id==='buy-modal')closeModal();}
 
-function confirmBuy(){
+async function confirmBuy(){
   var h=parseInt(document.getElementById('modal-hours-range').value)||1;
+  if(h<1||h>12){document.getElementById('modal-err').innerHTML='<div class="modal-err">Entre 1 et 12 heures.</div>';return;}
   var total=currentPlan.price*h;
-  if(total>state.balance){openDepositModal();closeModal();return;}
-
-  state.balance-=total;
-
-  if(extendSlotId!==null&&extendSlotId!==undefined){
-    // ===== PROLONGER : ajouter les heures EXACTEMENT au temps restant =====
-    var slot=state.slots.find(function(s){return s.id===extendSlotId;});
-    if(slot){
-      var now=Date.now();
-      var currentEnd=new Date(slot.endDate).getTime();
-      // Si le slot est déjà expiré on repart de now, sinon on ajoute au temps restant
-      var baseTime=Math.max(now,currentEnd);
-      slot.endDate=new Date(baseTime+h*3600000).toISOString();
-      slot.hours+=h;
-      renderNav();
-      renderDashboard();
-      updateRenterCard(slot.id);
-      closeModal();
-      toast('✅ Slot '+currentPlan.name+' prolongé de +'+h+'h ! Temps restant : '+timeLeft(slot.endDate));
+  if(!isAdmin()&&(currentUser.balance||0)<total){closeModal();openDepositModal();return;}
+  try{
+    var endpoint=extendSlotId?'/api/extend-slot':'/api/buy-slot';
+    var body=extendSlotId?{slotId:extendSlotId,hours:h}:{planId:currentPlan.id,hours:h};
+    var r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    var d=await r.json();
+    if(d.success){
+      if(!isAdmin())currentUser.balance=d.balance;
+      renderAuth();closeModal();
+      var balMsg=isAdmin()?'Solde : ∞€':('Solde restant : '+d.balance.toFixed(2)+'€');
+      alert('✅ '+(extendSlotId?'Slot prolongé':'Slot '+currentPlan.name+' acheté')+' pour '+h+'h ! '+balMsg);
+      loadPlans();refreshDepot();
+    }else{
+      if(d.error&&(d.error.toLowerCase().includes('solde')||d.error.toLowerCase().includes('balance')||d.error.toLowerCase().includes('insuffisant'))){closeModal();openDepositModal();}
+      else{document.getElementById('modal-err').innerHTML='<div class="modal-err">'+(d.error||'Erreur')+'</div>';}
     }
-  }else{
-    // ===== NOUVEAU SLOT =====
-    var newSlot={
-      id:state.nextSlotId++,
-      planId:currentPlan.id,
-      planName:currentPlan.name,
-      pricePerHour:currentPlan.price,
-      hours:h,
-      endDate:new Date(Date.now()+h*3600000).toISOString()
-    };
-    state.slots.push(newSlot);
-    planSlots[currentPlan.id].used++;
-    renderNav();
-    renderPlans();
-    renderDashboard();
-    closeModal();
-    toast('✅ Slot '+currentPlan.name+' acheté pour '+h+'h ! Solde : '+state.balance.toFixed(2)+'€');
-    addRenterCard(newSlot);
-  }
+  }catch(e){closeModal();openDepositModal();}
 }
 
-// ================================================================
-// ===== RENTERS =====
-// ================================================================
-function renderRenters(){
-  var g=document.getElementById('renters-grid');
-  var numEl=document.getElementById('active-num');
-  // Nettoyer les slots expirés de l'affichage
-  var activeSlots=state.slots.filter(function(s){return new Date(s.endDate)>new Date();});
-  numEl.textContent=activeSlots.length;
-  if(!activeSlots.length){
-    g.innerHTML='<div class="no-r">Aucun renter actif pour le moment.</div>';
-    return;
-  }
-  g.innerHTML='';
-  activeSlots.forEach(function(slot){
-    var card=buildRenterCard(slot);
-    g.appendChild(card);
-  });
-}
-
-function buildRenterCard(slot){
-  var card=document.createElement('div');
-  card.className='renter-card';
-  card.setAttribute('data-slot-id',slot.id);
-  var pc=slot.planId==='premium'?'premium':slot.planId==='farmer'?'farmer':'bid';
-  var userName=state.user?state.user.name:'06wzz';
-  var avatarUrl=state.user?state.user.avatar:'';
-  var initials=userName.substring(0,2).toUpperCase();
-  var avatarHtml=avatarUrl
-    ?'<img src="'+avatarUrl+'" alt="" onerror="this.outerHTML=\''+initials+'\'">'
-    :initials;
-  card.innerHTML=
-    '<div class="renter-top">'+
-    '<div class="r-av">'+avatarHtml+'</div>'+
-    '<div class="r-name">'+userName+'</div>'+
-    '<div class="r-handle">@'+userName+'</div>'+
-    '<div class="r-badges">'+
-      '<span class="ptag '+pc+'">'+slot.planName.toUpperCase()+'</span>'+
-      '<span class="ttag renter-timeleft" data-slot-id="'+slot.id+'">Finit dans '+timeLeft(slot.endDate)+'</span>'+
-    '</div></div>'+
-    '<div class="r-stats">'+
-      '<div class="r-stat"><div class="rs-lbl">Steals</div><div class="rs-v">0</div></div>'+
-      '<div class="r-stat"><div class="rs-lbl">Deposited</div><div class="rs-v money">'+state.totalDeposited.toFixed(2)+'€</div></div>'+
-    '</div>';
-  return card;
-}
-
-function addRenterCard(slot){
-  var g=document.getElementById('renters-grid');
-  var noR=g.querySelector('.no-r');if(noR)noR.remove();
-  var numEl=document.getElementById('active-num');
-  numEl.textContent=parseInt(numEl.textContent||'0')+1;
-  var card=buildRenterCard(slot);
-  g.insertBefore(card,g.firstChild);
-}
-
-function updateRenterCard(slotId){
-  var slot=state.slots.find(function(s){return s.id===slotId;});
-  if(!slot)return;
-  // Mettre à jour la carte existante
-  var tl=document.querySelector('.renter-timeleft[data-slot-id="'+slotId+'"]');
-  if(tl)tl.textContent='Finit dans '+timeLeft(slot.endDate);
-}
-
-// Mettre à jour les temps restants toutes les 30s
-setInterval(function(){
-  document.querySelectorAll('.renter-timeleft').forEach(function(el){
-    var sid=parseInt(el.getAttribute('data-slot-id'));
-    var slot=state.slots.find(function(s){return s.id===sid;});
-    if(slot)el.textContent='Finit dans '+timeLeft(slot.endDate);
-  });
-  // Rafraîchir le dashboard si visible
-  if(document.getElementById('page-dashboard').classList.contains('active'))renderDashboard();
-},30000);
-
-// ================================================================
-// ===== DASHBOARD =====
-// ================================================================
-function renderDashboard(){
-  if(!state.user)return;
-  var dashAvEl=document.getElementById('dash-avatar');
-  if(dashAvEl&&state.user.avatar)dashAvEl.src=state.user.avatar;
-  document.getElementById('dash-name').textContent=state.user.name;
-  document.getElementById('dash-tag').textContent='@'+state.user.tag;
-  document.getElementById('dash-balance').textContent=state.balance.toFixed(2)+'€';
-  document.getElementById('dash-slots-count').textContent=state.slots.length;
-  document.getElementById('dash-total-dep').textContent=state.totalDeposited.toFixed(2)+'€';
-  if(state.user.isAdmin){
-    var abEl=document.getElementById('admin-header-badge');
-    if(abEl)abEl.style.display='block';
-  }
-  var dsl=document.getElementById('dash-slots-list');
-  if(!state.slots.length){
-    dsl.innerHTML='<div style="color:var(--text3);font-size:12px;padding:14px 0;font-weight:400">Aucun slot actif. <a onclick="showPage(\'plans\')" style="color:var(--accent2);cursor:none;text-decoration:underline">Acheter un plan</a></div>';
-    return;
-  }
-  var html='';
-  state.slots.forEach(function(s){
-    var exp=new Date(s.endDate).toLocaleString('fr-FR');
-    var tl=timeLeft(s.endDate);
-    var ic=s.planId==='premium'?'💎':s.planId==='bid'?'⚡':'🌿';
-    html+='<div class="dash-slot">'+
-      '<div class="ds-left">'+
-        '<div class="ds-ico">'+ic+'</div>'+
-        '<div>'+
-          '<div class="ds-pn">'+s.planName+'</div>'+
-          '<div class="ds-pe">Finit dans <strong style="color:var(--lime)">'+tl+'</strong> · Expire le '+exp+'</div>'+
-        '</div>'+
-      '</div>'+
-      '<button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\','+s.id+')">+ Prolonger</button>'+
-    '</div>';
-  });
-  dsl.innerHTML=html;
-}
-
-// ================================================================
-// ===== DEPOSIT MODAL =====
-// ================================================================
+// DEPOSIT MODAL
 function openDepositModal(){
+  if(!currentUser||!currentUser.id){location.href='/auth/login';return;}
   depAmount=0;depLtcAmount=0;
   depSetStep(1);
-  try{
-    fetch('/api/ltc-rate').then(function(r){return r.json();}).then(function(d){
-      if(d&&d.rate)depLtcRate=d.rate;
-      renderDepPresets();updateDepositCalc();
-    }).catch(function(){renderDepPresets();updateDepositCalc();});
-  }catch(e){renderDepPresets();updateDepositCalc();}
+  fetch('/api/ltc-rate').then(function(r){return r.json();}).then(function(d){
+    depLtcRate=d.rate||0;renderDepPresets();updateDepositCalc();
+  }).catch(function(){depLtcRate=0;renderDepPresets();});
+  clearInterval(depTimer);
   document.getElementById('deposit-modal').style.display='flex';
 }
 
@@ -1197,15 +1045,13 @@ function depSetStep(n){
 
 function renderDepPresets(){
   var g=document.getElementById('dep-presets');g.innerHTML='';
-  [5,10,20,50,100,200].forEach(function(v){
+  DEP_PRESETS.forEach(function(v){
     var ltcEq=depLtcRate>0?(v/depLtcRate).toFixed(4):'?';
     var d=document.createElement('div');d.className='dep-preset';
     d.innerHTML='<div class="dep-preset-val">'+v+'€</div><div class="dep-preset-ltc">≈ '+ltcEq+' LTC</div>';
     d.onclick=function(){
       document.querySelectorAll('.dep-preset').forEach(function(x){x.classList.remove('selected');});
-      d.classList.add('selected');
-      document.getElementById('dep-eur-input').value=v;
-      updateDepositCalc();
+      d.classList.add('selected');document.getElementById('dep-eur-input').value=v;updateDepositCalc();
     };
     g.appendChild(d);
   });
@@ -1221,9 +1067,8 @@ function updateDepositCalc(){
 
 function depStep2(){
   var val=parseFloat(document.getElementById('dep-eur-input').value)||0;
-  if(val<1){toast('Minimum 1€ pour déposer.',true);return;}
-  depAmount=val;
-  depLtcAmount=depLtcRate>0?(val/depLtcRate):0;
+  if(val<1){alert('Minimum 1€ pour déposer.');return;}
+  depAmount=val;depLtcAmount=depLtcRate>0?(val/depLtcRate):0;
   var ltcStr=depLtcAmount.toFixed(6);
   document.getElementById('dep-send-ltc').textContent=ltcStr+' LTC';
   document.getElementById('dep-send-eur').textContent='≈ '+val.toFixed(2)+' EUR';
@@ -1232,9 +1077,8 @@ function depStep2(){
   var seconds=600;
   function tick(){
     var m=Math.floor(seconds/60),s=seconds%60;
-    var el=document.getElementById('dep-timer-text');
-    if(el)el.textContent='Expire dans '+m+':'+(s<10?'0':'')+s;
-    if(seconds<=0){clearInterval(depTimer);if(el)el.textContent='Expiré';}
+    document.getElementById('dep-timer-text').textContent='Expire dans '+m+':'+(s<10?'0':'')+s;
+    if(seconds<=0){clearInterval(depTimer);document.getElementById('dep-timer-text').textContent='Expiré';}
     seconds--;
   }
   tick();depTimer=setInterval(tick,1000);
@@ -1245,33 +1089,30 @@ function depGoBack(from){depSetStep(from-1);if(from===2)clearInterval(depTimer);
 
 function depStep3(){
   depSetStep(3);
-  var fill=document.getElementById('dep-fill');
-  var msg=document.getElementById('dep-status-msg');
-  fill.className='dep-status-fill checking';
-  msg.textContent='Recherche de ta transaction…';
-  msg.className='dep-status-msg';
+  var fill=document.getElementById('dep-fill');var msg=document.getElementById('dep-status-msg');
+  fill.className='dep-status-fill checking';msg.textContent='Recherche de ta transaction…';msg.className='dep-status-msg';
+  setTimeout(depVerify,2000);
 }
 
-function depVerifyDemo(){
-  var fill=document.getElementById('dep-fill');
-  var msg=document.getElementById('dep-status-msg');
-  var btn=document.getElementById('dep-btn-verify');
-  btn.disabled=true;
-  fill.className='dep-status-fill checking';
-  msg.textContent='Vérification blockchain…';
-  msg.className='dep-status-msg';
-  setTimeout(function(){
+async function depVerify(){
+  var fill=document.getElementById('dep-fill');var msg=document.getElementById('dep-status-msg');var btn=document.getElementById('dep-btn-verify');
+  if(btn)btn.disabled=true;fill.className='dep-status-fill checking';msg.textContent='Vérification de la blockchain LTC…';msg.className='dep-status-msg';
+  try{
+    var r=await fetch('/api/deposit/check',{method:'POST'});var d=await r.json();
     fill.className='dep-status-fill';
-    fill.style.width='100%';
-    msg.textContent='✅ Transaction détectée !';
-    msg.className='dep-status-msg ok';
-    state.balance+=depAmount;
-    state.totalDeposited+=depAmount;
-    renderNav();
-    document.getElementById('dep-done-val').textContent='+'+depAmount.toFixed(2)+'€';
-    clearInterval(depTimer);
-    setTimeout(function(){depSetStep(4);},700);
-  },1800);
+    if(d.added>0){
+      fill.style.width='100%';msg.textContent='✅ Transaction détectée !';msg.className='dep-status-msg ok';
+      currentUser.balance=d.balance;renderAuth();
+      document.getElementById('dep-done-val').textContent='+'+d.added.toFixed(2)+'€';
+      clearInterval(depTimer);setTimeout(function(){depSetStep(4);},900);
+    }else{
+      fill.style.width='15%';msg.textContent='Aucun dépôt détecté. Attends quelques minutes puis réessaie.';msg.className='dep-status-msg err';
+      if(btn)btn.disabled=false;
+    }
+  }catch(e){
+    fill.style.width='0%';msg.textContent='Erreur de vérification. Réessaie.';msg.className='dep-status-msg err';
+    if(btn)btn.disabled=false;
+  }
 }
 
 function generateQR(svgEl,data){
@@ -1298,17 +1139,109 @@ function generateQR(svgEl,data){
 }
 
 function copyLTC(){
-  navigator.clipboard.writeText('LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9').then(function(){toast('📋 Adresse copiée !');});
-}
-function copyDepLTC(){
-  navigator.clipboard.writeText(depLtcAmount.toFixed(6)).then(function(){toast('🔢 Montant LTC copié !');});
+  navigator.clipboard.writeText('LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9').then(function(){
+    document.querySelectorAll('.btn-copy,.dep-copy-btn').forEach(function(b){
+      if(b.textContent.includes('adresse')||b.textContent.includes('📋')){
+        var orig=b.textContent;b.textContent='✅ Copié !';setTimeout(function(){b.textContent=orig;},1500);
+      }
+    });
+  });
 }
 
-// ================================================================
-// ===== INIT =====
-// ================================================================
-renderNav();
-renderPlans();
+function copyDepLTC(){
+  var ltcStr=depLtcAmount.toFixed(6);
+  navigator.clipboard.writeText(ltcStr).then(function(){
+    document.querySelectorAll('.dep-copy-btn').forEach(function(b){
+      if(b.textContent.includes('montant')||b.textContent.includes('LTC')){
+        var orig=b.textContent;b.textContent='✅ Copié !';setTimeout(function(){b.textContent=orig;},1500);
+      }
+    });
+  });
+}
+
+async function checkDeposit(){
+  var btn=document.getElementById('check-btn');btn.textContent='⏳ Vérification…';btn.disabled=true;
+  var st=document.getElementById('check-status');
+  try{
+    var r=await fetch('/api/deposit/check',{method:'POST'});var d=await r.json();
+    if(d.added>0){
+      st.innerHTML='<div class="status-msg status-ok">✅ +'+d.added.toFixed(2)+'€ crédités ! Solde : '+d.balance.toFixed(2)+'€</div>';
+      currentUser.balance=d.balance;renderAuth();refreshDepot();
+    }else{st.innerHTML='<div class="status-msg status-err">Aucun dépôt détecté. Attends quelques minutes.</div>';}
+  }catch(e){st.innerHTML='<div class="status-msg status-err">Erreur de vérification</div>';}
+  btn.textContent='🔍 Vérifier mon dépôt';btn.disabled=false;
+}
+
+async function adminTransfer(){
+  if(!isAdmin()){alert('Accès refusé.');return;}
+  var username=document.getElementById('transfer-user').value.trim();
+  var amount=parseFloat(document.getElementById('transfer-amount').value);
+  var st=document.getElementById('transfer-status');
+  if(!username){st.innerHTML='<div class="status-msg status-err">Saisis un nom d\'utilisateur.</div>';return;}
+  if(!amount||amount<=0){st.innerHTML='<div class="status-msg status-err">Montant invalide.</div>';return;}
+  st.innerHTML='<div class="status-msg" style="background:var(--bg3);color:var(--text2);border:1px solid var(--border)">⏳ Envoi…</div>';
+  try{
+    var r=await fetch('/api/admin/transfer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({toUsername:username,amount:amount})});
+    var d=await r.json();
+    if(d.success){
+      st.innerHTML='<div class="status-msg status-ok">✅ +'+amount.toFixed(2)+'€ envoyés à <strong>'+username+'</strong> !</div>';
+      logAdminAction('✅ Envoi '+amount.toFixed(2)+'€ → '+username,'ok');
+      document.getElementById('transfer-user').value='';document.getElementById('transfer-amount').value='';
+    }else{
+      st.innerHTML='<div class="status-msg status-err">❌ '+(d.error||'Erreur')+'</div>';
+      logAdminAction('❌ Échec '+amount.toFixed(2)+'€ → '+username,'err');
+    }
+  }catch(e){st.innerHTML='<div class="status-msg status-err">❌ Erreur réseau.</div>';logAdminAction('❌ Erreur réseau → '+username,'err');}
+}
+
+function logAdminAction(msg,type){
+  var now=new Date().toLocaleTimeString('fr-FR');
+  adminTransferLog.unshift({msg:msg,type:type,time:now});
+  if(adminTransferLog.length>20)adminTransferLog.pop();
+  var log=document.getElementById('admin-log');if(!log)return;
+  log.innerHTML=adminTransferLog.map(function(e){
+    return '<div class="alg-e '+e.type+'"><span style="color:var(--text3)">['+e.time+']</span> '+e.msg+'</div>';
+  }).join('');
+}
+
+async function refreshDepot(){
+  if(!currentUser||!currentUser.id)return;
+  try{
+    var r=await fetch('/api/me');var u=await r.json();
+    if(!u||!u.id)return;
+    if(u.username===ADMIN_USERNAME&&(!u.balance||u.balance<50))u.balance=50;
+    currentUser=u;
+  }catch(e){}
+  var balStr=isAdmin()?'∞':(currentUser.balance||0).toFixed(2);
+  var balEl=document.getElementById('depot-balance');if(balEl)balEl.textContent=balStr;
+  var dashBalEl=document.getElementById('dash-balance');if(dashBalEl)dashBalEl.textContent=balStr+'€';
+  if(isAdmin()&&dashBalEl)dashBalEl.className='dc-val gold';
+  var dashNameEl=document.getElementById('dash-name');if(dashNameEl)dashNameEl.textContent=currentUser.username;
+  var dashTagEl=document.getElementById('dash-tag');if(dashTagEl)dashTagEl.textContent=currentUser.tag||('@'+currentUser.username);
+  var dashAvEl=document.getElementById('dash-avatar');if(dashAvEl)dashAvEl.src=currentUser.avatar||'';
+  var dashTotEl=document.getElementById('dash-total-dep');if(dashTotEl)dashTotEl.textContent=(currentUser.totalDeposited||0).toFixed(2)+'€';
+  var adminBadge=document.getElementById('admin-header-badge');var adminBtn=document.getElementById('btn-admin-panel');
+  if(isAdmin()){if(adminBadge)adminBadge.style.display='block';if(adminBtn)adminBtn.style.display='inline-flex';}
+  var slots=currentUser.slots||[];
+  var slotCntEl=document.getElementById('dash-slots-count');if(slotCntEl)slotCntEl.textContent=slots.length;
+  var sl=document.getElementById('my-slots');var dsl=document.getElementById('dash-slots-list');
+  if(slots.length===0){
+    if(sl)sl.innerHTML='<div class="no-slots">Aucun slot actif</div>';
+    if(dsl)dsl.innerHTML='<div style="color:var(--text3);font-size:12px;padding:14px 0;font-weight:400">Aucun slot actif. <a onclick="showPage(\'plans\')" style="color:var(--accent2);cursor:none;text-decoration:underline">Acheter un plan</a></div>';
+  }else{
+    var html1='',html2='';
+    slots.forEach(function(s){
+      var exp=new Date(s.endDate).toLocaleString('fr-FR');var tl=timeLeft(s.endDate);
+      html1+='<div class="slot-item"><div><div class="sl-name">'+s.planName+'</div><div class="sl-exp">Expire le '+exp+' · <strong style="color:var(--lime)">'+tl+' restantes</strong></div></div><div class="sl-badge">Actif</div></div>';
+      var ic=s.planId==='premium'?'💎':s.planId==='bid'?'⚡':'🌿';
+      html2+='<div class="dash-slot"><div class="ds-left"><div class="ds-ico">'+ic+'</div><div><div class="ds-pn">'+s.planName+'</div><div class="ds-pe">Finit dans <strong style="color:var(--lime)">'+tl+'</strong> · Expire le '+exp+'</div></div></div><button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\',\''+s.id+'\',\''+s.endDate+'\')">+ Prolonger</button></div>';
+    });
+    if(sl)sl.innerHTML=html1;if(dsl)dsl.innerHTML=html2;
+  }
+  try{var rr=await fetch('/api/ltc-rate');var rd=await rr.json();var el=document.getElementById('ltc-rate');if(el)el.textContent='1 LTC = '+rd.rate.toFixed(2)+'€';}catch(e){}
+}
+
+loadUser();loadPlans();loadLeaderboard();
 </script>
 </body>
 </html>
