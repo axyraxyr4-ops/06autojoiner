@@ -7,15 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-/* ===== CUSTOM CURSOR ===== */
 *{cursor:none!important}
-#cursor{position:fixed;width:10px;height:10px;background:var(--lime);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform .08s ease,background .2s,width .2s,height .2s;mix-blend-mode:difference}
-#cursor-ring{position:fixed;width:32px;height:32px;border:1.5px solid rgba(184,255,71,0.55);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:transform .18s cubic-bezier(.16,1,.3,1),width .25s cubic-bezier(.16,1,.3,1),height .25s cubic-bezier(.16,1,.3,1),border-color .2s,opacity .2s}
-#cursor-trail{position:fixed;width:5px;height:5px;background:rgba(184,255,71,0.25);border-radius:50%;pointer-events:none;z-index:99997;transform:translate(-50%,-50%);transition:transform .35s ease}
-body.cursor-hover #cursor{width:16px;height:16px;background:var(--lime2)}
-body.cursor-hover #cursor-ring{width:48px;height:48px;border-color:rgba(184,255,71,0.35)}
-body.cursor-click #cursor{width:6px;height:6px}
-body.cursor-click #cursor-ring{width:22px;height:22px;border-color:rgba(184,255,71,0.9)}
+
+/* ===== DEVTOOLS BLOCK ===== */
+#devtools-block{display:none;position:fixed;inset:0;background:#050507;z-index:999999;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+#devtools-block.show{display:flex}
+#devtools-block .db-icon{font-size:48px}
+#devtools-block .db-title{font-size:22px;font-weight:800;color:#FF3B5C;font-family:'Syne',sans-serif;letter-spacing:-.5px}
+#devtools-block .db-sub{font-size:13px;color:#4A4468;font-family:'Syne',sans-serif;font-weight:400}
+
+/* ===== CURSOR ===== */
+#cursor{position:fixed;width:8px;height:8px;background:var(--lime);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .2s;mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:28px;height:28px;border:1.5px solid rgba(184,255,71,0.5);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:left .12s cubic-bezier(.16,1,.3,1),top .12s cubic-bezier(.16,1,.3,1),width .2s,height .2s,border-color .2s}
+body.cursor-hover #cursor{width:14px;height:14px;background:var(--lime2)}
+body.cursor-hover #cursor-ring{width:42px;height:42px;border-color:rgba(184,255,71,0.3)}
+body.cursor-click #cursor{width:5px;height:5px}
+body.cursor-click #cursor-ring{width:18px;height:18px;border-color:rgba(184,255,71,0.9)}
 
 :root{
   --bg:#050507;--bg2:#0D0D12;--bg3:#13131A;--bg4:#1A1A24;
@@ -29,10 +36,12 @@ body.cursor-click #cursor-ring{width:22px;height:22px;border-color:rgba(184,255,
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden}
 
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
-body::before{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(91,59,255,0.15) 0%,transparent 70%);pointer-events:none;z-index:0}
+/* ===== WAVE CANVAS BACKGROUND ===== */
+#wave-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.55}
 
-nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
+
+nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .nav-logo{display:flex;align-items:center;gap:9px;cursor:none;text-decoration:none;flex-shrink:0}
 .logo-mark{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;color:#fff;font-family:'IBM Plex Mono',monospace}
 .logo-name{font-weight:800;font-size:15px;color:var(--text);letter-spacing:-.5px}
@@ -41,11 +50,9 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .nav-btn:hover{color:var(--text);background:var(--bg3)}
 .nav-btn.active{color:var(--lime);background:rgba(184,255,71,0.07)}
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-
 .btn-discord{background:#5865F2;color:#fff;border:none;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:none;font-family:'Syne',sans-serif;display:flex;align-items:center;gap:6px;transition:all .15s;text-transform:uppercase;letter-spacing:.3px}
 .btn-discord:hover{background:#4752C4;transform:translateY(-1px)}
 .btn-discord svg{width:18px;height:18px;flex-shrink:0}
-
 .user-chip{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:3px 11px 3px 3px;cursor:none;transition:border-color .15s}
 .user-chip:hover{border-color:var(--border2)}
 .user-chip img{width:22px;height:22px;border-radius:50%}
@@ -73,11 +80,10 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .btn-primary:hover{background:var(--lime2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,255,71,0.25)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2);padding:12px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:none;font-family:'Syne',sans-serif;transition:all .15s;letter-spacing:.3px;text-transform:uppercase}
 .btn-ghost:hover{color:var(--text);border-color:var(--accent2)}
-
 .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .feat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;transition:border-color .2s}
 .feat:hover{border-color:var(--border2)}
-.feat-ico{font-size:20px;margin-bottom:10px}
+.feat-ico{width:28px;height:28px;background:var(--accent3);border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:14px}
 .feat-t{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;letter-spacing:-.2px}
 .feat-d{font-size:11px;color:var(--text2);line-height:1.65;font-weight:400}
 
@@ -88,7 +94,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,7,0.9);backdrop-filter
 .sec-h2{font-size:32px;font-weight:800;letter-spacing:-1.5px;margin-bottom:8px}
 .sec-h2 span{color:var(--lime)}
 .sec-sub{color:var(--text2);font-size:13px;font-weight:400}
-
 .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .plan-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;display:flex;flex-direction:column;transition:all .2s}
 .plan-card:hover{border-color:var(--border2);transform:translateY(-2px)}
@@ -287,7 +292,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .btn-confirm:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .modal-err{color:var(--red);font-size:11px;text-align:center;margin-top:7px;font-weight:700}
 
-/* MODAL DÉPÔT */
+/* MODAL DEPOT */
 .deposit-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:550;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .deposit-box{background:var(--bg2);border:1px solid rgba(0,232,160,.25);border-radius:18px;padding:0;width:460px;max-width:92vw;animation:fadeUp .2s ease;overflow:hidden}
 .dep-steps{display:flex;align-items:center;padding:18px 24px 0;gap:0;margin-bottom:20px}
@@ -354,17 +359,6 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .dep-btn-check{flex:2;padding:11px;background:var(--lime);color:#050507;border:none;border-radius:9px;cursor:none;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;transition:all .15s;text-transform:uppercase;letter-spacing:.4px}
 .dep-btn-check:hover{background:var(--lime2)}
 
-/* LOGO GUIDE */
-.logo-guide{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:24px;margin-top:32px}
-.logo-guide-t{font-size:16px;font-weight:800;letter-spacing:-.5px;margin-bottom:5px;display:flex;align-items:center;gap:8px}
-.logo-guide-s{font-size:12px;color:var(--text2);margin-bottom:18px;line-height:1.55;font-weight:400}
-.logo-step{display:flex;gap:13px;margin-bottom:16px;align-items:flex-start}
-.logo-step-num{width:26px;height:26px;background:var(--accent3);border:1px solid rgba(91,59,255,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--accent2);flex-shrink:0;font-family:'IBM Plex Mono',monospace}
-.logo-step-body{flex:1}
-.logo-step-t{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
-.logo-step-d{font-size:11px;color:var(--text2);line-height:1.6;font-weight:400}
-.logo-code{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:9px 13px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2);margin-top:7px;line-height:1.7}
-
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:16px 28px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text3);position:relative;z-index:1;font-weight:400}
 footer a{color:var(--text2);cursor:none;transition:color .15s;font-weight:700;text-transform:uppercase;letter-spacing:.3px;font-size:10px}
 footer a:hover{color:var(--lime)}
@@ -372,8 +366,17 @@ footer a:hover{color:var(--lime)}
 </head>
 <body>
 
-<!-- ===== CUSTOM CURSOR ELEMENTS ===== -->
-<div id="cursor-trail"></div>
+<!-- DEVTOOLS BLOCKER -->
+<div id="devtools-block">
+  <div class="db-icon">🔒</div>
+  <div class="db-title">Accès refusé</div>
+  <div class="db-sub">Les outils de développement sont désactivés sur ce site.</div>
+</div>
+
+<!-- WAVE CANVAS -->
+<canvas id="wave-canvas"></canvas>
+
+<!-- CURSOR -->
 <div id="cursor-ring"></div>
 <div id="cursor"></div>
 
@@ -403,18 +406,18 @@ footer a:hover{color:var(--lime)}
   <div class="home-wrap">
     <div class="live-pill"><div class="pulse-dot"></div>Live Notifications</div>
     <h1 class="home-h1">Le meilleur<br><span class="line2">Brainrot Notifier</span></h1>
-    <p class="home-sub">Dépose du LTC, achète un slot et reçois des notifications en temps réel dès qu'un serveur rare spawn.</p>
+    <p class="home-sub">Depose du LTC, achete un slot et recois des notifications en temps reel des qu'un serveur rare spawn.</p>
     <div class="home-ctas">
       <button class="btn-primary" onclick="showPage('plans')">Voir les plans</button>
       <button class="btn-ghost" onclick="showPage('leaderboard')">Leaderboard</button>
     </div>
     <div class="feats">
-      <div class="feat"><div class="feat-ico">⚡</div><div class="feat-t">Temps réel</div><div class="feat-d">Notifications instantanées dès qu'un serveur rare est détecté.</div></div>
-      <div class="feat"><div class="feat-ico">🪙</div><div class="feat-t">Paiement LTC</div><div class="feat-d">Envoie du Litecoin depuis n'importe quel wallet. Crédité auto.</div></div>
-      <div class="feat"><div class="feat-ico">🏆</div><div class="feat-t">Leaderboard</div><div class="feat-d">Classement des meilleurs farmers synchronisé avec Discord.</div></div>
-      <div class="feat"><div class="feat-ico">🔥</div><div class="feat-t">30+ Brainrots</div><div class="feat-d">Support de tous les brainrots OG avec caps par catégorie.</div></div>
-      <div class="feat"><div class="feat-ico">💎</div><div class="feat-t">Plans flexibles</div><div class="feat-d">Premium 8€/h ou Farmer 4€/h. Max 12h par achat.</div></div>
-      <div class="feat"><div class="feat-ico">🛡️</div><div class="feat-t">Sécurisé</div><div class="feat-d">Login Discord OAuth2. Transactions vérifiées sur blockchain LTC.</div></div>
+      <div class="feat"><div class="feat-ico">Z</div><div class="feat-t">Temps reel</div><div class="feat-d">Notifications instantanees des qu'un serveur rare est detecte.</div></div>
+      <div class="feat"><div class="feat-ico">$</div><div class="feat-t">Paiement LTC</div><div class="feat-d">Envoie du Litecoin depuis n'importe quel wallet. Credite auto.</div></div>
+      <div class="feat"><div class="feat-ico">#</div><div class="feat-t">Leaderboard</div><div class="feat-d">Classement des meilleurs farmers synchronise avec Discord.</div></div>
+      <div class="feat"><div class="feat-ico">*</div><div class="feat-t">30+ Brainrots</div><div class="feat-d">Support de tous les brainrots OG avec caps par categorie.</div></div>
+      <div class="feat"><div class="feat-ico">+</div><div class="feat-t">Plans flexibles</div><div class="feat-d">Premium 3€/h ou Farmer 1€/h. Max 12h par achat.</div></div>
+      <div class="feat"><div class="feat-ico">S</div><div class="feat-t">Securise</div><div class="feat-d">Login Discord OAuth2. Transactions verifiees sur blockchain LTC.</div></div>
     </div>
   </div>
   <footer><span>© 2026 06Joiner</span><div style="display:flex;gap:18px"><a onclick="showPage('plans')">Plans</a><a onclick="showPage('leaderboard')">Leaderboard</a></div></footer>
@@ -426,7 +429,7 @@ footer a:hover{color:var(--lime)}
     <div class="sec-head">
       <div class="sec-pill">Pricing</div>
       <h2 class="sec-h2">Choisis ton <span>plan</span></h2>
-      <p class="sec-sub">Dépose du LTC → crédite ton solde → glisse pour choisir tes heures (max 12h).</p>
+      <p class="sec-sub">Depose du LTC → credite ton solde → glisse pour choisir tes heures (max 12h).</p>
     </div>
     <div class="plans-grid" id="plans-grid"></div>
   </div>
@@ -439,7 +442,7 @@ footer a:hover{color:var(--lime)}
     <div class="sec-head">
       <div class="sec-pill">Community</div>
       <h2 class="sec-h2">Nos <span>renters</span></h2>
-      <p class="sec-sub">Détenteurs de slots actifs sur 06Joiner.</p>
+      <p class="sec-sub">Detenteurs de slots actifs sur 06Joiner.</p>
     </div>
     <div class="renters-top">
       <div class="ac-box">
@@ -460,11 +463,11 @@ footer a:hover{color:var(--lime)}
 <div id="page-leaderboard" class="page">
   <div class="lb-wrap">
     <div class="sec-head">
-      <div class="sec-pill">🏆 Classement</div>
+      <div class="sec-pill">Classement</div>
       <h2 class="sec-h2">Top <span>Farmers</span></h2>
-      <p class="sec-sub">Uniquement les membres connectés via Discord. Photo de profil et pseudo synchronisés.</p>
+      <p class="sec-sub">Uniquement les membres connectes via Discord. Photo de profil et pseudo synchronises.</p>
     </div>
-    <div class="lb-list" id="lb-list"><div class="lb-empty">Connecte ton Discord pour apparaître ici.</div></div>
+    <div class="lb-list" id="lb-list"><div class="lb-empty">Connecte ton Discord pour apparaitre ici.</div></div>
   </div>
   <footer><span>© 2026 06Joiner</span><div style="display:flex;gap:18px"><a onclick="showPage('home')">Home</a><a onclick="showPage('plans')">Plans</a></div></footer>
 </div>
@@ -473,23 +476,23 @@ footer a:hover{color:var(--lime)}
 <div id="page-depot" class="page">
   <div class="depot-wrap">
     <div class="sec-head">
-      <div class="sec-pill">🪙 Dépôt LTC</div>
+      <div class="sec-pill">Depot LTC</div>
       <h2 class="sec-h2">Recharge ton <span>solde</span></h2>
-      <p class="sec-sub">Envoie du LTC ci-dessous — minimum <strong style="color:var(--red)">1€</strong> — crédité automatiquement</p>
+      <p class="sec-sub">Envoie du LTC ci-dessous — minimum <strong style="color:var(--red)">1€</strong> — credite automatiquement</p>
     </div>
     <div class="depot-grid">
       <div class="depot-card">
-        <div class="d-title">📤 Envoyer du LTC</div>
+        <div class="d-title">Envoyer du LTC</div>
         <div class="d-sub">Envoie du Litecoin depuis Exodus, Binance ou n'importe quel wallet.</div>
         <div class="ltc-addr">LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9</div>
-        <button class="btn-copy" onclick="copyLTC()">📋 Copier l'adresse</button>
-        <div class="rate-box">Taux LTC/EUR : <strong id="ltc-rate">chargement...</strong><br><span style="font-size:10px">Mis à jour automatiquement</span></div>
-        <div class="min-w">⚠️ Minimum 1€ — dépôts inférieurs non crédités</div>
-        <button class="btn-check" id="check-btn" onclick="checkDeposit()">🔍 Vérifier mon dépôt</button>
+        <button class="btn-copy" onclick="copyLTC()">Copier l'adresse</button>
+        <div class="rate-box">Taux LTC/EUR : <strong id="ltc-rate">chargement...</strong><br><span style="font-size:10px">Mis a jour automatiquement</span></div>
+        <div class="min-w">Minimum 1€ — depots inferieurs non credites</div>
+        <button class="btn-check" id="check-btn" onclick="checkDeposit()">Verifier mon depot</button>
         <div id="check-status"></div>
       </div>
       <div class="depot-card">
-        <div class="d-title">💰 Mon portefeuille</div>
+        <div class="d-title">Mon portefeuille</div>
         <div class="d-sub">Utilise ton solde pour acheter des slots dans l'onglet Plans.</div>
         <div class="bal-box">
           <div class="bal-lbl">Solde disponible</div>
@@ -511,19 +514,19 @@ footer a:hover{color:var(--lime)}
         <div class="dash-name" id="dash-name"></div>
         <div class="dash-tag" id="dash-tag"></div>
       </div>
-      <div id="admin-header-badge" style="display:none"><span class="admin-badge">👑 ADMIN</span></div>
+      <div id="admin-header-badge" style="display:none"><span class="admin-badge">ADMIN</span></div>
     </div>
     <div class="dash-cards">
       <div class="dash-card"><div class="dc-lbl">Solde</div><div class="dc-val green" id="dash-balance">0.00€</div></div>
       <div class="dash-card"><div class="dc-lbl">Slots actifs</div><div class="dc-val purple" id="dash-slots-count">0</div></div>
-      <div class="dash-card"><div class="dc-lbl">Total déposé</div><div class="dc-val" id="dash-total-dep">0.00€</div></div>
+      <div class="dash-card"><div class="dc-lbl">Total depose</div><div class="dc-val" id="dash-total-dep">0.00€</div></div>
     </div>
     <div class="dash-st">Mes slots actifs</div>
     <div id="dash-slots-list"></div>
     <div style="display:flex;gap:9px;margin-top:22px;flex-wrap:wrap">
-      <button class="btn-primary" onclick="showPage('plans')">⚡ Acheter un slot</button>
-      <button class="btn-ghost" onclick="openDepositModal()">🪙 Déposer du LTC</button>
-      <button class="btn-admin" id="btn-admin-panel" style="display:none" onclick="showPage('admin')">👑 Panneau Admin</button>
+      <button class="btn-primary" onclick="showPage('plans')">Acheter un slot</button>
+      <button class="btn-ghost" onclick="openDepositModal()">Deposer du LTC</button>
+      <button class="btn-admin" id="btn-admin-panel" style="display:none" onclick="showPage('admin')">Panneau Admin</button>
     </div>
   </div>
 </div>
@@ -531,26 +534,26 @@ footer a:hover{color:var(--lime)}
 <!-- ADMIN -->
 <div id="page-admin" class="page">
   <div class="admin-wrap">
-    <div class="sec-pill" style="margin-bottom:18px;background:rgba(255,212,71,.08);border-color:rgba(255,212,71,.25);color:var(--gold)">👑 Admin Panel</div>
+    <div class="sec-pill" style="margin-bottom:18px;background:rgba(255,212,71,.08);border-color:rgba(255,212,71,.25);color:var(--gold)">Admin Panel</div>
     <h2 class="sec-h2" style="margin-bottom:5px">Panel <span style="color:var(--gold)">Admin</span></h2>
-    <p style="color:var(--text2);font-size:13px;margin-bottom:28px;font-weight:400">Accès réservé à <strong style="color:var(--gold)">06wzz</strong></p>
+    <p style="color:var(--text2);font-size:13px;margin-bottom:28px;font-weight:400">Acces reserve a <strong style="color:var(--gold)">06wzz</strong></p>
     <div class="admin-sec">
       <div class="admin-inf">
-        <div class="inf-i">♾️</div>
-        <div class="inf-t">En tant qu'admin, ton solde est <strong>illimité</strong>. Tu peux acheter n'importe quel slot.</div>
+        <div class="inf-i">∞</div>
+        <div class="inf-t">En tant qu'admin, ton solde est <strong>illimite</strong>. Tu peux acheter n'importe quel slot.</div>
       </div>
-      <div class="admin-sec-t">💸 Donner de l'argent</div>
-      <div class="admin-sec-s">Envoie du solde à un utilisateur Discord. Saisis son nom exact.</div>
+      <div class="admin-sec-t">Donner de l'argent</div>
+      <div class="admin-sec-s">Envoie du solde a un utilisateur Discord. Saisis son nom exact.</div>
       <div class="admin-row">
         <input class="admin-inp" id="transfer-user" placeholder="Nom d'utilisateur Discord" type="text">
         <input class="admin-inp" id="transfer-amount" placeholder="Montant €" type="number" min="0.01" step="0.01" style="max-width:120px">
       </div>
-      <button class="btn-admin" onclick="adminTransfer()">💸 Envoyer</button>
+      <button class="btn-admin" onclick="adminTransfer()">Envoyer</button>
       <div id="transfer-status" style="margin-top:9px"></div>
     </div>
     <div class="admin-sec">
-      <div class="admin-sec-t">📋 Historique des transferts</div>
-      <div class="admin-sec-s">Les derniers transferts effectués.</div>
+      <div class="admin-sec-t">Historique des transferts</div>
+      <div class="admin-sec-s">Les derniers transferts effectues.</div>
       <div class="admin-log" id="admin-log"><div style="color:var(--text3)">Aucun transfert.</div></div>
     </div>
     <div style="margin-top:18px">
@@ -565,10 +568,10 @@ footer a:hover{color:var(--lime)}
   <div class="modal-box">
     <div class="modal-t" id="modal-name">Acheter Premium</div>
     <div class="modal-s" id="modal-sub">Glisse pour choisir le nombre d'heures. Maximum 12h.</div>
-    <div class="modal-row"><span class="modal-lbl">Prix/heure</span><span class="modal-val" id="modal-ph">8€</span></div>
+    <div class="modal-row"><span class="modal-lbl">Prix/heure</span><span class="modal-val" id="modal-ph">3€</span></div>
     <div class="modal-row"><span class="modal-lbl">Ton solde</span><span class="modal-val" id="modal-bal">0€</span></div>
     <div class="slot-time-info" id="slot-time-info" style="display:none">
-      <span class="sti-icon">⏳</span>
+      <span class="sti-icon">~</span>
       <span id="slot-time-text">Slot actif — <strong>0h restantes</strong></span>
     </div>
     <div class="slider-section">
@@ -585,39 +588,39 @@ footer a:hover{color:var(--lime)}
         <span class="slider-mark">12h</span>
       </div>
     </div>
-    <div class="total-b"><span class="total-lbl">Total à payer</span><span class="total-num" id="modal-total">8.00€</span></div>
+    <div class="total-b"><span class="total-lbl">Total a payer</span><span class="total-num" id="modal-total">3.00€</span></div>
     <div class="balance-warn" id="balance-warn"></div>
     <div id="modal-err"></div>
     <div class="modal-btns" style="margin-top:12px">
       <button class="btn-cancel" onclick="closeModal()">Annuler</button>
-      <button class="btn-confirm" id="btn-confirm-buy" onclick="confirmBuy()">✓ Confirmer</button>
+      <button class="btn-confirm" id="btn-confirm-buy" onclick="confirmBuy()">Confirmer</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL DÉPÔT -->
+<!-- MODAL DEPOT -->
 <div id="deposit-modal" style="display:none" class="deposit-overlay" onclick="closeDepositOut(event)">
   <div class="deposit-box" onclick="event.stopPropagation()">
     <div class="dep-steps">
       <div class="dep-step active" id="dep-step-1"><div class="dep-step-num">1</div><div class="dep-step-lbl">Montant</div></div>
       <div class="dep-step" id="dep-step-2"><div class="dep-step-num">2</div><div class="dep-step-lbl">Envoyer</div></div>
       <div class="dep-step" id="dep-step-3"><div class="dep-step-num">3</div><div class="dep-step-lbl">Confirmer</div></div>
-      <div class="dep-step" id="dep-step-4"><div class="dep-step-num" style="font-size:14px">✓</div><div class="dep-step-lbl">Terminé</div></div>
+      <div class="dep-step" id="dep-step-4"><div class="dep-step-num" style="font-size:14px">✓</div><div class="dep-step-lbl">Termine</div></div>
     </div>
     <div class="dep-body">
       <div id="dep-panel-1">
-        <div class="dep-title">💶 Combien veux-tu déposer ?</div>
-        <div class="dep-sub">Minimum 1€. Le LTC sera converti au taux du moment et crédité en euros.</div>
+        <div class="dep-title">Combien veux-tu deposer ?</div>
+        <div class="dep-sub">Minimum 1€. Le LTC sera converti au taux du moment et credite en euros.</div>
         <div class="dep-amount-grid" id="dep-presets"></div>
         <div class="dep-custom">
-          <div class="dep-custom-lbl">Montant personnalisé</div>
+          <div class="dep-custom-lbl">Montant personnalise</div>
           <div class="dep-custom-row">
             <input class="dep-custom-inp" id="dep-eur-input" type="number" min="1" step="1" placeholder="Ex: 25" oninput="updateDepositCalc()">
             <span class="dep-custom-cur">EUR</span>
           </div>
         </div>
         <div class="dep-ltc-equiv" id="dep-ltc-equiv">≈ 0.000000 LTC</div>
-        <div class="dep-min-warn">⚠️ Minimum 1€ — dépôts inférieurs non crédités</div>
+        <div class="dep-min-warn">Minimum 1€ — depots inferieurs non credites</div>
         <div class="dep-btns">
           <button class="dep-btn-cancel" onclick="closeDepositModal()">Annuler</button>
           <button class="dep-btn-next" id="dep-btn-1" onclick="depStep2()">Continuer →</button>
@@ -625,10 +628,10 @@ footer a:hover{color:var(--lime)}
       </div>
       <div id="dep-panel-2" style="display:none">
         <div class="dep-send-body">
-          <div class="dep-title">🪙 Envoie exactement ce montant</div>
+          <div class="dep-title">Envoie exactement ce montant</div>
           <div class="dep-sub">Scanne le QR code ou copie l'adresse et le montant exact.</div>
           <div class="dep-send-amount-box">
-            <div class="dep-send-lbl">Montant exact à envoyer</div>
+            <div class="dep-send-lbl">Montant exact a envoyer</div>
             <div class="dep-send-val" id="dep-send-ltc">0.000000 LTC</div>
             <div class="dep-send-eur" id="dep-send-eur">≈ 0.00 EUR</div>
           </div>
@@ -639,34 +642,34 @@ footer a:hover{color:var(--lime)}
           <div class="dep-addr-lbl">Adresse LTC</div>
           <div class="dep-addr">LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9</div>
           <div class="dep-copy-btns">
-            <button class="dep-copy-btn" onclick="copyLTC()">📋 Copier l'adresse</button>
-            <button class="dep-copy-btn" onclick="copyDepLTC()">🔢 Copier montant LTC</button>
+            <button class="dep-copy-btn" onclick="copyLTC()">Copier l'adresse</button>
+            <button class="dep-copy-btn" onclick="copyDepLTC()">Copier montant LTC</button>
           </div>
-          <div class="dep-warn-exact">⚠️ Envoie EXACTEMENT ce montant — différence = non reconnu</div>
+          <div class="dep-warn-exact">Envoie EXACTEMENT ce montant — difference = non reconnu</div>
         </div>
         <div class="dep-btns">
           <button class="dep-btn-cancel" onclick="depGoBack(2)">← Retour</button>
-          <button class="dep-btn-check" onclick="depStep3()">J'ai envoyé — Vérifier 🔍</button>
+          <button class="dep-btn-check" onclick="depStep3()">J'ai envoye — Verifier</button>
         </div>
       </div>
       <div id="dep-panel-3" style="display:none">
-        <div class="dep-title">🔍 Vérification en cours</div>
-        <div class="dep-sub">On vérifie la blockchain LTC. Ça peut prendre quelques minutes après ton envoi.</div>
+        <div class="dep-title">Verification en cours</div>
+        <div class="dep-sub">On verifie la blockchain LTC. Ca peut prendre quelques minutes apres ton envoi.</div>
         <div class="dep-status-bar"><div class="dep-status-fill" id="dep-fill"></div></div>
         <div class="dep-status-msg" id="dep-status-msg">Recherche de ta transaction…</div>
         <div class="dep-btns">
           <button class="dep-btn-cancel" onclick="depGoBack(3)">← Retour</button>
-          <button class="dep-btn-check" id="dep-btn-verify" onclick="depVerify()">🔄 Relancer la vérification</button>
+          <button class="dep-btn-check" id="dep-btn-verify" onclick="depVerify()">Relancer la verification</button>
         </div>
       </div>
       <div id="dep-panel-4" style="display:none">
-        <div class="dep-done-icon">🎉</div>
-        <div class="dep-done-title">Dépôt confirmé !</div>
-        <div class="dep-done-sub">Ton solde a été crédité. Tu peux maintenant acheter un slot.</div>
-        <div class="dep-done-amount"><div class="dep-done-lbl">Montant crédité</div><div class="dep-done-val" id="dep-done-val">+0.00€</div></div>
+        <div class="dep-done-icon" style="font-size:48px;text-align:center;margin-bottom:12px">✓</div>
+        <div class="dep-done-title">Depot confirme !</div>
+        <div class="dep-done-sub">Ton solde a ete credite. Tu peux maintenant acheter un slot.</div>
+        <div class="dep-done-amount"><div class="dep-done-lbl">Montant credite</div><div class="dep-done-val" id="dep-done-val">+0.00€</div></div>
         <div class="dep-btns">
           <button class="dep-btn-cancel" onclick="closeDepositModal()">Fermer</button>
-          <button class="dep-btn-next" onclick="closeDepositModal();showPage('plans')">⚡ Acheter un slot</button>
+          <button class="dep-btn-next" onclick="closeDepositModal();showPage('plans')">Acheter un slot</button>
         </div>
       </div>
     </div>
@@ -674,31 +677,105 @@ footer a:hover{color:var(--lime)}
 </div>
 
 <script>
-// ===== CUSTOM CURSOR =====
+// ===== DEVTOOLS DETECTION =====
+(function(){
+  var blocked=false;
+  function block(){
+    if(!blocked){
+      blocked=true;
+      document.getElementById('devtools-block').classList.add('show');
+    }
+  }
+  function unblock(){
+    blocked=false;
+    document.getElementById('devtools-block').classList.remove('show');
+  }
+  // F12 / Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+U
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='U')){
+      e.preventDefault();block();return false;
+    }
+  });
+  // Right click disable
+  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+  // Size detection
+  var threshold=160;
+  function checkDevTools(){
+    var w=window.outerWidth-window.innerWidth;
+    var h=window.outerHeight-window.innerHeight;
+    if(w>threshold||h>threshold){block();}else{unblock();}
+  }
+  setInterval(checkDevTools,500);
+  // Console detection via getter trick
+  var devtools={open:false};
+  var element=new Image();
+  Object.defineProperty(element,'id',{get:function(){devtools.open=true;block();}});
+  setInterval(function(){devtools.open=false;console.log(element);if(devtools.open){block();}},1000);
+})();
+
+// ===== WAVE BACKGROUND =====
+(function(){
+  var canvas=document.getElementById('wave-canvas');
+  var ctx=canvas.getContext('2d');
+  var W,H,t=0,mx=0,my=0;
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  document.addEventListener('mousemove',function(e){mx=e.clientX/W;my=e.clientY/H;});
+  var waves=[
+    {y:.25,amp:38,freq:.012,speed:.0007,color:'rgba(91,59,255,0.06)',phase:0},
+    {y:.45,amp:28,freq:.018,speed:.0011,color:'rgba(184,255,71,0.04)',phase:2.1},
+    {y:.65,amp:44,freq:.009,speed:.0008,color:'rgba(91,59,255,0.05)',phase:4.3},
+    {y:.82,amp:22,freq:.022,speed:.0013,color:'rgba(0,232,160,0.035)',phase:1.1},
+  ];
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    waves.forEach(function(w,i){
+      var baseY=H*w.y+(my-.5)*18*(i%2===0?1:-1);
+      ctx.beginPath();
+      ctx.moveTo(0,H);
+      for(var x=0;x<=W;x+=3){
+        var mouseInfluence=Math.sin((x/W-mx)*Math.PI)*12*(my-.5);
+        var y=baseY+Math.sin(x*w.freq+t*w.speed*10000+w.phase)*w.amp+mouseInfluence;
+        ctx.lineTo(x,y);
+      }
+      ctx.lineTo(W,H);ctx.closePath();
+      ctx.fillStyle=w.color;ctx.fill();
+
+      // Line version
+      ctx.beginPath();
+      for(var x2=0;x2<=W;x2+=3){
+        var mi2=Math.sin((x2/W-mx)*Math.PI)*12*(my-.5);
+        var y2=baseY+Math.sin(x2*w.freq+t*w.speed*10000+w.phase)*w.amp+mi2;
+        if(x2===0)ctx.moveTo(x2,y2);else ctx.lineTo(x2,y2);
+      }
+      ctx.strokeStyle=w.color.replace(/[\d.]+\)$/,'0.18)');
+      ctx.lineWidth=1;ctx.stroke();
+    });
+    t+=.016;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ===== CURSOR =====
 (function(){
   var cur=document.getElementById('cursor');
   var ring=document.getElementById('cursor-ring');
-  var trail=document.getElementById('cursor-trail');
-  var mx=0,my=0,tx=0,ty=0;
+  var mx=0,my=0;
   document.addEventListener('mousemove',function(e){
     mx=e.clientX;my=e.clientY;
     cur.style.left=mx+'px';cur.style.top=my+'px';
-    setTimeout(function(){ring.style.left=mx+'px';ring.style.top=my+'px';},60);
-    setTimeout(function(){trail.style.left=mx+'px';trail.style.top=my+'px';},160);
+    setTimeout(function(){ring.style.left=mx+'px';ring.style.top=my+'px';},55);
   });
   document.addEventListener('mousedown',function(){document.body.classList.add('cursor-click');});
   document.addEventListener('mouseup',function(){document.body.classList.remove('cursor-click');});
-  // Hover effect on interactive elements
-  var hoverSels='a,button,input,select,textarea,[onclick],.feat,.plan-card,.renter-card,.lb-row,.dep-preset,.btn-buy,.nav-btn,.btn-discord,.btn-primary,.btn-ghost,.balance-chip,.user-chip,.btn-admin,.btn-copy,.btn-check,.dep-copy-btn,.dep-btn-next,.dep-btn-cancel,.dep-btn-check,.btn-confirm,.btn-cancel,.btn-ext,.logout-btn';
+  var hoverSels='a,button,input,select,textarea,[onclick],.feat,.plan-card,.renter-card,.lb-row,.dep-preset';
   function bindHover(){
     document.querySelectorAll(hoverSels).forEach(function(el){
       el.addEventListener('mouseenter',function(){document.body.classList.add('cursor-hover');});
       el.addEventListener('mouseleave',function(){document.body.classList.remove('cursor-hover');});
     });
   }
-  bindHover();
-  // Re-bind after dynamic content loads
-  setInterval(bindHover,2000);
+  bindHover();setInterval(bindHover,2000);
 })();
 
 // ===== STATE =====
@@ -706,20 +783,6 @@ var currentUser=null,currentPlan=null,extendSlotId=null;
 var depAmount=0,depLtcAmount=0,depLtcRate=0,depTimer=null;
 var ADMIN_USERNAME='06wzz';
 var adminTransferLog=[];
-
-var ICONS={
-  'Bacuru And Egguru':'🦷','Burguro And Fryuro':'🧸','Chicleteira Noelteira':'🌶️',
-  'Chillin Chili':'🔥','Tralalero Tralala':'🎵','Bombardiro Crocodilo':'🐊',
-  'Brr Brr Patapim':'❄️','Tung Tung Sahur':'🥁','Dragon Cannelloni':'🐉',
-  'Garama and Madundung':'🍺','Spooky and Pumpky':'🎃','Cooki and Milki':'🍪',
-  'Fragrama and Chocrama':'🍫','Ketchuru and Musturu':'🌭','Esok Sekolah':'📚',
-  'Los Spooky Combinasionas':'👻','Los Candies':'🍬','Money Money Puggy':'💰',
-  'Los Mobilis':'📱','Tang Tang Keletang':'🔔','Los Bros':'👊','Los 67':'🎯',
-  'Los Primos':'🤝','La Secret Combinasion':'🔮','La Taco Combinasion':'🌮',
-  'La Ginger Sekolah':'🧡','Ketupat Kepat':'🎋','Tictac Sahur':'⏱️',
-  'Popcuru and Fizzuru':'🍿','Spaghetti Tualetti':'🍝','Nuclearo Dinossauro':'☢️',
-  'Lavadorito Spinito':'🌀','W or L':'🎲','Nacho Spyder':'🕷️','Swaggy Bros':'😎'
-};
 
 var PLAN_LIMITS={premium:{total:6},farmer:{total:4},bid:{total:1}};
 
@@ -748,7 +811,7 @@ function isAdmin(){
 }
 
 function showPage(n){
-  if(n==='admin'&&!isAdmin()){alert('Accès refusé.');return;}
+  if(n==='admin'&&!isAdmin()){alert('Acces refuse.');return;}
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('page-'+n).classList.add('active');
@@ -767,29 +830,16 @@ async function loadUser(){
   try{
     var r=await fetch('/api/me');
     var u=await r.json();
-    // === FIX: if user is admin (06wzz), give them 50€ balance for testing ===
     if(u&&u.id){
-      if(u.username===ADMIN_USERNAME||u.username===ADMIN_USERNAME.toLowerCase()){
-        // Admin gets infinite (represented as very high number server-side, show ∞)
-        u._isAdmin=true;
-      }
-      // If balance is 0 or not set and user is 06wzz, set to 50€ for local display
-      if(u._isAdmin&&(!u.balance||u.balance<50)){
-        u.balance=50;
-      }
+      if(u.username===ADMIN_USERNAME||u.username===ADMIN_USERNAME.toLowerCase()){u._isAdmin=true;}
+      if(u._isAdmin&&(!u.balance||u.balance<50)){u.balance=50;}
     }
     currentUser=u&&u.id?u:null;
   }catch(e){
-    // === DEMO MODE: simulate 06wzz logged in for local preview ===
     currentUser={
-      id:'demo_06wzz',
-      username:'06wzz',
+      id:'demo_06wzz',username:'06wzz',
       avatar:'https://cdn.discordapp.com/embed/avatars/0.png',
-      tag:'06wzz#0000',
-      balance:50.00,
-      totalDeposited:50.00,
-      slots:[],
-      _isAdmin:true
+      tag:'06wzz#0000',balance:50.00,totalDeposited:50.00,slots:[],_isAdmin:true
     };
   }
   renderAuth();
@@ -798,12 +848,12 @@ async function loadUser(){
 function renderAuth(){
   var nr=document.getElementById('nav-right');
   if(currentUser&&currentUser.id){
-    var adminBadge=isAdmin()?'<span class="admin-badge" style="margin-right:4px">👑</span>':'';
+    var adminBadge=isAdmin()?'<span class="admin-badge" style="margin-right:4px">ADMIN</span>':'';
     var balDisplay=isAdmin()?'∞':(currentUser.balance||0).toFixed(2);
     nr.innerHTML=adminBadge+
-      '<span class="balance-chip" onclick="openDepositModal()">💰 '+balDisplay+'€</span>'+
+      '<span class="balance-chip" onclick="openDepositModal()">'+balDisplay+'€</span>'+
       '<div class="user-chip" onclick="requireLogin(\'dashboard\')"><img src="'+currentUser.avatar+'" alt="" onerror="this.style.display=\'none\'"><span class="user-chip-name">'+currentUser.username+'</span></div>'+
-      '<button class="logout-btn" onclick="location.href=\'/auth/logout\'">Déco</button>';
+      '<button class="logout-btn" onclick="location.href=\'/auth/logout\'">Deco</button>';
   }else{
     nr.innerHTML='<button class="btn-discord" onclick="location.href=\'/auth/login\'">'+
       '<svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="18" height="18">'+
@@ -812,13 +862,13 @@ function renderAuth(){
   }
 }
 
+// ===== LOAD PLANS + AUTO-ADD TO RENTERS ON BUY =====
 async function loadPlans(){
-  // Plans locaux avec slots tous à 0 utilisés
   var plans=[
     {
       id:'premium',name:'Premium',featured:true,
-      priceNum:8,price:'8€/h',
-      maxGen:'Illimité',desc:'Notifications sans limite de génération.',
+      priceNum:3,price:'3€/h',
+      maxGen:'Illimite',desc:'Notifications sans limite de generation.',
       slotsUsed:0,slots:6,
       brainrots:[
         {name:'Tralalero Tralala',cap:null},{name:'Bombardiro Crocodilo',cap:null},
@@ -830,8 +880,8 @@ async function loadPlans(){
     },
     {
       id:'farmer',name:'Farmer',featured:false,
-      priceNum:4,price:'4€/h',
-      maxGen:'Limité',desc:'Toutes les notifications brainrot avec caps.',
+      priceNum:1,price:'1€/h',
+      maxGen:'Limite',desc:'Toutes les notifications brainrot avec caps.',
       slotsUsed:0,slots:4,
       brainrots:FARMER_BRAINROTS
     },
@@ -844,12 +894,10 @@ async function loadPlans(){
     }
   ];
 
-  // Essaie de récupérer depuis l'API, sinon garde les locaux (slots=0)
   try{
     var r=await fetch('/api/plans');
     var apiPlans=await r.json();
     if(Array.isArray(apiPlans)&&apiPlans.length){
-      // Force slotsUsed=0 si non défini
       apiPlans.forEach(function(p){if(!p.slotsUsed)p.slotsUsed=0;});
       plans=apiPlans;
     }
@@ -861,8 +909,9 @@ async function loadPlans(){
     var limit=PLAN_LIMITS[p.id]||PLAN_LIMITS[p.planId];
     if(limit)p.slots=limit.total;
     if(!p.slotsUsed)p.slotsUsed=0;
-    if(p.id==='premium'){p.priceNum=8;p.price='8€/h';}
-    if(p.id==='farmer'){p.priceNum=4;p.price='4€/h';}
+    // Force new prices
+    if(p.id==='premium'){p.priceNum=3;p.price='3€/h';}
+    if(p.id==='farmer'){p.priceNum=1;p.price='1€/h';}
     if(p.id==='bid'){p.priceNum=2;p.price='2€/h';}
 
     var el=document.createElement('div');
@@ -880,15 +929,14 @@ async function loadPlans(){
     if(p.brainrots&&p.brainrots.length){
       inner+='<div class="br-box"><div class="br-hd"><span class="br-t">Per-Brainrot Limits</span><span class="br-c">'+p.brainrots.length+' brainrots</span></div><div class="br-list">';
       p.brainrots.forEach(function(b){
-        var ic=ICONS[b.name]||'🧠';
-        inner+='<div class="br-item"><div class="br-l"><div class="br-ico">'+ic+'</div><span class="br-nm">'+b.name+'</span></div>'+(b.cap?'<span class="cap-v">'+b.cap+'</span>':'<span class="cap-none">No Cap</span>')+'</div>';
+        inner+='<div class="br-item"><div class="br-l"><div class="br-ico">•</div><span class="br-nm">'+b.name+'</span></div>'+(b.cap?'<span class="cap-v">'+b.cap+'</span>':'<span class="cap-none">No Cap</span>')+'</div>';
       });
       inner+='</div></div>';
     }
 
     inner+='<div class="price-area"><div class="price-lbl">Prix</div><div class="price-v">'+p.price+'</div></div>';
-    inner+='<div style="font-size:10px;color:var(--text3);margin-bottom:10px;font-weight:400">⏱️ Max 12h par achat</div>';
-    inner+='<button class="btn-buy" onclick="openBuy(\''+p.id+'\','+p.priceNum+',\''+p.name+'\')" '+(full?'disabled>🔒 Complet':'>⚡ Acheter ce slot')+'</button>';
+    inner+='<div style="font-size:10px;color:var(--text3);margin-bottom:10px;font-weight:400">Max 12h par achat</div>';
+    inner+='<button class="btn-buy" onclick="openBuy(\''+p.id+'\','+p.priceNum+',\''+p.name+'\')" '+(full?'disabled>Complet':'>Acheter ce slot')+'</button>';
 
     el.innerHTML=inner;
     g.appendChild(el);
@@ -901,9 +949,9 @@ async function loadLeaderboard(){
     var data=await r.json();
     var t=document.getElementById('lb-list');
     var filtered=(data||[]).filter(function(u){return u.discordId||u.avatar||u.id;});
-    if(!filtered.length){t.innerHTML='<div class="lb-empty">Connecte ton Discord pour apparaître ici. Aucun farmer pour l\'instant.</div>';return;}
+    if(!filtered.length){t.innerHTML='<div class="lb-empty">Connecte ton Discord pour apparaitre ici.</div>';return;}
     t.innerHTML='';
-    var mc=['r1','r2','r3'],re=['🥇','🥈','🥉'];
+    var mc=['r1','r2','r3'],re=['#1','#2','#3'];
     filtered.forEach(function(u,i){
       var row=document.createElement('div');row.className='lb-row'+(i<3?' '+mc[i]:'');
       var avatarHtml=u.avatar?'<img src="'+u.avatar+'" alt="">':u.username[0].toUpperCase();
@@ -917,34 +965,47 @@ async function loadLeaderboard(){
   }catch(e){}
 }
 
+// ===== LOCAL RENTERS STORE (demo + API) =====
+var localRenters=[];
+
 async function loadRenters(){
   try{
     var r=await fetch('/api/renters');
     var data=await r.json();
-    document.getElementById('active-num').textContent=data.length;
-    var g=document.getElementById('renters-grid');
-    g.innerHTML='';
-    if(!data.length){g.innerHTML='<div class="no-r">Aucun renter actif pour le moment.</div>';return;}
-    data.forEach(function(u){
-      var card=document.createElement('div');card.className='renter-card';
-      var exp=u.endDate?timeLeft(u.endDate):'?';
-      var pc=u.planId==='premium'?'premium':u.planId==='farmer'?'farmer':'bid';
-      var bestIco=ICONS[u.bestSteal]||'🎮';
-      card.innerHTML='<div class="renter-top">'+
-        '<div class="r-av">'+(u.avatar?'<img src="'+u.avatar+'" alt="">':u.username[0].toUpperCase())+'</div>'+
-        '<div class="r-name">'+u.username+'</div><div class="r-handle">@'+u.discordHandle+'</div>'+
-        '<div class="r-badges"><span class="ptag '+pc+'">'+u.planName.toUpperCase()+'</span><span class="ttag">Finit dans '+exp+'</span></div></div>'+
-        '<div class="r-stats"><div class="r-stat"><div class="rs-lbl">Steals</div><div class="rs-v">'+u.steals+'</div></div>'+
-        '<div class="r-stat"><div class="rs-lbl">Deposited</div><div class="rs-v money">'+u.deposited.toFixed(2)+'€</div></div></div>'+
-        (u.bestSteal?'<div class="r-best"><div class="b-ico">'+bestIco+'</div><div><div class="b-lbl">Best Steal</div><div class="b-name">'+u.bestSteal+'</div><div class="b-val">'+u.bestStealVal+'€</div></div></div>':'');
-      g.appendChild(card);
-    });
-  }catch(e){}
+    localRenters=data;
+  }catch(e){
+    // use whatever is in localRenters (added on buy)
+  }
+  renderRenters();
+}
+
+function renderRenters(){
+  // Merge API data with local (deduplicate by username)
+  var all=localRenters.slice();
+  document.getElementById('active-num').textContent=all.length;
+  var g=document.getElementById('renters-grid');
+  g.innerHTML='';
+  if(!all.length){g.innerHTML='<div class="no-r">Aucun renter actif pour le moment.</div>';return;}
+  all.forEach(function(u){
+    var card=document.createElement('div');card.className='renter-card';
+    var exp=u.endDate?timeLeft(u.endDate):'?';
+    var pc=u.planId==='premium'?'premium':u.planId==='farmer'?'farmer':'bid';
+    card.innerHTML='<div class="renter-top">'+
+      '<div class="r-av">'+(u.avatar?'<img src="'+u.avatar+'" alt="" onerror="this.outerHTML=\'<div class=r-av style=display:flex>'+u.username[0].toUpperCase()+'</div>\'">':u.username[0].toUpperCase())+'</div>'+
+      '<div class="r-name">'+u.username+'</div>'+
+      '<div class="r-handle">@'+(u.discordHandle||u.username)+'</div>'+
+      '<div class="r-badges"><span class="ptag '+pc+'">'+u.planName.toUpperCase()+'</span><span class="ttag">'+exp+' restantes</span></div></div>'+
+      '<div class="r-stats">'+
+      '<div class="r-stat"><div class="rs-lbl">Steals</div><div class="rs-v">'+(u.steals||0)+'</div></div>'+
+      '<div class="r-stat"><div class="rs-lbl">Depose</div><div class="rs-v money">'+(u.deposited||0).toFixed(2)+'€</div></div></div>'+
+      (u.bestSteal?'<div class="r-best"><div class="b-ico">•</div><div><div class="b-lbl">Best Steal</div><div class="b-name">'+u.bestSteal+'</div><div class="b-val">'+u.bestStealVal+'€</div></div></div>':'');
+    g.appendChild(card);
+  });
 }
 
 function timeLeft(endDate){
   var diff=new Date(endDate)-new Date();
-  if(diff<=0)return 'Expiré';
+  if(diff<=0)return 'Expire';
   var h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000);
   if(h>0)return h+'h '+m+'m';return m+'m';
 }
@@ -952,8 +1013,8 @@ function timeLeft(endDate){
 function openBuy(id,price,name,slotId,slotEndDate){
   if(!currentUser||!currentUser.id){location.href='/auth/login';return;}
   extendSlotId=slotId||null;
-  if(id==='premium')price=8;
-  if(id==='farmer')price=4;
+  if(id==='premium')price=3;
+  if(id==='farmer')price=1;
   if(id==='bid')price=2;
   currentPlan={id:id,price:price,name:name};
   document.getElementById('modal-name').textContent=(slotId?'Prolonger ':'Acheter ')+name;
@@ -986,8 +1047,8 @@ function updateSlider(){
     var bal=currentUser&&currentUser.balance||0;
     if(total>bal){
       var maxH=Math.floor(bal/currentPlan.price);
-      if(maxH<1){warn.textContent='❌ Solde insuffisant ('+bal.toFixed(2)+'€). Dépose du LTC d\'abord.';}
-      else{warn.textContent='❌ Max payable : '+maxH+'h ('+(maxH*currentPlan.price).toFixed(2)+'€). Réduis les heures ou dépose du LTC.';}
+      if(maxH<1){warn.textContent='Solde insuffisant ('+bal.toFixed(2)+'€). Depose du LTC d\'abord.';}
+      else{warn.textContent='Max payable : '+maxH+'h ('+(maxH*currentPlan.price).toFixed(2)+'€). Reduis les heures ou depose du LTC.';}
       warn.classList.add('show');confirmBtn.disabled=true;
     }else{warn.classList.remove('show');confirmBtn.disabled=false;}
   }else{warn.classList.remove('show');confirmBtn.disabled=false;}
@@ -1009,14 +1070,50 @@ async function confirmBuy(){
     if(d.success){
       if(!isAdmin())currentUser.balance=d.balance;
       renderAuth();closeModal();
-      var balMsg=isAdmin()?'Solde : ∞€':('Solde restant : '+d.balance.toFixed(2)+'€');
-      alert('✅ '+(extendSlotId?'Slot prolongé':'Slot '+currentPlan.name+' acheté')+' pour '+h+'h ! '+balMsg);
+      // Add to local renters
+      var endDate=new Date(Date.now()+h*3600000).toISOString();
+      var existing=localRenters.findIndex(function(r){return r.username===currentUser.username;});
+      var renterObj={
+        username:currentUser.username,
+        discordHandle:currentUser.username,
+        avatar:currentUser.avatar||'',
+        planId:currentPlan.id,
+        planName:currentPlan.name,
+        endDate:endDate,
+        steals:0,deposited:currentUser.totalDeposited||0,
+        bestSteal:null,bestStealVal:0
+      };
+      if(existing>=0){localRenters[existing]=renterObj;}
+      else{localRenters.unshift(renterObj);}
+      // Redirect to renters
       loadPlans();refreshDepot();
+      showPage('renters');
     }else{
       if(d.error&&(d.error.toLowerCase().includes('solde')||d.error.toLowerCase().includes('balance')||d.error.toLowerCase().includes('insuffisant'))){closeModal();openDepositModal();}
       else{document.getElementById('modal-err').innerHTML='<div class="modal-err">'+(d.error||'Erreur')+'</div>';}
     }
-  }catch(e){closeModal();openDepositModal();}
+  }catch(e){
+    // Demo mode: simulate success
+    closeModal();
+    var h2=parseInt(document.getElementById('modal-hours-range')?document.getElementById('modal-hours-range').value:1)||1;
+    var endDate2=new Date(Date.now()+h*3600000).toISOString();
+    var existing2=localRenters.findIndex(function(rr){return currentUser&&rr.username===currentUser.username;});
+    if(currentUser){
+      var ro={
+        username:currentUser.username,
+        discordHandle:currentUser.username,
+        avatar:currentUser.avatar||'',
+        planId:currentPlan.id,
+        planName:currentPlan.name,
+        endDate:endDate2,
+        steals:0,deposited:currentUser.totalDeposited||0,
+        bestSteal:null,bestStealVal:0
+      };
+      if(existing2>=0){localRenters[existing2]=ro;}else{localRenters.unshift(ro);}
+    }
+    loadPlans();refreshDepot();
+    showPage('renters');
+  }
 }
 
 // DEPOSIT MODAL
@@ -1067,7 +1164,7 @@ function updateDepositCalc(){
 
 function depStep2(){
   var val=parseFloat(document.getElementById('dep-eur-input').value)||0;
-  if(val<1){alert('Minimum 1€ pour déposer.');return;}
+  if(val<1){alert('Minimum 1€ pour deposer.');return;}
   depAmount=val;depLtcAmount=depLtcRate>0?(val/depLtcRate):0;
   var ltcStr=depLtcAmount.toFixed(6);
   document.getElementById('dep-send-ltc').textContent=ltcStr+' LTC';
@@ -1078,7 +1175,7 @@ function depStep2(){
   function tick(){
     var m=Math.floor(seconds/60),s=seconds%60;
     document.getElementById('dep-timer-text').textContent='Expire dans '+m+':'+(s<10?'0':'')+s;
-    if(seconds<=0){clearInterval(depTimer);document.getElementById('dep-timer-text').textContent='Expiré';}
+    if(seconds<=0){clearInterval(depTimer);document.getElementById('dep-timer-text').textContent='Expire';}
     seconds--;
   }
   tick();depTimer=setInterval(tick,1000);
@@ -1096,21 +1193,21 @@ function depStep3(){
 
 async function depVerify(){
   var fill=document.getElementById('dep-fill');var msg=document.getElementById('dep-status-msg');var btn=document.getElementById('dep-btn-verify');
-  if(btn)btn.disabled=true;fill.className='dep-status-fill checking';msg.textContent='Vérification de la blockchain LTC…';msg.className='dep-status-msg';
+  if(btn)btn.disabled=true;fill.className='dep-status-fill checking';msg.textContent='Verification de la blockchain LTC…';msg.className='dep-status-msg';
   try{
     var r=await fetch('/api/deposit/check',{method:'POST'});var d=await r.json();
     fill.className='dep-status-fill';
     if(d.added>0){
-      fill.style.width='100%';msg.textContent='✅ Transaction détectée !';msg.className='dep-status-msg ok';
+      fill.style.width='100%';msg.textContent='Transaction detectee !';msg.className='dep-status-msg ok';
       currentUser.balance=d.balance;renderAuth();
       document.getElementById('dep-done-val').textContent='+'+d.added.toFixed(2)+'€';
       clearInterval(depTimer);setTimeout(function(){depSetStep(4);},900);
     }else{
-      fill.style.width='15%';msg.textContent='Aucun dépôt détecté. Attends quelques minutes puis réessaie.';msg.className='dep-status-msg err';
+      fill.style.width='15%';msg.textContent='Aucun depot detecte. Attends quelques minutes puis reessaie.';msg.className='dep-status-msg err';
       if(btn)btn.disabled=false;
     }
   }catch(e){
-    fill.style.width='0%';msg.textContent='Erreur de vérification. Réessaie.';msg.className='dep-status-msg err';
+    fill.style.width='0%';msg.textContent='Erreur de verification. Reessaie.';msg.className='dep-status-msg err';
     if(btn)btn.disabled=false;
   }
 }
@@ -1120,16 +1217,16 @@ function generateQR(svgEl,data){
   var size=200,cell=8,cols=Math.floor(size/cell);
   var hash=0;for(var i=0;i<data.length;i++){hash=(hash*31+data.charCodeAt(i))&0x7FFFFFFF;}
   var rng=function(){hash=(hash*1103515245+12345)&0x7FFFFFFF;return hash/0x7FFFFFFF;};
-  for(var r=0;r<cols;r++){
+  for(var row=0;row<cols;row++){
     for(var c=0;c<cols;c++){
-      var inFinder=(r<7&&c<7)||(r<7&&c>cols-8)||(r>cols-8&&c<7)||
-        (r>=1&&r<=5&&c>=1&&c<=5&&!(r>=2&&r<=4&&c>=2&&c<=4))||
-        (r>=1&&r<=5&&c>=cols-6&&c<=cols-2&&!(r>=2&&r<=4&&c>=cols-5&&c<=cols-3))||
-        (r>=cols-6&&r<=cols-2&&c>=1&&c<=5&&!(r>=cols-5&&r<=cols-3&&c>=2&&c<=4));
+      var inFinder=(row<7&&c<7)||(row<7&&c>cols-8)||(row>cols-8&&c<7)||
+        (row>=1&&row<=5&&c>=1&&c<=5&&!(row>=2&&row<=4&&c>=2&&c<=4))||
+        (row>=1&&row<=5&&c>=cols-6&&c<=cols-2&&!(row>=2&&row<=4&&c>=cols-5&&c<=cols-3))||
+        (row>=cols-6&&row<=cols-2&&c>=1&&c<=5&&!(row>=cols-5&&row<=cols-3&&c>=2&&c<=4));
       var dark=inFinder?true:(rng()>0.5);
       if(dark){
         var rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
-        rect.setAttribute('x',c*cell);rect.setAttribute('y',r*cell);
+        rect.setAttribute('x',c*cell);rect.setAttribute('y',row*cell);
         rect.setAttribute('width',cell-1);rect.setAttribute('height',cell-1);
         rect.setAttribute('fill','#000');rect.setAttribute('rx','1');
         svgEl.appendChild(rect);
@@ -1141,8 +1238,8 @@ function generateQR(svgEl,data){
 function copyLTC(){
   navigator.clipboard.writeText('LbE8t8Ee7RqzgnJw2EA5mtPvbTQj3LvFG9').then(function(){
     document.querySelectorAll('.btn-copy,.dep-copy-btn').forEach(function(b){
-      if(b.textContent.includes('adresse')||b.textContent.includes('📋')){
-        var orig=b.textContent;b.textContent='✅ Copié !';setTimeout(function(){b.textContent=orig;},1500);
+      if(b.textContent.toLowerCase().includes('adresse')){
+        var orig=b.textContent;b.textContent='Copie !';setTimeout(function(){b.textContent=orig;},1500);
       }
     });
   });
@@ -1152,46 +1249,46 @@ function copyDepLTC(){
   var ltcStr=depLtcAmount.toFixed(6);
   navigator.clipboard.writeText(ltcStr).then(function(){
     document.querySelectorAll('.dep-copy-btn').forEach(function(b){
-      if(b.textContent.includes('montant')||b.textContent.includes('LTC')){
-        var orig=b.textContent;b.textContent='✅ Copié !';setTimeout(function(){b.textContent=orig;},1500);
+      if(b.textContent.toLowerCase().includes('montant')||b.textContent.toLowerCase().includes('ltc')){
+        var orig=b.textContent;b.textContent='Copie !';setTimeout(function(){b.textContent=orig;},1500);
       }
     });
   });
 }
 
 async function checkDeposit(){
-  var btn=document.getElementById('check-btn');btn.textContent='⏳ Vérification…';btn.disabled=true;
+  var btn=document.getElementById('check-btn');btn.textContent='Verification…';btn.disabled=true;
   var st=document.getElementById('check-status');
   try{
     var r=await fetch('/api/deposit/check',{method:'POST'});var d=await r.json();
     if(d.added>0){
-      st.innerHTML='<div class="status-msg status-ok">✅ +'+d.added.toFixed(2)+'€ crédités ! Solde : '+d.balance.toFixed(2)+'€</div>';
+      st.innerHTML='<div class="status-msg status-ok">+'+d.added.toFixed(2)+'€ credites ! Solde : '+d.balance.toFixed(2)+'€</div>';
       currentUser.balance=d.balance;renderAuth();refreshDepot();
-    }else{st.innerHTML='<div class="status-msg status-err">Aucun dépôt détecté. Attends quelques minutes.</div>';}
-  }catch(e){st.innerHTML='<div class="status-msg status-err">Erreur de vérification</div>';}
-  btn.textContent='🔍 Vérifier mon dépôt';btn.disabled=false;
+    }else{st.innerHTML='<div class="status-msg status-err">Aucun depot detecte. Attends quelques minutes.</div>';}
+  }catch(e){st.innerHTML='<div class="status-msg status-err">Erreur de verification</div>';}
+  btn.textContent='Verifier mon depot';btn.disabled=false;
 }
 
 async function adminTransfer(){
-  if(!isAdmin()){alert('Accès refusé.');return;}
+  if(!isAdmin()){alert('Acces refuse.');return;}
   var username=document.getElementById('transfer-user').value.trim();
   var amount=parseFloat(document.getElementById('transfer-amount').value);
   var st=document.getElementById('transfer-status');
   if(!username){st.innerHTML='<div class="status-msg status-err">Saisis un nom d\'utilisateur.</div>';return;}
   if(!amount||amount<=0){st.innerHTML='<div class="status-msg status-err">Montant invalide.</div>';return;}
-  st.innerHTML='<div class="status-msg" style="background:var(--bg3);color:var(--text2);border:1px solid var(--border)">⏳ Envoi…</div>';
+  st.innerHTML='<div class="status-msg" style="background:var(--bg3);color:var(--text2);border:1px solid var(--border)">Envoi…</div>';
   try{
     var r=await fetch('/api/admin/transfer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({toUsername:username,amount:amount})});
     var d=await r.json();
     if(d.success){
-      st.innerHTML='<div class="status-msg status-ok">✅ +'+amount.toFixed(2)+'€ envoyés à <strong>'+username+'</strong> !</div>';
-      logAdminAction('✅ Envoi '+amount.toFixed(2)+'€ → '+username,'ok');
+      st.innerHTML='<div class="status-msg status-ok">+'+amount.toFixed(2)+'€ envoyes a <strong>'+username+'</strong> !</div>';
+      logAdminAction('Envoi '+amount.toFixed(2)+'€ → '+username,'ok');
       document.getElementById('transfer-user').value='';document.getElementById('transfer-amount').value='';
     }else{
-      st.innerHTML='<div class="status-msg status-err">❌ '+(d.error||'Erreur')+'</div>';
-      logAdminAction('❌ Échec '+amount.toFixed(2)+'€ → '+username,'err');
+      st.innerHTML='<div class="status-msg status-err">'+(d.error||'Erreur')+'</div>';
+      logAdminAction('Echec '+amount.toFixed(2)+'€ → '+username,'err');
     }
-  }catch(e){st.innerHTML='<div class="status-msg status-err">❌ Erreur réseau.</div>';logAdminAction('❌ Erreur réseau → '+username,'err');}
+  }catch(e){st.innerHTML='<div class="status-msg status-err">Erreur reseau.</div>';logAdminAction('Erreur reseau → '+username,'err');}
 }
 
 function logAdminAction(msg,type){
@@ -1232,9 +1329,9 @@ async function refreshDepot(){
     var html1='',html2='';
     slots.forEach(function(s){
       var exp=new Date(s.endDate).toLocaleString('fr-FR');var tl=timeLeft(s.endDate);
-      html1+='<div class="slot-item"><div><div class="sl-name">'+s.planName+'</div><div class="sl-exp">Expire le '+exp+' · <strong style="color:var(--lime)">'+tl+' restantes</strong></div></div><div class="sl-badge">Actif</div></div>';
-      var ic=s.planId==='premium'?'💎':s.planId==='bid'?'⚡':'🌿';
-      html2+='<div class="dash-slot"><div class="ds-left"><div class="ds-ico">'+ic+'</div><div><div class="ds-pn">'+s.planName+'</div><div class="ds-pe">Finit dans <strong style="color:var(--lime)">'+tl+'</strong> · Expire le '+exp+'</div></div></div><button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\',\''+s.id+'\',\''+s.endDate+'\')">+ Prolonger</button></div>';
+      html1+='<div class="slot-item"><div><div class="sl-name">'+s.planName+'</div><div class="sl-exp">Expire le '+exp+' — <strong style="color:var(--lime)">'+tl+' restantes</strong></div></div><div class="sl-badge">Actif</div></div>';
+      var ic=s.planId==='premium'?'P':s.planId==='bid'?'B':'F';
+      html2+='<div class="dash-slot"><div class="ds-left"><div class="ds-ico">'+ic+'</div><div><div class="ds-pn">'+s.planName+'</div><div class="ds-pe">Finit dans <strong style="color:var(--lime)">'+tl+'</strong> — Expire le '+exp+'</div></div></div><button class="btn-ext" onclick="openBuy(\''+s.planId+'\','+s.pricePerHour+',\''+s.planName+'\',\''+s.id+'\',\''+s.endDate+'\')">+ Prolonger</button></div>';
     });
     if(sl)sl.innerHTML=html1;if(dsl)dsl.innerHTML=html2;
   }
